@@ -11,10 +11,90 @@
             border:1px solid black;
         }
         </style>
+
+        <script type="text/javascript">
+
+          window.onload = function()
+          {
+            generateAllCourses();
+          };
+
+          function generateAllCourses()
+          {
+              console.log("Called changeDivContent()!");
+
+              allCourses = "";
+
+              allCourses += generateCategoryTable("Biologija");
+              allCourses += generateCategoryTable("Računarstvo");
+
+              document.getElementById("allCourses").innerHTML = allCourses;
+          };
+
+          function generateCategoryTable(name)
+          {
+            categoryHTML = "<h1>" + name + "</h1>";
+
+            categoryHTML += "<table>";
+            categoryHTML += generateCourseTableHeader();
+            categoryHTML += generateCourseTableEntry();
+            categoryHTML += generateCourseTableEntry();
+            categoryHTML += generateCourseTableEntry();
+
+            categoryHTML += "</table>";
+
+            return categoryHTML;
+          }
+
+          function generateCourseTableHeader()
+          {
+              header_tags = "";
+
+              header_tags += "<tr>";
+              header_tags += "   <th></th>";
+              header_tags += "   <th>Naziv</th>";
+              header_tags += "   <th>Ustanova</th>";
+              header_tags += "   <th>Predavač</th>";
+              header_tags += "   <th>Jezik</th>";
+              header_tags += "   <th>Godina</th>";
+              header_tags += "   <th>Broj predavanja</th>";
+              header_tags += "   <th>Ukupno trajanje</th>";
+              header_tags += "   <th>Oznaka</th>";
+              header_tags += "   <th>Opis kolegija</th>";
+              header_tags += "   <th>Link 1</th>";
+              header_tags += "   <th>Link 2</th>";
+              header_tags += "</tr>";
+
+              return header_tags;
+          }
+
+          function generateCourseTableEntry()
+          {
+            table_entry = "";
+
+            table_entry += "<tr>";
+            table_entry += '    <td><img src="https://img.youtube.com/vi/NNnIGh9g6fA/2.jpg" alt="Predavanje 1"></td>';
+            table_entry += "    <td><b>Human Behavioral Biology</b></td>";
+            table_entry += "    <td>Sveučilište Stanford</td>";
+            table_entry += "    <td>Robert Sapolsky</td>";
+            table_entry += "    <td>Engleski</td>";
+            table_entry += "    <td>2010.</td>";
+            table_entry += "    <td>25</td>";
+            table_entry += "    <td>36h</td>";
+            table_entry += "    <td>BIO 150</td>";
+            table_entry += "    <td>This course focuses on how to approach complex normal and abnormal behaviors through biology and how to integrate disciplines including sociobiology, ethology, neuroscience, and endocrinology to examine behaviors such as aggression, sexual behavior, language use, and mental illness.</td>";
+            table_entry += '    <td><a href="https://www.youtube.com/playlist?list=PL848F2368C90DDC3D">YouTube lista</a></td>';
+            table_entry += '    <td><a href="http://www.infocobuild.com/education/audio-video-courses/biology/bio-150-human-behavioral-biology-stanford.html">Web stranica</a></td>';
+            table_entry += "</tr>"
+
+            return table_entry;
+          }
+
+        </script>
     </head>
 
     <body>
-        <div>
+        <div id="allCourses">
             <h1>Biologija</h1>
             <table>
                 <tr>
