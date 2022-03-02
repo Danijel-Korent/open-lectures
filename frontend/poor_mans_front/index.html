@@ -77,6 +77,28 @@
               return header_tags;
           }
 
+          function generateCourseTableEntry(course)
+          {
+              table_entry = "";
+
+              table_entry += "<tr>";
+              table_entry += '    <td><img src="'+ course.image_URL + '" alt="Predavanje 1"></td>';
+              table_entry += "    <td><b>" + course.name + "</b></td>";
+              table_entry += "    <td>" + course.university + "</td>";
+              table_entry += "    <td>" + course.lecturer + "</td>";
+              table_entry += "    <td>" + course.language + "</td>";
+              table_entry += "    <td>" + course.year + "</td>";
+              table_entry += "    <td>" + course.numOfLectures + "</td>";
+              table_entry += "    <td>" + course.totalHours + "</td>";
+              table_entry += "    <td>" + course.courseCode + "</td>";
+              table_entry += "    <td>" + course.description + "</td>";
+              table_entry += '    <td><a href="' + course.link1_URL+ '">' + course.link1_name + '</a></td>';
+              table_entry += '    <td><a href="' + course.link2_URL+ '">' + course.link2_name + '</a></td>';
+              table_entry += "</tr>"
+
+              return table_entry;
+          }
+
           function fetchListOfCategories()
           {
               return ["Biologija", "Računarstvo"];
@@ -146,28 +168,6 @@
               if (category == "Biologija") return biologyCourses;
               else if (category == "Računarstvo") return computerScienceCourses;
               else return [];
-          }
-
-          function generateCourseTableEntry(course)
-          {
-              table_entry = "";
-
-              table_entry += "<tr>";
-              table_entry += '    <td><img src="'+ course.image_URL + '" alt="Predavanje 1"></td>';
-              table_entry += "    <td><b>" + course.name + "</b></td>";
-              table_entry += "    <td>" + course.university + "</td>";
-              table_entry += "    <td>" + course.lecturer + "</td>";
-              table_entry += "    <td>" + course.language + "</td>";
-              table_entry += "    <td>" + course.year + "</td>";
-              table_entry += "    <td>" + course.numOfLectures + "</td>";
-              table_entry += "    <td>" + course.totalHours + "</td>";
-              table_entry += "    <td>" + course.courseCode + "</td>";
-              table_entry += "    <td>" + course.description + "</td>";
-              table_entry += '    <td><a href="' + course.link1_URL+ '">' + course.link1_name + '</a></td>';
-              table_entry += '    <td><a href="' + course.link2_URL+ '">' + course.link2_name + '</a></td>';
-              table_entry += "</tr>"
-
-              return table_entry;
           }
 
         </script>
