@@ -39,20 +39,20 @@
 
           function generateTableForCategory(category)
           {
-            categoryHTML = "<h1>" + category + "</h1>";
+              categoryHTML = "<h1>" + category + "</h1>";
 
-            courses = fetchCoursesByCategory(category);
+              courses = fetchCoursesByCategory(category);
 
-            categoryHTML += "<table>";
-            categoryHTML += generateCourseTableHeader();
+              categoryHTML += "<table>";
+              categoryHTML += generateCourseTableHeader();
 
-            for (index = 0; index < courses.length; index++) {
-                categoryHTML += generateCourseTableEntry(courses[index]);
-            }
+              for (index = 0; index < courses.length; index++) {
+                  categoryHTML += generateCourseTableEntry(courses[index]);
+              }
 
-            categoryHTML += "</table>";
+              categoryHTML += "</table>";
 
-            return categoryHTML;
+              return categoryHTML;
           }
 
           function generateCourseTableHeader()
@@ -79,7 +79,7 @@
 
           function fetchListOfCategories()
           {
-            return ["Biologija", "Računarstvo"];
+              return ["Biologija", "Računarstvo"];
           }
 
           function fetchCoursesByCategory(category)
@@ -89,85 +89,85 @@
 
             biologyCourses[0] =
             {
-              name: "Human Behavioral Biology",
-              university: "Sveučilište Stanford",
-              lecturer: "Robert Sapolsky",
-              language: "Engleski",
-              year: 2010,
-              numOfLectures: 25,
-              totalHours: 36,
-              courseCode: "BIO 150",
-              description: "This course focuses on how to approach complex normal and abnormal behaviors through biology and how to integrate disciplines including sociobiology, ethology, neuroscience, and endocrinology to examine behaviors such as aggression, sexual behavior, language use, and mental illness.",
-              link1_name: "YouTube lista",
-              link1_URL: "https://www.youtube.com/playlist?list=PL848F2368C90DDC3D",
-              link2_name: "Web stranica",
-              link2_URL: "http://www.infocobuild.com/education/audio-video-courses/biology/bio-150-human-behavioral-biology-stanford.html",
-              image_URL: "https://img.youtube.com/vi/NNnIGh9g6fA/2.jpg"
-            }
+                name: "Human Behavioral Biology",
+                university: "Sveučilište Stanford",
+                lecturer: "Robert Sapolsky",
+                language: "Engleski",
+                year: 2010,
+                numOfLectures: 25,
+                totalHours: 36,
+                courseCode: "BIO 150",
+                description: "This course focuses on how to approach complex normal and abnormal behaviors through biology and how to integrate disciplines including sociobiology, ethology, neuroscience, and endocrinology to examine behaviors such as aggression, sexual behavior, language use, and mental illness.",
+                link1_name: "YouTube lista",
+                link1_URL: "https://www.youtube.com/playlist?list=PL848F2368C90DDC3D",
+                link2_name: "Web stranica",
+                link2_URL: "http://www.infocobuild.com/education/audio-video-courses/biology/bio-150-human-behavioral-biology-stanford.html",
+                image_URL: "https://img.youtube.com/vi/NNnIGh9g6fA/2.jpg"
+              }
 
-            biologyCourses[1] =
-            {
-              name: "Biology Test 2",
-              university: "Sveučilište Stanford",
-              lecturer: "Robert Sapolsky",
-              language: "Engleski",
-              year: 2010,
-              numOfLectures: 25,
-              totalHours: 36,
-              courseCode: "CODE",
-              description: "This course focuses on how to approach complex normal and abnormal behaviors through biology and how to integrate disciplines including sociobiology, ethology, neuroscience, and endocrinology to examine behaviors such as aggression, sexual behavior, language use, and mental illness.",
-              link1_name: "YouTube lista",
-              link1_URL: "https://www.youtube.com/playlist?list=PL848F2368C90DDC3D",
-              link2_name: "Web stranica",
-              link2_URL: "http://www.infocobuild.com/education/audio-video-courses/biology/bio-150-human-behavioral-biology-stanford.html",
-              image_URL: "https://img.youtube.com/vi/NNnIGh9g6fA/2.jpg"
-            }
+              biologyCourses[1] =
+              {
+                name: "Biology Test 2",
+                university: "Sveučilište Stanford",
+                lecturer: "Robert Sapolsky",
+                language: "Engleski",
+                year: 2010,
+                numOfLectures: 25,
+                totalHours: 36,
+                courseCode: "CODE",
+                description: "This course focuses on how to approach complex normal and abnormal behaviors through biology and how to integrate disciplines including sociobiology, ethology, neuroscience, and endocrinology to examine behaviors such as aggression, sexual behavior, language use, and mental illness.",
+                link1_name: "YouTube lista",
+                link1_URL: "https://www.youtube.com/playlist?list=PL848F2368C90DDC3D",
+                link2_name: "Web stranica",
+                link2_URL: "http://www.infocobuild.com/education/audio-video-courses/biology/bio-150-human-behavioral-biology-stanford.html",
+                image_URL: "https://img.youtube.com/vi/NNnIGh9g6fA/2.jpg"
+              }
 
-            const computerScienceCourses = [];
+              const computerScienceCourses = [];
 
-            computerScienceCourses[0] =
-            {
-              name: "Human Behavioral Biology",
-              university: "Sveučilište Stanford",
-              lecturer: "Robert Sapolsky",
-              language: "Engleski",
-              year: 2010,
-              numOfLectures: 25,
-              totalHours: 36,
-              courseCode: "BIO 150",
-              description: "This course focuses on how to approach complex normal and abnormal behaviors through biology and how to integrate disciplines including sociobiology, ethology, neuroscience, and endocrinology to examine behaviors such as aggression, sexual behavior, language use, and mental illness.",
-              link1_name: "YouTube lista",
-              link1_URL: "https://www.youtube.com/playlist?list=PL848F2368C90DDC3D",
-              link2_name: "Web stranica",
-              link2_URL: "http://www.infocobuild.com/education/audio-video-courses/biology/bio-150-human-behavioral-biology-stanford.html",
-              image_URL: "https://img.youtube.com/vi/NNnIGh9g6fA/2.jpg"
-            }
+              computerScienceCourses[0] =
+              {
+                name: "Human Behavioral Biology",
+                university: "Sveučilište Stanford",
+                lecturer: "Robert Sapolsky",
+                language: "Engleski",
+                year: 2010,
+                numOfLectures: 25,
+                totalHours: 36,
+                courseCode: "BIO 150",
+                description: "This course focuses on how to approach complex normal and abnormal behaviors through biology and how to integrate disciplines including sociobiology, ethology, neuroscience, and endocrinology to examine behaviors such as aggression, sexual behavior, language use, and mental illness.",
+                link1_name: "YouTube lista",
+                link1_URL: "https://www.youtube.com/playlist?list=PL848F2368C90DDC3D",
+                link2_name: "Web stranica",
+                link2_URL: "http://www.infocobuild.com/education/audio-video-courses/biology/bio-150-human-behavioral-biology-stanford.html",
+                image_URL: "https://img.youtube.com/vi/NNnIGh9g6fA/2.jpg"
+              }
 
-            if (category == "Biologija") return biologyCourses;
-            else if (category == "Računarstvo") return computerScienceCourses;
-            else return [];
+              if (category == "Biologija") return biologyCourses;
+              else if (category == "Računarstvo") return computerScienceCourses;
+              else return [];
           }
 
           function generateCourseTableEntry(course)
           {
-            table_entry = "";
+              table_entry = "";
 
-            table_entry += "<tr>";
-            table_entry += '    <td><img src="'+ course.image_URL + '" alt="Predavanje 1"></td>';
-            table_entry += "    <td><b>" + course.name + "</b></td>";
-            table_entry += "    <td>" + course.university + "</td>";
-            table_entry += "    <td>" + course.lecturer + "</td>";
-            table_entry += "    <td>" + course.language + "</td>";
-            table_entry += "    <td>" + course.year + "</td>";
-            table_entry += "    <td>" + course.numOfLectures + "</td>";
-            table_entry += "    <td>" + course.totalHours + "</td>";
-            table_entry += "    <td>" + course.courseCode + "</td>";
-            table_entry += "    <td>" + course.description + "</td>";
-            table_entry += '    <td><a href="' + course.link1_URL+ '">' + course.link1_name + '</a></td>';
-            table_entry += '    <td><a href="' + course.link2_URL+ '">' + course.link2_name + '</a></td>';
-            table_entry += "</tr>"
+              table_entry += "<tr>";
+              table_entry += '    <td><img src="'+ course.image_URL + '" alt="Predavanje 1"></td>';
+              table_entry += "    <td><b>" + course.name + "</b></td>";
+              table_entry += "    <td>" + course.university + "</td>";
+              table_entry += "    <td>" + course.lecturer + "</td>";
+              table_entry += "    <td>" + course.language + "</td>";
+              table_entry += "    <td>" + course.year + "</td>";
+              table_entry += "    <td>" + course.numOfLectures + "</td>";
+              table_entry += "    <td>" + course.totalHours + "</td>";
+              table_entry += "    <td>" + course.courseCode + "</td>";
+              table_entry += "    <td>" + course.description + "</td>";
+              table_entry += '    <td><a href="' + course.link1_URL+ '">' + course.link1_name + '</a></td>';
+              table_entry += '    <td><a href="' + course.link2_URL+ '">' + course.link2_name + '</a></td>';
+              table_entry += "</tr>"
 
-            return table_entry;
+              return table_entry;
           }
 
         </script>
