@@ -16,17 +16,18 @@
 
           /*
             TODOs:
-              - Make identation same everywhere
-              - Add "section" comments
-              - Move data fetching functions to the botton
               - Remove unused html
           */
 
+
+          //////////////////////////////////////////// Event handlers ////////////////////////////////////////////
           window.onload = function()
           {
               generateAllCourses();
           };
 
+
+          //////////////////////////////////////////// Test functions for data fetching ////////////////////////////////////////////
           function generateAllCourses()
           {
               allCourses = "";
@@ -99,6 +100,8 @@
               return table_entry;
           }
 
+
+          //////////////////////////////////////////// Test functions for data fetching ////////////////////////////////////////////
           function fetchListOfCategories()
           {
               return ["Biologija", "Računarstvo"];
