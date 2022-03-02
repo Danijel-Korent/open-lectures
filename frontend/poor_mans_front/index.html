@@ -16,7 +16,6 @@
 
           /*
             TODOs:
-              - Rename generateCategoryTable() to generateTableForCategory()
               - Make identation same everywhere
               - Add "section" comments
               - Move data fetching functions to the botton
@@ -32,13 +31,13 @@
           {
               allCourses = "";
 
-              allCourses += generateCategoryTable("Biologija");
-              allCourses += generateCategoryTable("Računarstvo");
+              allCourses += generateTableForCategory("Biologija");
+              allCourses += generateTableForCategory("Računarstvo");
 
               document.getElementById("allCourses").innerHTML = allCourses;
           };
 
-          function generateCategoryTable(category)
+          function generateTableForCategory(category)
           {
             categoryHTML = "<h1>" + category + "</h1>";
 
