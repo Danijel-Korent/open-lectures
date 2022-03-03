@@ -16,8 +16,14 @@
 
           /*
             TODOs:
-              - Add generator of test data inside of fetchCoursesByCategory()
-              - Move test data generator code into function genetrateTestData(category)
+              - Add function for generating whole new section with generated courses
+                  - This means adding central object for handling data
+              - Move code for generating test data info seperate file
+                  - Expose functions:
+                      - testData_fetchListOfCategories()
+                      - testData_fetchCoursesByCategory()
+                      - testData_generateNewSection()
+                      - testData_addTestDataToCourseList()
               - At the top generate links for every category + link for all courses
                   - With click on the link the "allCourses" div will only generate table for that category
               - Add find/search input box for searching for category
@@ -152,6 +158,8 @@
                 image_URL: "https://img.youtube.com/vi/NNnIGh9g6fA/2.jpg"
               }
 
+              addTestDataToCourseList(biologyCourses, "Bio test", 5);
+
               const computerScienceCourses = [];
 
               computerScienceCourses[0] =
@@ -172,9 +180,35 @@
                 image_URL: "https://img.youtube.com/vi/NNnIGh9g6fA/2.jpg"
               }
 
+              addTestDataToCourseList(computerScienceCourses, "CS test", 7);
+
               if (category == "Biologija") return biologyCourses;
               else if (category == "Računarstvo") return computerScienceCourses;
               else return [];
+          }
+
+          function addTestDataToCourseList(courseList, baseName, count)
+          {
+              for (i = courseList.length; i < count; i++)
+                {
+                    courseList[i] =
+                    {
+                      name: baseName + i,
+                      university: "Test" + i,
+                      lecturer: "Test" + i,
+                      language: "Engleski",
+                      year: 2025,
+                      numOfLectures: 42,
+                      totalHours: 42,
+                      courseCode: "Test" + i,
+                      description: "Test" + i,
+                      link1_name: "YouTube lista",
+                      link1_URL: "https://www.youtube.com/playlist?list=PL848F2368C90DDC3D",
+                      link2_name: "Web stranica",
+                      link2_URL: "http://www.infocobuild.com/education/audio-video-courses/biology/bio-150-human-behavioral-biology-stanford.html",
+                      image_URL: "https://img.youtube.com/vi/NNnIGh9g6fA/2.jpg"
+                    }
+                }
           }
 
         </script>
