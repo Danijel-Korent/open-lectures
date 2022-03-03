@@ -16,7 +16,11 @@
 
           /*
             TODOs:
-              - Remove unused html
+              - Add generator of test data inside of fetchCoursesByCategory()
+              - Move test data generator code into function genetrateTestData(category)
+              - At the top generate links for every category + link for all courses
+                  - With click on the link the "allCourses" div will only generate table for that category
+              - Add find/search input box for searching for category
           */
 
 
@@ -177,128 +181,70 @@
     </head>
 
     <body>
-        <div id="allCourses">
-            <h1>Biologija</h1>
-            <table>
-                <tr>
-                  <th></th>
-                  <th>Naziv</th>
-                  <th>Ustanova</th>
-                  <th>Predavač</th>
-                  <th>Jezik</th>
-                  <th>Godina</th>
-                  <th>Broj predavanja</th>
-                  <th>Ukupno trajanje</th>
-                  <th>Oznaka</th>
-                  <th>Opis kolegija</th>
-                  <th>Link 1</th>
-                  <th>Link 2</th>
-                </tr>
-                <tr>
-                  <td><img src="https://img.youtube.com/vi/NNnIGh9g6fA/2.jpg" alt="Predavanje 1"></td>
-                  <td>Human Behavioral Biology</td>
-                  <td>Sveučilište Stanford</td>
-                  <td>Robert Sapolsky</td>
-                  <td>Engleski</td>
-                  <td>2010.</td>
-                  <td>25</td>
-                  <td>36h</td>
-                  <td>BIO 150</td>
-                  <td>This course focuses on how to approach complex normal and abnormal behaviors through biology and how to integrate disciplines including sociobiology, ethology, neuroscience, and endocrinology to examine behaviors such as aggression, sexual behavior, language use, and mental illness.</td>
-                  <td><a href="https://www.youtube.com/playlist?list=PL848F2368C90DDC3D">YouTube lista</a></td>
-                  <td><a href="http://www.infocobuild.com/education/audio-video-courses/biology/bio-150-human-behavioral-biology-stanford.html">Web stranica</a></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Naziv</td>
-                    <td>Ustanova</td>
-                    <td>Predavač</td>
-                    <td>Jezik</td>
-                    <td>Godina</td>
-                    <td>Broj predavanja</td>
-                    <td>Ukupno trajanje</td>
-                    <td>Oznaka</td>
-                    <td>Opis kolegija</td>
-                    <td>Link 1</td>
-                    <td>Link 2</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Naziv</td>
-                    <td>Ustanova</td>
-                    <td>Predavač</td>
-                    <td>Jezik</td>
-                    <td>Godina</td>
-                    <td>Broj predavanja</td>
-                    <td>Ukupno trajanje</td>
-                    <td>Oznaka</td>
-                    <td>Opis kolegija</td>
-                    <td>Link 1</td>
-                    <td>Link 2</td>
-                </tr>
-              </table>
-
-              <h1>Računarstvo</h1>
-              <table>
-                  <tr>
-                    <th></th>
-                    <th>Naziv</th>
-                    <th>Ustanova</th>
-                    <th>Predavač</th>
-                    <th>Jezik</th>
-                    <th>Godina</th>
-                    <th>Broj predavanja</th>
-                    <th>Ukupno trajanje</th>
-                    <th>Oznaka</th>
-                    <th>Opis kolegija</th>
-                    <th>Link 1</th>
-                    <th>Link 2</th>
-                  </tr>
-                  <tr>
-                    <td><img src="https://img.youtube.com/vi/NNnIGh9g6fA/2.jpg" alt="Predavanje 1"></td>
-                    <td>Human Behavioral Biology</td>
-                    <td>Sveučilište Stanford</td>
-                    <td>Robert Sapolsky</td>
-                    <td>Engleski</td>
-                    <td>2010.</td>
-                    <td>25</td>
-                    <td>36h</td>
-                    <td>BIO 150</td>
-                    <td>This course focuses on how to approach complex normal and abnormal behaviors through biology and how to integrate disciplines including sociobiology, ethology, neuroscience, and endocrinology to examine behaviors such as aggression, sexual behavior, language use, and mental illness.</td>
-                    <td><a href="https://www.youtube.com/playlist?list=PL848F2368C90DDC3D">YouTube lista</a></td>
-                    <td><a href="http://www.infocobuild.com/education/audio-video-courses/biology/bio-150-human-behavioral-biology-stanford.html">Web stranica</a></td>
-                  </tr>
-                  <tr>
-                      <td></td>
-                      <td>Naziv</td>
-                      <td>Ustanova</td>
-                      <td>Predavač</td>
-                      <td>Jezik</td>
-                      <td>Godina</td>
-                      <td>Broj predavanja</td>
-                      <td>Ukupno trajanje</td>
-                      <td>Oznaka</td>
-                      <td>Opis kolegija</td>
-                      <td>Link 1</td>
-                      <td>Link 2</td>
-                  </tr>
-                  <tr>
-                      <td></td>
-                      <td>Naziv</td>
-                      <td>Ustanova</td>
-                      <td>Predavač</td>
-                      <td>Jezik</td>
-                      <td>Godina</td>
-                      <td>Broj predavanja</td>
-                      <td>Ukupno trajanje</td>
-                      <td>Oznaka</td>
-                      <td>Opis kolegija</td>
-                      <td>Link 1</td>
-                      <td>Link 2</td>
-                  </tr>
-                </table>
-        </div>
+        <div id="allCourses"></div>
     </body>
 </html>
 
 
+<!--
+//////////////////////////////// Example how the table(s) generated inside of "allCourses" div element looks like
+<h1>Biologija</h1>
+<table>
+    <tr>
+      <th></th>
+      <th>Naziv</th>
+      <th>Ustanova</th>
+      <th>Predavač</th>
+      <th>Jezik</th>
+      <th>Godina</th>
+      <th>Broj predavanja</th>
+      <th>Ukupno trajanje</th>
+      <th>Oznaka</th>
+      <th>Opis kolegija</th>
+      <th>Link 1</th>
+      <th>Link 2</th>
+    </tr>
+    <tr>
+      <td><img src="https://img.youtube.com/vi/NNnIGh9g6fA/2.jpg" alt="Predavanje 1"></td>
+      <td>Human Behavioral Biology</td>
+      <td>Sveučilište Stanford</td>
+      <td>Robert Sapolsky</td>
+      <td>Engleski</td>
+      <td>2010.</td>
+      <td>25</td>
+      <td>36h</td>
+      <td>BIO 150</td>
+      <td>This course focuses on how to approach complex normal and abnormal behaviors through biology and how to integrate disciplines including sociobiology, ethology, neuroscience, and endocrinology to examine behaviors such as aggression, sexual behavior, language use, and mental illness.</td>
+      <td><a href="https://www.youtube.com/playlist?list=PL848F2368C90DDC3D">YouTube lista</a></td>
+      <td><a href="http://www.infocobuild.com/education/audio-video-courses/biology/bio-150-human-behavioral-biology-stanford.html">Web stranica</a></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Naziv</td>
+        <td>Ustanova</td>
+        <td>Predavač</td>
+        <td>Jezik</td>
+        <td>Godina</td>
+        <td>Broj predavanja</td>
+        <td>Ukupno trajanje</td>
+        <td>Oznaka</td>
+        <td>Opis kolegija</td>
+        <td>Link 1</td>
+        <td>Link 2</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Naziv</td>
+        <td>Ustanova</td>
+        <td>Predavač</td>
+        <td>Jezik</td>
+        <td>Godina</td>
+        <td>Broj predavanja</td>
+        <td>Ukupno trajanje</td>
+        <td>Oznaka</td>
+        <td>Opis kolegija</td>
+        <td>Link 1</td>
+        <td>Link 2</td>
+    </tr>
+  </table>
+  -->
