@@ -14,112 +14,112 @@
 
         <script type="text/javascript">
 
-          /*
-            TODOs:
-              - Add function for generating whole new section with generated courses
-                  - This means adding central object for handling data
-              - Move code for generating test data info seperate file
-                  - Expose functions:
-                      - testData_fetchListOfCategories()
-                      - testData_fetchCoursesByCategory()
-                      - testData_generateNewSection()
-                      - testData_addTestDataToCourseList()
-              - At the top generate links for every category + link for all courses
-                  - With click on the link the "allCourses" div will only generate table for that category
-              - At top: Add counter for total lenght of all lectures combined
-              - Add find/search input box for searching for category
-          */
+        /*
+        TODOs:
+            - Add function for generating whole new section with generated courses
+                - This means adding central object for handling data
+            - Move code for generating test data info seperate file
+                - Expose functions:
+                    - testData_fetchListOfCategories()
+                    - testData_fetchCoursesByCategory()
+                    - testData_generateNewSection()
+                    - testData_addTestDataToCourseList()
+            - At the top generate links for every category + link for all courses
+                - With click on the link the "allCourses" div will only generate table for that category
+            - At top: Add counter for total lenght of all lectures combined
+            - Add find/search input box for searching for category
+        */
 
 
-          //////////////////////////////////////////// Event handlers ////////////////////////////////////////////
-          window.onload = function()
-          {
-              generateAllCourses();
-          };
+        //////////////////////////////////////////// Event handlers ////////////////////////////////////////////
+        window.onload = function()
+        {
+            generateAllCourses();
+        };
 
 
-          //////////////////////////////////////////// Test functions for data fetching ////////////////////////////////////////////
-          function generateAllCourses()
-          {
-              allCourses = "";
+        //////////////////////////////////////////// Test functions for data fetching ////////////////////////////////////////////
+        function generateAllCourses()
+        {
+            allCourses = "";
 
-              allCourses += generateTableForCategory("Biologija");
-              allCourses += generateTableForCategory("Računarstvo");
+            allCourses += generateTableForCategory("Biologija");
+            allCourses += generateTableForCategory("Računarstvo");
 
-              document.getElementById("allCourses").innerHTML = allCourses;
-          };
+            document.getElementById("allCourses").innerHTML = allCourses;
+        };
 
-          function generateTableForCategory(category)
-          {
-              categoryHTML = "<h1>" + category + "</h1>";
+        function generateTableForCategory(category)
+        {
+            categoryHTML = "<h1>" + category + "</h1>";
 
-              courses = fetchCoursesByCategory(category);
+            courses = fetchCoursesByCategory(category);
 
-              categoryHTML += "<table>";
-              categoryHTML += generateCourseTableHeader();
+            categoryHTML += "<table>";
+            categoryHTML += generateCourseTableHeader();
 
-              for (index = 0; index < courses.length; index++) {
-                  categoryHTML += generateCourseTableEntry(courses[index]);
-              }
+            for (index = 0; index < courses.length; index++) {
+                categoryHTML += generateCourseTableEntry(courses[index]);
+            }
 
-              categoryHTML += "</table>";
+            categoryHTML += "</table>";
 
-              return categoryHTML;
-          }
+            return categoryHTML;
+        }
 
-          function generateCourseTableHeader()
-          {
-              header_tags = "";
+        function generateCourseTableHeader()
+        {
+            header_tags = "";
 
-              header_tags += "<tr>";
-              header_tags += "   <th></th>";
-              header_tags += "   <th>Naziv</th>";
-              header_tags += "   <th>Ustanova</th>";
-              header_tags += "   <th>Predavač</th>";
-              header_tags += "   <th>Jezik</th>";
-              header_tags += "   <th>Godina</th>";
-              header_tags += "   <th>Broj predavanja</th>";
-              header_tags += "   <th>Ukupno trajanje</th>";
-              header_tags += "   <th>Oznaka</th>";
-              header_tags += "   <th>Opis kolegija</th>";
-              header_tags += "   <th>Link 1</th>";
-              header_tags += "   <th>Link 2</th>";
-              header_tags += "</tr>";
+            header_tags += "<tr>";
+            header_tags += "   <th></th>";
+            header_tags += "   <th>Naziv</th>";
+            header_tags += "   <th>Ustanova</th>";
+            header_tags += "   <th>Predavač</th>";
+            header_tags += "   <th>Jezik</th>";
+            header_tags += "   <th>Godina</th>";
+            header_tags += "   <th>Broj predavanja</th>";
+            header_tags += "   <th>Ukupno trajanje</th>";
+            header_tags += "   <th>Oznaka</th>";
+            header_tags += "   <th>Opis kolegija</th>";
+            header_tags += "   <th>Link 1</th>";
+            header_tags += "   <th>Link 2</th>";
+            header_tags += "</tr>";
 
-              return header_tags;
-          }
+            return header_tags;
+        }
 
-          function generateCourseTableEntry(course)
-          {
-              table_entry = "";
+        function generateCourseTableEntry(course)
+        {
+            table_entry = "";
 
-              table_entry += "<tr>";
-              table_entry += '    <td><img src="'+ course.image_URL + '" alt="Predavanje 1"></td>';
-              table_entry += "    <td><b>" + course.name + "</b></td>";
-              table_entry += "    <td>" + course.university + "</td>";
-              table_entry += "    <td>" + course.lecturer + "</td>";
-              table_entry += "    <td>" + course.language + "</td>";
-              table_entry += "    <td>" + course.year + "</td>";
-              table_entry += "    <td>" + course.numOfLectures + "</td>";
-              table_entry += "    <td>" + course.totalHours + "</td>";
-              table_entry += "    <td>" + course.courseCode + "</td>";
-              table_entry += "    <td>" + course.description + "</td>";
-              table_entry += '    <td><a href="' + course.link1_URL+ '">' + course.link1_name + '</a></td>';
-              table_entry += '    <td><a href="' + course.link2_URL+ '">' + course.link2_name + '</a></td>';
-              table_entry += "</tr>"
+            table_entry += "<tr>";
+            table_entry += '    <td><img src="'+ course.image_URL + '" alt="Predavanje 1"></td>';
+            table_entry += "    <td><b>" + course.name + "</b></td>";
+            table_entry += "    <td>" + course.university + "</td>";
+            table_entry += "    <td>" + course.lecturer + "</td>";
+            table_entry += "    <td>" + course.language + "</td>";
+            table_entry += "    <td>" + course.year + "</td>";
+            table_entry += "    <td>" + course.numOfLectures + "</td>";
+            table_entry += "    <td>" + course.totalHours + "</td>";
+            table_entry += "    <td>" + course.courseCode + "</td>";
+            table_entry += "    <td>" + course.description + "</td>";
+            table_entry += '    <td><a href="' + course.link1_URL+ '">' + course.link1_name + '</a></td>';
+            table_entry += '    <td><a href="' + course.link2_URL+ '">' + course.link2_name + '</a></td>';
+            table_entry += "</tr>"
 
-              return table_entry;
-          }
+            return table_entry;
+        }
 
 
-          //////////////////////////////////////////// Test functions for data fetching ////////////////////////////////////////////
-          function fetchListOfCategories()
-          {
-              return ["Biologija", "Računarstvo"];
-          }
+        //////////////////////////////////////////// Test functions for data fetching ////////////////////////////////////////////
+        function fetchListOfCategories()
+        {
+            return ["Biologija", "Računarstvo"];
+        }
 
-          function fetchCoursesByCategory(category)
-          {
+        function fetchCoursesByCategory(category)
+        {
             // https://hr.wikipedia.org/wiki/Popis_besplatnih_i_javno_dostupnih_sveu%C4%8Dili%C5%A1nih_video_predavanja
             const biologyCourses = [];
 
@@ -139,10 +139,10 @@
                 link2_name: "Web stranica",
                 link2_URL: "http://www.infocobuild.com/education/audio-video-courses/biology/bio-150-human-behavioral-biology-stanford.html",
                 image_URL: "https://img.youtube.com/vi/NNnIGh9g6fA/2.jpg"
-              }
+            }
 
-              biologyCourses[1] =
-              {
+            biologyCourses[1] =
+            {
                 name: "Biology Test 2",
                 university: "Sveučilište Stanford",
                 lecturer: "Robert Sapolsky",
@@ -157,14 +157,14 @@
                 link2_name: "Web stranica",
                 link2_URL: "http://www.infocobuild.com/education/audio-video-courses/biology/bio-150-human-behavioral-biology-stanford.html",
                 image_URL: "https://img.youtube.com/vi/NNnIGh9g6fA/2.jpg"
-              }
+            }
 
-              addTestDataToCourseList(biologyCourses, "Bio test", 5);
+            addTestDataToCourseList(biologyCourses, "Bio test", 5);
 
-              const computerScienceCourses = [];
+            const computerScienceCourses = [];
 
-              computerScienceCourses[0] =
-              {
+            computerScienceCourses[0] =
+            {
                 name: "Human Behavioral Biology",
                 university: "Sveučilište Stanford",
                 lecturer: "Robert Sapolsky",
@@ -179,38 +179,38 @@
                 link2_name: "Web stranica",
                 link2_URL: "http://www.infocobuild.com/education/audio-video-courses/biology/bio-150-human-behavioral-biology-stanford.html",
                 image_URL: "https://img.youtube.com/vi/NNnIGh9g6fA/2.jpg"
-              }
+            }
 
-              addTestDataToCourseList(computerScienceCourses, "CS test", 7);
+            addTestDataToCourseList(computerScienceCourses, "CS test", 7);
 
-              if (category == "Biologija") return biologyCourses;
-              else if (category == "Računarstvo") return computerScienceCourses;
-              else return [];
-          }
+            if (category == "Biologija") return biologyCourses;
+            else if (category == "Računarstvo") return computerScienceCourses;
+            else return [];
+        }
 
-          function addTestDataToCourseList(courseList, baseName, count)
-          {
-              for (i = courseList.length; i < count; i++)
+        function addTestDataToCourseList(courseList, baseName, count)
+        {
+            for (i = courseList.length; i < count; i++)
+            {
+                courseList[i] =
                 {
-                    courseList[i] =
-                    {
-                      name: baseName + i,
-                      university: "Test" + i,
-                      lecturer: "Test" + i,
-                      language: "Engleski",
-                      year: 2025,
-                      numOfLectures: 42,
-                      totalHours: 42,
-                      courseCode: "Test" + i,
-                      description: "Test" + i,
-                      link1_name: "YouTube lista",
-                      link1_URL: "https://www.youtube.com/playlist?list=PL848F2368C90DDC3D",
-                      link2_name: "Web stranica",
-                      link2_URL: "http://www.infocobuild.com/education/audio-video-courses/biology/bio-150-human-behavioral-biology-stanford.html",
-                      image_URL: "https://img.youtube.com/vi/NNnIGh9g6fA/2.jpg"
-                    }
+                    name: baseName + i,
+                    university: "Test" + i,
+                    lecturer: "Test" + i,
+                    language: "Engleski",
+                    year: 2025,
+                    numOfLectures: 42,
+                    totalHours: 42,
+                    courseCode: "Test" + i,
+                    description: "Test" + i,
+                    link1_name: "YouTube lista",
+                    link1_URL: "https://www.youtube.com/playlist?list=PL848F2368C90DDC3D",
+                    link2_name: "Web stranica",
+                    link2_URL: "http://www.infocobuild.com/education/audio-video-courses/biology/bio-150-human-behavioral-biology-stanford.html",
+                    image_URL: "https://img.youtube.com/vi/NNnIGh9g6fA/2.jpg"
                 }
-          }
+            }
+        }
 
         </script>
     </head>
