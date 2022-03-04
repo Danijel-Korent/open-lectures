@@ -18,10 +18,12 @@ https://hr.wikipedia.org/wiki/Popis_besplatnih_i_javno_dostupnih_sveu%C4%8Dili%C
 
 - Search option
 - List all courses of specific university/professor
+- Reporting dead links
 
 ### Cummunity
 
 - Rating the courses or single videos
+- Adding annotations and tags to the lectures 
 - Option to register/login
 - Platform marks your watched videos or courses
 - Discusion/QA forum for each video
