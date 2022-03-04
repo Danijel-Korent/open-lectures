@@ -10,8 +10,9 @@ https://hr.wikipedia.org/wiki/Popis_besplatnih_i_javno_dostupnih_sveu%C4%8Dili%C
 
 ### Basic
 
-- List of courses with links to YouTube playlists
-- Courses organized by topics/categories
+- List of categories
+- In each category: list of courses with links to YouTube playlists
+- Counter of total hours for all lectures in the database
 
 ### Extended
 
