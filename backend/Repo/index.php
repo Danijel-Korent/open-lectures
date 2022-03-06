@@ -2,13 +2,7 @@
 function selectUstanove(){
     global $db;
     $query = ("SELECT *
-    FROM ustanove u 
-    INNER JOIN zaposlenje z ON u.idUstanove = z.ustanova
-    INNER JOIN predavaci p ON p.idPredavac = z.predavac
-    INNER JOIN lekcije l on l.predavac = p.idPredavac
-    INNER JOIN predavanja pred ON pred.idPredavanja = l.predavanja
-    INNER JOIN pripadnost_kategoriji prip ON pred.idPredavanja = prip.predavanje
-    INNER JOIN kategorije k ON k.idKategorije = prip.kategorije;");
+    FROM ustanove;");
     $statement = $db->prepare($query);
     $statement->execute();
     $array = $statement->fetchAll();
@@ -19,14 +13,7 @@ function selectUstanove(){
 
 function selectKategorije(){
     global $db;
-    $query = ("SELECT *
-    FROM ustanove u 
-    INNER JOIN zaposlenje z ON u.idUstanove = z.ustanova
-    INNER JOIN predavaci p ON p.idPredavac = z.predavac
-    INNER JOIN lekcije l on l.predavac = p.idPredavac
-    INNER JOIN predavanja pred ON pred.idPredavanja = l.predavanja
-    INNER JOIN pripadnost_kategoriji prip ON pred.idPredavanja = prip.predavanje
-    INNER JOIN kategorije k ON k.idKategorije = prip.kategorije;");
+    $query = ("SELECT * FROM kategorije;");
     $statement = $db->prepare($query);
     $statement->execute();
     $array = $statement->fetchAll();
@@ -38,13 +25,7 @@ function selectKategorije(){
 function selectPredavaci(){
     global $db;
     $query = ("SELECT *
-    FROM ustanove u 
-    INNER JOIN zaposlenje z ON u.idUstanove = z.ustanova
-    INNER JOIN predavaci p ON p.idPredavac = z.predavac
-    INNER JOIN lekcije l on l.predavac = p.idPredavac
-    INNER JOIN predavanja pred ON pred.idPredavanja = l.predavanja
-    INNER JOIN pripadnost_kategoriji prip ON pred.idPredavanja = prip.predavanje
-    INNER JOIN kategorije k ON k.idKategorije = prip.kategorije;");
+    FROM predavaci;");
     $statement = $db->prepare($query);
     $statement->execute();
     $array = $statement->fetchAll();
@@ -78,12 +59,12 @@ function selectAll(){
     global $db;
     $query = ("SELECT *
     FROM ustanove u 
-    INNER JOIN zaposlenje z ON u.idUstanove = z.ustanova
-    INNER JOIN predavaci p ON p.idPredavac = z.predavac
-    INNER JOIN lekcije l on l.predavac = p.idPredavac
-    INNER JOIN predavanja pred ON pred.idPredavanja = l.predavanja
-    INNER JOIN pripadnost_kategoriji prip ON pred.idPredavanja = prip.predavanje
-    INNER JOIN kategorije k ON k.idKategorije = prip.kategorije;
+    LEFT JOIN zaposlenje z ON u.idUstanove = z.ustanova
+    LEFT JOIN predavaci p ON p.idPredavac = z.predavac
+    LEFT JOIN lekcije l on l.predavac = p.idPredavac
+    LEFT JOIN predavanja pred ON pred.idPredavanja = l.predavanja
+    LEFT JOIN pripadnost_kategoriji prip ON pred.idPredavanja = prip.predavanje
+    LEFT JOIN kategorije k ON k.idKategorije = prip.kategorije;
     ");
     $statement = $db->prepare($query);
     $statement->execute();
