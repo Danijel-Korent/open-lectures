@@ -1,7 +1,7 @@
 <?php
 function selectUstanove(){
     global $db;
-    $query = $db->query("SELECT *
+    $query = ("SELECT *
     FROM ustanove u 
     INNER JOIN zaposlenje z ON u.idUstanove = z.ustanova
     INNER JOIN predavaci p ON p.idPredavac = z.predavac
@@ -19,7 +19,7 @@ function selectUstanove(){
 
 function selectKategorije(){
     global $db;
-    $query = $db->query("SELECT *
+    $query = ("SELECT *
     FROM ustanove u 
     INNER JOIN zaposlenje z ON u.idUstanove = z.ustanova
     INNER JOIN predavaci p ON p.idPredavac = z.predavac
@@ -37,7 +37,7 @@ function selectKategorije(){
 
 function selectPredavaci(){
     global $db;
-    $query = $db->query("SELECT *
+    $query = ("SELECT *
     FROM ustanove u 
     INNER JOIN zaposlenje z ON u.idUstanove = z.ustanova
     INNER JOIN predavaci p ON p.idPredavac = z.predavac
@@ -55,7 +55,7 @@ function selectPredavaci(){
 
 function selectOpisPred (){
     global $db;
-    $query = $db->query("SELECT pred.naziv_predavanja, u.naziv_ustanove,
+    $query = ("SELECT pred.naziv_predavanja, u.naziv_ustanove,
     p.ime, p.prezime,  pred.jezik, pred.broj_predavanja, 
     pred.ukupno_trajanje, pred.oznaka, pred.oznaka
     FROM ustanove u 
@@ -76,7 +76,7 @@ function selectOpisPred (){
 
 function selectAll(){
     global $db;
-    $query = $db->query("SELECT *
+    $query = ("SELECT *
     FROM ustanove u 
     INNER JOIN zaposlenje z ON u.idUstanove = z.ustanova
     INNER JOIN predavaci p ON p.idPredavac = z.predavac
