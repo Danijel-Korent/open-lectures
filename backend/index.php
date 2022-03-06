@@ -9,6 +9,6 @@ $arrayPredavaci = selectPredavaci();
 $arrayOpisPred = selectOpisPred(); 
 $arraySve = selectAll();
 
-foreach($arrayKategorije as $key => $value) {
-    echo $value["naziv_kategorije"];
-}
+
+
+

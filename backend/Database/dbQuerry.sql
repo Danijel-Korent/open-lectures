@@ -38,7 +38,7 @@ CREATE TABLE `kategorije` (
 --
 
 INSERT INTO `kategorije` (`idKategorije`, `naziv_kategorije`, `slika_kategorije`) VALUES
-(1, 'Biologijia', 'biologija.jpg'),
+(1, 'Biologija', 'biologija.jpg'),
 (2, 'Kemija', 'kemija.jpg'),
 (3, 'Fizika', 'fizika.jpg'),
 (5, 'Matematika', 'matematika.jpg'),
