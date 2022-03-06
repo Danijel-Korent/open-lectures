@@ -1,6 +1,7 @@
 <?php
 
 require "Repo/index.php";
+require "Database/pdo.php";
 
 $arrayUstanove = selectUstanove();
 $arrayKategorije = selectKategorije();
