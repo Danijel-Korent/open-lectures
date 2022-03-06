@@ -1,0 +1,87 @@
+body, h3, h1{
+    font-family: 'Poppins', sans-serif;
+}
+
+.dropdown {
+    display: inline-block;
+    position: relative;
+  }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    overflow: auto;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a:hover {
+    color: #FFFFFF;
+    background-color: #196FEE;
+    }
+
+a{
+    color: black;
+    text-decoration: none;
+}
+
+h1::first-letter{
+    color: #196FEE;
+}
+
+h1 {
+    margin: 10px;
+    padding: 10px; 
+}
+
+h1:hover{
+    color: black;
+}
+
+.horizontal{
+    margin: 20px;
+    padding: 10px;
+}
+
+.form-control{
+    margin: 30px;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+object{
+    margin: 8px;
+}
+
+h3, p{
+    margin: 1em;
+}
+
+h3{
+    color: #196FEE;
+}
+
+#seeMore{
+    margin: 1em;
+    text-align: center;
+}
+
+#image{
+    width: 400px;
+    height: 400px;
+}
+
+#next{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    right: 800px;
+    cursor: pointer;
+}
+
+#lectures{
+    margin: 100px;
+    padding: 10px;
+}
