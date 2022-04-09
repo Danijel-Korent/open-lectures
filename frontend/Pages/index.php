@@ -66,9 +66,10 @@ foreach ($arrayOpisPred as $predavanje)
   $course_description  = $predavanje['opis_kolegija'];
   $course_totalLength  = $predavanje['ukupno_trajanje'];
   $course_linkPlaylist = $predavanje['link_1'];
+  $course_image        = $predavanje['image'];
 
   echo '<div class="cell large-4 medium-4 small-6">';
-  echo "  <a href='$course_linkPlaylist' target='_blank' rel='noopener noreferrer'><img src='https://img.youtube.com/vi/PL848F2368C90DDC3D/1.jpg' title='$course_description'></a>";
+  echo "  <a href='$course_linkPlaylist' target='_blank' rel='noopener noreferrer'><img src='$course_image' title='$course_description'></a>";
   echo "  <p>$course_name ({$course_totalLength}h)</p>";
   echo '</div>';
 }

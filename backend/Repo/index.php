@@ -38,7 +38,7 @@ function selectOpisPred (){
     global $db;
     $query = ("SELECT pred.naziv_predavanja, u.naziv_ustanove,
     p.ime, p.prezime,  pred.jezik, pred.broj_predavanja, 
-    pred.ukupno_trajanje, pred.oznaka, pred.oznaka, pred.opis_kolegija, pred.link_1, pred.link_2
+    pred.ukupno_trajanje, pred.oznaka, pred.oznaka, pred.opis_kolegija, pred.link_1, pred.link_2, pred.image
     FROM ustanove u 
     INNER JOIN zaposlenje z ON u.idUstanove = z.ustanova
     INNER JOIN predavaci p ON p.idPredavac = z.predavac
