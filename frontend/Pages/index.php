@@ -32,28 +32,6 @@ require "../../backend/index.php"; ?>
 </div>
 
 
-<div class="grid-x grid-margin-x">
-  <div class="cell large-4 medium-4 small-6">
-    <img>
-    <p>Lekcija #1</p>
-  </div>
-  <div class="cell large-4 medium-4 small-6">
-  <img>
-  <p>Lekcija #2</p>
-  </div>
-  <div class="cell large-4 medium-4 small-6">
-  <img>
-  <p>Lekcija #3</p>
-  </div>
-</div>
-
-
-<div class="grid-x grid-margin-x">
-  <div class="cell large-12 medium-12 small-12" id="lectures">
-    <p>POKUSNI ISPIS</p>
-    </div>
-</div>
-
 <?php
 
 echo '<div class="grid-x grid-margin-x">';
