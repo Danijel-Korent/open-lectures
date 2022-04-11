@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2022 at 07:16 PM
+-- Generation Time: Apr 11, 2022 at 09:20 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -50,7 +50,8 @@ INSERT INTO `kategorije` (`idKategorije`, `naziv_kategorije`, `slika_kategorije`
 (11, 'Filozofija', 'filozofija.jpg'),
 (12, 'Pedagogija', 'pedagogija.jpg'),
 (13, 'Politologija', 'politologija.jpg'),
-(14, 'Računarstvo', 'racunarstvo.jpg');
+(14, 'Računarstvo', 'racunarstvo.jpg'),
+(15, 'Bez kategorije', NULL);
 
 -- --------------------------------------------------------
 
@@ -81,7 +82,17 @@ INSERT INTO `lekcije` (`idLekcije`, `predavac`, `predavanja`) VALUES
 (10, 18, 9),
 (11, 18, 10),
 (12, 19, 11),
-(13, 20, 12);
+(13, 20, 12),
+(14, 21, 13),
+(15, 22, 14),
+(16, 23, 15),
+(17, 24, 16),
+(18, 25, 17),
+(19, 26, 18),
+(20, 27, 19),
+(21, 28, 20),
+(22, 29, 21),
+(23, 30, 22);
 
 -- --------------------------------------------------------
 
@@ -115,7 +126,17 @@ INSERT INTO `predavaci` (`idPredavac`, `ime`, `prezime`, `slika_predavaca`) VALU
 (17, 'Elizabeth', 'Vogel Taylor', NULL),
 (18, 'Richard', 'Delaware', NULL),
 (19, 'Sanjoy', 'Mahajan', NULL),
-(20, 'Kathleen', 'Bawn', NULL);
+(20, 'Kathleen', 'Bawn', NULL),
+(21, 'Donald', 'Kagan', NULL),
+(22, 'John', 'Gabrieli', NULL),
+(23, 'David', 'J. Malan', NULL),
+(24, 'Amir', 'H. Ashouri', NULL),
+(25, 'Alexander', 'Amini', NULL),
+(26, 'David', 'Churchill', NULL),
+(27, 'Onur', 'Mutlu', NULL),
+(28, 'Robert', 'Wyman', NULL),
+(29, 'Rachel', 'Glennerster', NULL),
+(30, 'Jeffrey', 'Hoffman', NULL);
 
 -- --------------------------------------------------------
 
@@ -125,7 +146,7 @@ INSERT INTO `predavaci` (`idPredavac`, `ime`, `prezime`, `slika_predavaca`) VALU
 
 CREATE TABLE `predavanja` (
   `idPredavanja` int(11) NOT NULL,
-  `naziv_predavanja` varchar(50) DEFAULT NULL,
+  `naziv_predavanja` varchar(60) DEFAULT NULL,
   `jezik` varchar(50) DEFAULT NULL,
   `godina` varchar(50) DEFAULT NULL,
   `broj_predavanja` int(11) DEFAULT NULL,
@@ -153,7 +174,17 @@ INSERT INTO `predavanja` (`idPredavanja`, `naziv_predavanja`, `jezik`, `godina`,
 (9, 'College Algebra', 'Engleski', '1998.', 40, 43, 'Math 110', '	College Algebra Lectures with UMKC\'s Professor Richard Delaware, in association with UMKC\'s Video Based Supplemental Instruction Program.', 'https://www.youtube.com/playlist?list=PLDE28CF08BD313B2A', 'http://d.web.umkc.edu/delawarer/VSI/RDvsi.htm', 'https://img.youtube.com/vi/SQI97IAUqo8/0.jpg'),
 (10, 'Calculus I', 'Engleski', '2005.', 36, 30, '	Math 210', 'Calculus 1/ Calc 1 with UMKC\'s Professor Richard Delaware, in association with UMKC\'s Video Based Supplemental Instruction Program', 'https://www.youtube.com/playlist?list=PLF5E22224459D23D9', 'http://d.web.umkc.edu/delawarer/VSI/RDvsiCalc.htm', 'https://img.youtube.com/vi/CtRAHmeWSC0/0.jpg'),
 (11, 'Teaching College-Level Science and Engineering', 'Engleski', '2009.', 11, 15, 'MIT 5.95J', 'This participatory seminar focuses on the knowledge and skills necessary for teaching science and engineering in higher education. This course is designed for graduate students interested in an academic career, and anyone else interested in teaching. Readings and discussions include: teaching equations for understanding, designing exam and homework questions, incorporating histories of science, creating absorbing lectures, teaching for transfer, the evils of PowerPoint, and planning a course. The subject is appropriate for both novices and those with teaching experience.', 'https://www.youtube.com/playlist?list=PLB1304385546D6F86', 'https://ocw.mit.edu/courses/chemistry/5-95j-teaching-college-level-science-and-engineering-spring-2009/', 'https://img.youtube.com/vi/wy-LqFDwMuM/0.jpg'),
-(12, 'Political Science 30: Politics and Strategy', 'Engleski', '2008.', 19, 21, 'POL SCI 30', 'Taught by UCLA\'s Professor Kathleen Bawn, this courses is an introduction to study of strategic interaction in political applications. Use of game theory and other formal modeling strategies to understand politics are also studied in order to gain a better understanding of politics at large.', 'https://www.youtube.com/playlist?list=PLF420ADB3E328425A', NULL, 'https://img.youtube.com/vi/eoHSEacM7Fo/0.jpg');
+(12, 'Political Science 30: Politics and Strategy', 'Engleski', '2008.', 19, 21, 'POL SCI 30', 'Taught by UCLA\'s Professor Kathleen Bawn, this courses is an introduction to study of strategic interaction in political applications. Use of game theory and other formal modeling strategies to understand politics are also studied in order to gain a better understanding of politics at large.', 'https://www.youtube.com/playlist?list=PLF420ADB3E328425A', NULL, 'https://img.youtube.com/vi/eoHSEacM7Fo/0.jpg'),
+(13, 'Introduction to Ancient Greek History', 'Engleski', '2007.', 24, 28, 'CLCV 205', 'This is an introductory course in Greek history tracing the development of Greek civilization as manifested in political, intellectual, and creative achievements from the Bronze Age to the end of the classical period. Students read original sources in translation as well as the works of modern scholars.', 'https://www.youtube.com/playlist?list=PL023BCE5134243987', 'https://oyc.yale.edu/classics/clcv-205', 'https://img.youtube.com/vi/BB-i7hZadLc/0.jpg'),
+(14, 'Introduction to Psychology', 'Engleski', '2011.', 24, 23, 'MIT 9.00SC', 'Introduction to Psychology is a survey of the scientific study of human nature, including how the mind works, and how the brain supports the mind. Topics include the mental and neural bases of perception, emotion, learning, memory, cognition, child development, personality, psychopathology, and social interaction.', 'https://www.youtube.com/playlist?list=PL44ABC9278E2EE706', NULL, 'https://img.youtube.com/vi/2fbrl6WoIyo/0.jpg'),
+(15, 'Introduction to Computer Science I', 'Engleski', '2020.', 13, 27, 'CS50', 'CS50 is Harvard University\'s introduction to the intellectual enterprises of computer science and the art of programming.', 'https://www.youtube.com/playlist?list=PLhQjrBD2T382_R182iC2gNZI9HzWFMC_8', 'https://cs50.harvard.edu/', 'https://img.youtube.com/vi/zYierUhIFNQ/0.jpg'),
+(16, 'Introduction to Machine Learning', 'Engleski', '2019.', 38, 28, 'ECE421/ECE1513', 'An Introduction to the basic theory, the fundamental algorithms, and the computational toolboxes of machine learning.', 'https://www.youtube.com/playlist?list=PL-Mfq5QS-s8iS9XqKuApPE1TSlnZblFHF', 'https://engineering.calendar.utoronto.ca/course/ece421h1', 'https://img.youtube.com/vi/FvAibtlARQ8/0.jpg'),
+(17, 'Introduction to Deep Learning', 'Engleski', '2021.', 43, 29, '6.S191', 'MIT\'s introductory course on deep learning methods with applications to computer vision, natural language processing, biology, and more! Students will gain foundational knowledge of deep learning algorithms and get practical experience in building neural networks in TensorFlow. Course concludes with a project proposal competition with feedback from staff and panel of industry sponsors. Prerequisites assume calculus (i.e. taking derivatives) and linear algebra (i.e. matrix multiplication), we\'ll try to explain everything else along the way! Experience in Python is helpful but not necessary. This class is taught during MIT\'s IAP term by current MIT PhD researchers.', 'https://www.youtube.com/playlist?list=PLtBw6njQRU-rwp5__7C0oIVt26ZgjG9NI', 'http://introtodeeplearning.com/', 'https://img.youtube.com/vi/uapdILWYTzE/0.jpg'),
+(18, 'Intro to Game Programming', 'Engleski', '2021.', 22, 27, '	COMP 4300', '	This is an introductory course for students interested in learning the fundamentals of game programming. Topics include vector math for games, fundamentals of rendering, introduction to animation and artificial intelligence, collision detection, game physics and user-interfaces.', 'https://www.youtube.com/playlist?list=PL_xRyXins848jkwC9Coy7B4N5XTOnQZzz', 'http://www.cs.mun.ca/~dchurchill/teaching.shtml', 'https://img.youtube.com/vi/LpEdZbUdDe4/0.jpg'),
+(19, 'Digital Design and Computer Architecture', 'Engleski', '2020.', 38, 44, NULL, '	The class provides a first introduction to the design of digital circuits and computer architecture. It covers technical foundations of how a computing platform is designed from the bottom up. It introduces various execution paradigms, hardware description languages, and principles in digital design and computer architecture. The focus is on fundamental techniques employed in the design of modern microprocessors and their hardware/software interface.', 'https://www.youtube.com/playlist?list=PL5PHm2jkkXmhs4EACiFKvTPAQkdYMZKGu', 'https://safari.ethz.ch/digitaltechnik/spring2020/doku.php?id=schedule', 'https://img.youtube.com/vi/AJBmIaUneB0/0.jpg'),
+(20, 'Global Problems of Population Growth', 'Engleski', '2009.', 24, 27, '	MCDB 150', 'This survey course introduces students to the important and basic material on human fertility, population growth, the demographic transition and population policy. Topics include: the human and environmental dimensions of population pressure, demographic history, economic and cultural causes of demographic change, environmental carrying capacity and sustainability. Political, religious and ethical issues surrounding fertility are also addressed. The lectures and readings attempt to balance theoretical and demographic scale analyzes with studies of individual humans and communities. The perspective is global with both developed and developing countries included.', 'https://www.youtube.com/playlist?list=PLE60A08636F41C128', 'https://oyc.yale.edu/molecular-cellular-and-developmental-biology/mcdb-150', 'https://img.youtube.com/vi/mzdqyXtPbbE/0.jpg'),
+(21, 'Evaluating Social Programs', 'Engleski', '2009.', 8, 12, 'RES.14-001', 'This five-day program on evaluating social programs will provide a thorough understanding of randomized evaluations and pragmatic step-by-step training for conducting one\'s own evaluation. While the course focuses on randomized evaluations, many of the topics, such as measuring outcomes and dealing with threats to the validity of an evaluation, are relevant for other methodologies.', 'https://www.youtube.com/playlist?list=PLFDDC7E64FF1EE996', 'https://ocw.mit.edu/resources/res-14-001-abdul-latif-jameel-poverty-action-lab-executive-training-evaluating-social-programs-2009-spring-2009/', 'https://img.youtube.com/vi/Hz1S82W8F04/0.jpg'),
+(22, 'Aircraft Systems Engineering (study of Space Shuttle)', 'Engleski', '2005.', 23, 40, '16.885J / ESD.35J', '16.885J offers a holistic view of the aircraft as a system, covering: basic systems engineering; cost and weight estimation; basic aircraft performance; safety and reliability; lifecycle topics; aircraft subsystems; risk analysis and management; and system realization. Small student teams retrospectively analyze an existing aircraft covering: key design drivers and decisions; aircraft attributes and subsystems; and operational experience. Oral and written versions of the case study are delivered. For the Fall 2005 term, the class focuses on a systems engineering analysis of the Space Shuttle. It offers study of both design and operations of the shuttle, with frequent lectures by outside experts. Students choose specific shuttle systems for detailed analysis and develop new subsystem designs using state of the art technology.', 'https://www.youtube.com/playlist?list=PL35721A60B7B57386', 'https://ocw.mit.edu/courses/aeronautics-and-astronautics/16-885j-aircraft-systems-engineering-fall-2005/', 'https://img.youtube.com/vi/iiYhQtGpRhc/0.jpg');
 
 -- --------------------------------------------------------
 
@@ -183,7 +214,17 @@ INSERT INTO `pripadnost_kategoriji` (`idPripadnost_kategoriji`, `predavanje`, `k
 (9, 9, 5),
 (10, 10, 5),
 (11, 11, 12),
-(12, 12, 13);
+(12, 12, 13),
+(13, 13, 6),
+(14, 14, 7),
+(15, 15, 8),
+(16, 16, 8),
+(17, 17, 8),
+(18, 18, 8),
+(19, 19, 8),
+(20, 20, 15),
+(21, 21, 15),
+(22, 22, 15);
 
 -- --------------------------------------------------------
 
@@ -211,7 +252,11 @@ INSERT INTO `ustanove` (`idUstanove`, `naziv_ustanove`, `drzava`, `mjesto`, `sli
 (5, 'Yale University', 'USA', 'New Haven', NULL),
 (6, 'University of California, Berkeley', 'USA', 'Berkeley ', NULL),
 (7, '	University of Missouri–Kansas City', 'USA', 'Kansas City', NULL),
-(8, 'University of California, Los Angeles', 'USA', 'Los Angeles', NULL);
+(8, 'University of California, Los Angeles', 'USA', 'Los Angeles', NULL),
+(9, 'Harvard University', 'USA', 'Cambridge', NULL),
+(10, 'University of Toronto', 'Canada', 'Toronto', NULL),
+(11, 'Memorial University of Newfoundland', 'Canada', 'St. John\'s', NULL),
+(12, 'ETH Zürich', 'Switzerland', 'Zürich', NULL);
 
 -- --------------------------------------------------------
 
@@ -244,7 +289,17 @@ INSERT INTO `zaposlenje` (`idZaposlenje`, `ustanova`, `predavac`) VALUES
 (12, 3, 17),
 (13, 7, 18),
 (14, 3, 19),
-(15, 8, 20);
+(15, 8, 20),
+(16, 5, 21),
+(17, 3, 22),
+(18, 9, 23),
+(19, 10, 24),
+(20, 3, 25),
+(21, 11, 26),
+(22, 12, 27),
+(23, 5, 28),
+(24, 3, 29),
+(25, 3, 30);
 
 --
 -- Indexes for dumped tables
@@ -300,43 +355,43 @@ ALTER TABLE `zaposlenje`
 -- AUTO_INCREMENT for table `kategorije`
 --
 ALTER TABLE `kategorije`
-  MODIFY `idKategorije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `idKategorije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `lekcije`
 --
 ALTER TABLE `lekcije`
-  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `predavaci`
 --
 ALTER TABLE `predavaci`
-  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `predavanja`
 --
 ALTER TABLE `predavanja`
-  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `pripadnost_kategoriji`
 --
 ALTER TABLE `pripadnost_kategoriji`
-  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `ustanove`
 --
 ALTER TABLE `ustanove`
-  MODIFY `idUstanove` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idUstanove` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `zaposlenje`
 --
 ALTER TABLE `zaposlenje`
-  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
