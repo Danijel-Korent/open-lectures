@@ -3,14 +3,14 @@ require "../../backend/index.php"; ?>
 
 <div class="grid-x grid-margin-x">
   <div class="cell large-12 medium-12 small-12">
-    <h3>FOSS LECTURES</h3>
+    <h3>OTVORENA PREDAVNJA</h3>
   </div>
 </div>
 
 <div class="grid-x grid-margin-x">
   <div class="cell large-6 medium-6 small-8">
     <p>
-    Welcome to Knowledge base. Knowledge base is a project that aggregates open source lectures from different platforms in a video format. Our goal is to collect and provide easy access to open source lectures from every possible field of science and in that way help users in education.
+    Welcome to Open Lectures. Open Lectures is a project that aggregates open source lectures from different platforms in a video format. Our goal is to collect and provide easy access to open source lectures from every possible field of science and in that way help users in education.
     </p>
   </div>
 
@@ -25,12 +25,13 @@ require "../../backend/index.php"; ?>
   </div>
 </div>
 
+<!--
 <div class="grid-x grid-margin-x">
   <div class="cell large-12 medium-12 small-12" id="lectures">
     <p>Most popular lectures</p>
     </div>
 </div>
-
+-->
 
 <?php
 
