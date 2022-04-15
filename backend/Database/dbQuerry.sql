@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2022 at 09:20 PM
+-- Generation Time: Apr 15, 2022 at 08:47 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -92,7 +92,11 @@ INSERT INTO `lekcije` (`idLekcije`, `predavac`, `predavanja`) VALUES
 (20, 27, 19),
 (21, 28, 20),
 (22, 29, 21),
-(23, 30, 22);
+(23, 30, 22),
+(24, 31, 23),
+(25, 8, 24),
+(26, 32, 25),
+(27, 33, 26);
 
 -- --------------------------------------------------------
 
@@ -136,7 +140,10 @@ INSERT INTO `predavaci` (`idPredavac`, `ime`, `prezime`, `slika_predavaca`) VALU
 (27, 'Onur', 'Mutlu', NULL),
 (28, 'Robert', 'Wyman', NULL),
 (29, 'Rachel', 'Glennerster', NULL),
-(30, 'Jeffrey', 'Hoffman', NULL);
+(30, 'Jeffrey', 'Hoffman', NULL),
+(31, 'Barbara', 'Imperiali', NULL),
+(32, 'Stephen', 'C. Stearns', NULL),
+(33, 'Mark', 'Saltzman', NULL);
 
 -- --------------------------------------------------------
 
@@ -184,7 +191,11 @@ INSERT INTO `predavanja` (`idPredavanja`, `naziv_predavanja`, `jezik`, `godina`,
 (19, 'Digital Design and Computer Architecture', 'Engleski', '2020.', 38, 44, NULL, '	The class provides a first introduction to the design of digital circuits and computer architecture. It covers technical foundations of how a computing platform is designed from the bottom up. It introduces various execution paradigms, hardware description languages, and principles in digital design and computer architecture. The focus is on fundamental techniques employed in the design of modern microprocessors and their hardware/software interface.', 'https://www.youtube.com/playlist?list=PL5PHm2jkkXmhs4EACiFKvTPAQkdYMZKGu', 'https://safari.ethz.ch/digitaltechnik/spring2020/doku.php?id=schedule', 'https://img.youtube.com/vi/AJBmIaUneB0/0.jpg'),
 (20, 'Global Problems of Population Growth', 'Engleski', '2009.', 24, 27, '	MCDB 150', 'This survey course introduces students to the important and basic material on human fertility, population growth, the demographic transition and population policy. Topics include: the human and environmental dimensions of population pressure, demographic history, economic and cultural causes of demographic change, environmental carrying capacity and sustainability. Political, religious and ethical issues surrounding fertility are also addressed. The lectures and readings attempt to balance theoretical and demographic scale analyzes with studies of individual humans and communities. The perspective is global with both developed and developing countries included.', 'https://www.youtube.com/playlist?list=PLE60A08636F41C128', 'https://oyc.yale.edu/molecular-cellular-and-developmental-biology/mcdb-150', 'https://img.youtube.com/vi/mzdqyXtPbbE/0.jpg'),
 (21, 'Evaluating Social Programs', 'Engleski', '2009.', 8, 12, 'RES.14-001', 'This five-day program on evaluating social programs will provide a thorough understanding of randomized evaluations and pragmatic step-by-step training for conducting one\'s own evaluation. While the course focuses on randomized evaluations, many of the topics, such as measuring outcomes and dealing with threats to the validity of an evaluation, are relevant for other methodologies.', 'https://www.youtube.com/playlist?list=PLFDDC7E64FF1EE996', 'https://ocw.mit.edu/resources/res-14-001-abdul-latif-jameel-poverty-action-lab-executive-training-evaluating-social-programs-2009-spring-2009/', 'https://img.youtube.com/vi/Hz1S82W8F04/0.jpg'),
-(22, 'Aircraft Systems Engineering (study of Space Shuttle)', 'Engleski', '2005.', 23, 40, '16.885J / ESD.35J', '16.885J offers a holistic view of the aircraft as a system, covering: basic systems engineering; cost and weight estimation; basic aircraft performance; safety and reliability; lifecycle topics; aircraft subsystems; risk analysis and management; and system realization. Small student teams retrospectively analyze an existing aircraft covering: key design drivers and decisions; aircraft attributes and subsystems; and operational experience. Oral and written versions of the case study are delivered. For the Fall 2005 term, the class focuses on a systems engineering analysis of the Space Shuttle. It offers study of both design and operations of the shuttle, with frequent lectures by outside experts. Students choose specific shuttle systems for detailed analysis and develop new subsystem designs using state of the art technology.', 'https://www.youtube.com/playlist?list=PL35721A60B7B57386', 'https://ocw.mit.edu/courses/aeronautics-and-astronautics/16-885j-aircraft-systems-engineering-fall-2005/', 'https://img.youtube.com/vi/iiYhQtGpRhc/0.jpg');
+(22, 'Aircraft Systems Engineering (study of Space Shuttle)', 'Engleski', '2005.', 23, 40, '16.885J / ESD.35J', '16.885J offers a holistic view of the aircraft as a system, covering: basic systems engineering; cost and weight estimation; basic aircraft performance; safety and reliability; lifecycle topics; aircraft subsystems; risk analysis and management; and system realization. Small student teams retrospectively analyze an existing aircraft covering: key design drivers and decisions; aircraft attributes and subsystems; and operational experience. Oral and written versions of the case study are delivered. For the Fall 2005 term, the class focuses on a systems engineering analysis of the Space Shuttle. It offers study of both design and operations of the shuttle, with frequent lectures by outside experts. Students choose specific shuttle systems for detailed analysis and develop new subsystem designs using state of the art technology.', 'https://www.youtube.com/playlist?list=PL35721A60B7B57386', 'https://ocw.mit.edu/courses/aeronautics-and-astronautics/16-885j-aircraft-systems-engineering-fall-2005/', 'https://img.youtube.com/vi/iiYhQtGpRhc/0.jpg'),
+(23, 'Introductory Biology', 'Engleski', '2018.', 35, 28, 'MIT 7.016', 'Introductory Biology provides an introduction to fundamental principles of biochemistry, molecular biology and genetics for understanding the functions of living systems. Taught for the first time in Fall 2013, this course covers examples of the use of chemical biology and twenty-first-century molecular genetics in understanding human health and therapeutic intervention.', 'https://www.youtube.com/playlist?list=PLUl4u3cNGP63LmSVIVzy584-ZbjbJ-Y63', 'https://ocw.mit.edu/courses/biology/7-016-introductory-biology-fall-2018/', 'https://img.youtube.com/vi/KlVHqq38KJU/0.jpg'),
+(24, 'Virology', 'Engleski', '2011.', 26, 30, 'Biology W3310', 'The course will emphasize the common reactions that must be completed by all viruses for successful reproduction within a host cell and survival and spread within a host population. The molecular basis of alternative reproductive cycles, the interactions of viruses with host organisms, and how these lead to disease are presented with examples drawn from a set of representative animal and human viruses, although selected bacterial viruses will be discussed.', 'https://www.youtube.com/playlist?list=PLF03C29905EF9A6CA', NULL, 'https://img.youtube.com/vi/E0rpsjyo3C0/0.jpg'),
+(25, 'Principles of Evolution, Ecology and Behavior', 'Engleski', '2009.', 36, 27, 'EEB 122', 'This course presents the principles of evolution, ecology, and behavior for students beginning their study of biology and of the environment. It discusses major ideas and results in a manner accessible to all Yale College undergraduates. Recent advances have energized these fields with results that have implications well beyond their boundaries: ideas, mechanisms, and processes that should form part of the toolkit of all biologists and educated citizens.', 'https://www.youtube.com/playlist?list=PL6299F3195349CCDA', 'http://oyc.yale.edu/ecology-and-evolutionary-biology/eeb-122', 'https://img.youtube.com/vi/WJayMGhZxO0/0.jpg'),
+(26, 'Frontiers of Biomedical Engineering', 'Engleski', '2008.', 25, 20, 'BENG 100', 'The course covers basic concepts of biomedical engineering and their connection with the spectrum of human activity. It serves as an introduction to the fundamental science and engineering on which biomedical engineering is based. Case studies of drugs and medical products illustrate the product development-product testing cycle, patent protection, and FDA approval. It is designed for science and non-science majors.', 'https://www.youtube.com/playlist?list=PL27E877E8206F196B', 'http://oyc.yale.edu/biomedical-engineering/beng-100', 'https://img.youtube.com/vi/Sn0bOX5Hau4/0.jpg');
 
 -- --------------------------------------------------------
 
@@ -224,7 +235,11 @@ INSERT INTO `pripadnost_kategoriji` (`idPripadnost_kategoriji`, `predavanje`, `k
 (19, 19, 8),
 (20, 20, 15),
 (21, 21, 15),
-(22, 22, 15);
+(22, 22, 15),
+(23, 23, 1),
+(24, 24, 1),
+(25, 25, 1),
+(26, 26, 1);
 
 -- --------------------------------------------------------
 
@@ -299,7 +314,10 @@ INSERT INTO `zaposlenje` (`idZaposlenje`, `ustanova`, `predavac`) VALUES
 (22, 12, 27),
 (23, 5, 28),
 (24, 3, 29),
-(25, 3, 30);
+(25, 3, 30),
+(26, 3, 31),
+(27, 5, 32),
+(28, 5, 33);
 
 --
 -- Indexes for dumped tables
@@ -361,25 +379,25 @@ ALTER TABLE `kategorije`
 -- AUTO_INCREMENT for table `lekcije`
 --
 ALTER TABLE `lekcije`
-  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `predavaci`
 --
 ALTER TABLE `predavaci`
-  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `predavanja`
 --
 ALTER TABLE `predavanja`
-  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `pripadnost_kategoriji`
 --
 ALTER TABLE `pripadnost_kategoriji`
-  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `ustanove`
@@ -391,7 +409,7 @@ ALTER TABLE `ustanove`
 -- AUTO_INCREMENT for table `zaposlenje`
 --
 ALTER TABLE `zaposlenje`
-  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
