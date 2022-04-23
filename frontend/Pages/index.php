@@ -10,8 +10,11 @@ require "../../backend/index.php"; ?>
 <div class="grid-x grid-margin-x">
   <div class="cell large-6 medium-6 small-8">
     <p>
-    Welcome to Open Lectures. Open Lectures is a project that aggregates open source lectures from different platforms in a video format. Our goal is to collect and provide easy access to open source lectures from every possible field of science and in that way help users in education.
+    Dobrodošli! "Otvorena Predavanja" je projekt koji mapira i na jednom mjestu objedinjuje popis besplatnih sveučilišnih predavanja/kolegija koji su javno dostupni na platformi "Youtube". Cilj je napraviti interaktivnu verziju ovog popisa: <a style="color:blue;" href="https://hr.wikipedia.org/wiki/Popis_besplatnih_i_javno_dostupnih_sveu%C4%8Dili%C5%A1nih_video_predavanja">Popis besplatnih i javno dostupnih sveučilišnih video predavanja – Wikipedija</a>
     </p>
+	<p>
+	Do sada su mapirani kolegiji s više od 15 svjetski poznatih sveučilišta poput MIT, Yale, Harvard, Oxford, ETH Zürich, Stanford, Berkely, etc. Svaki kolegij u prosjeku sadrži 20-30 predavanja u trajanju od jednog školskog sata. Konačni cilj projekta je da interaktivna verzija ima dodatne mogućnosti naspram statične wiki stranice - poput ocjenjivanja, komentiranja, filtriranja po profesorima/sveučilištima i sl.
+	</p>
   </div>
 
   <div class="cell large-6 small-4">
