@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2022 at 12:57 PM
+-- Generation Time: Apr 26, 2022 at 06:45 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -105,7 +105,15 @@ INSERT INTO `lekcije` (`idLekcije`, `predavac`, `predavanja`) VALUES
 (33, 37, 32),
 (34, 38, 33),
 (35, 39, 34),
-(36, 40, 35);
+(36, 40, 35),
+(37, 41, 36),
+(38, 42, 37),
+(39, 43, 38),
+(40, 44, 39),
+(41, 45, 40),
+(42, 46, 41),
+(43, 47, 42),
+(44, 48, 43);
 
 -- --------------------------------------------------------
 
@@ -159,7 +167,15 @@ INSERT INTO `predavaci` (`idPredavac`, `ime`, `prezime`, `slika_predavaca`) VALU
 (37, 'Klaus-Jürgen', 'Bathe', NULL),
 (38, 'Michael', 'C. Cranston', NULL),
 (39, 'Elizabeth', 'Baue', NULL),
-(40, 'Brad', 'Osgood', NULL);
+(40, 'Brad', 'Osgood', NULL),
+(41, 'Esther', 'Duflo', NULL),
+(42, 'John', 'Geanakoplos', NULL),
+(43, 'Andrew', 'Lo', NULL),
+(44, 'Robert', 'Shiller', NULL),
+(45, 'Ben', 'Polak', NULL),
+(46, 'Nirupama', 'Rao', NULL),
+(47, 'Brian', 'Subirana', NULL),
+(48, 'Earll', 'Murman', NULL);
 
 -- --------------------------------------------------------
 
@@ -220,7 +236,15 @@ INSERT INTO `predavanja` (`idPredavanja`, `naziv_predavanja`, `jezik`, `godina`,
 (32, 'Nonlinear Finite Element Analysis', 'Engleski', '1986.', 22, 19, 'RES.2-002', 'In these videos, Professor K. J. Bathe, a researcher of world renown in the field of finite element analysis, builds upon the concepts developed in his previous video course on Linear Analysis. General nonlinear analysis techniques are presented by emphasizing physical concepts. The mathematical foundation of nonlinear finite element techniques is given in light of these physical requirements. A wide range of questions in engineering and the sciences can be addressed with these methods. Upon completion of the course, participants will be able to simulate and analyze problems such as: Large displacement collapse or buckling of structures, Progressive damage of structural components under high-temperature conditions, Stresses and strains of structures under severe earthquake loads, Accident conditions due to sudden overloads, Construction and repair of structures, Stability of underground openings', 'https://www.youtube.com/playlist?list=PL75C727EA9F6A0E8B', 'https://ocw.mit.edu/resources/res-2-002-finite-element-procedures-for-solids-and-structures-spring-2010/nonlinear/', 'https://img.youtube.com/vi/iOilZsS_cnM/0.jpg'),
 (33, 'Introduction to Probability and Statistics', 'Engleski', '2013.', 16, 25, '131A', '	Introductory course covering basic principles of probability and statistical inference. Axiomatic definition of probability, random variables, probability distributions, expectation.', 'https://www.youtube.com/playlist?list=PLqOZ6FD_RQ7l-ML8sMNFHx0CY7jyudZq2', 'https://ocw.uci.edu/courses/math_131a_introduction_to_probability_and_statistics.html', 'https://img.youtube.com/vi/BV7xnuJNkSQ/0.jpg'),
 (34, 'Statistics for the Behavioral Sciences', 'Engleski', NULL, 23, 24, 'PSYCH-UA 10', 'This applied math course provides students with the basic tools for evaluating data from studies in the behavioral sciences, particularly psychology. Students will gain familiarity with data description, variance and variability, significance tests, confident intervals, correlation and linear regression, analysis of variance, and other related topics. The goal is to learn the application of statistical reasoning to decision making. Current events are often used to illustrate these issues.', 'https://www.youtube.com/playlist?list=PL65EEC7C0F625F8DF', 'https://as.nyu.edu/content/nyu-as/as/departments/psychology/courses/statistics-for-the-behavioral-sciences.html', 'https://img.youtube.com/vi/CE1s5uydSiI/0.jpg'),
-(35, 'The Fourier Transforms and Its Applications', 'Engleski', '2007.', 30, 26, 'EE 261', 'The Fourier transform is a tool for solving physical problems. In this course the emphasis is on relating the theoretical principles to solving practical engineering and science problems.', 'https://www.youtube.com/playlist?list=PLB24BC7956EE040CD', 'https://see.stanford.edu/course/ee261', 'https://img.youtube.com/vi/zKEh9CxFpsM/0.jpg');
+(35, 'The Fourier Transforms and Its Applications', 'Engleski', '2007.', 30, 26, 'EE 261', 'The Fourier transform is a tool for solving physical problems. In this course the emphasis is on relating the theoretical principles to solving practical engineering and science problems.', 'https://www.youtube.com/playlist?list=PLB24BC7956EE040CD', 'https://see.stanford.edu/course/ee261', 'https://img.youtube.com/vi/zKEh9CxFpsM/0.jpg'),
+(36, 'The Challenge of World Poverty', 'Engleski', '2011.', 22, 25, '14.73', 'This is a course for those who are interested in the challenge posed by massive and persistent world poverty, and are hopeful that economists might have something useful to say about this challenge.', 'https://www.youtube.com/playlist?list=PLUl4u3cNGP620R91K4KP_fO4l3eeK5lDn', 'https://ocw.mit.edu/courses/economics/14-73-the-challenge-of-world-poverty-spring-2011/', 'https://img.youtube.com/vi/K2LvCx8H0OU/0.jpg'),
+(37, 'Financial Theory', 'Engleski', '2009.', 26, 26, 'ECON 251', 'This course attempts to explain the role and the importance of the financial system in the global economy. Rather than separating off the financial world from the rest of the economy, financial equilibrium is studied as an extension of economic equilibrium. The course also gives a picture of the kind of thinking and analysis done by hedge funds.', 'https://www.youtube.com/playlist?list=PLEDC55106E0BA18FC', 'https://oyc.yale.edu/economics/econ-251', 'https://img.youtube.com/vi/vTs2IQ8OefQ/0.jpg'),
+(38, 'Finance Theory I', 'Engleski', '2008.', 20, 25, '15.401', 'This course provides a rigorous introduction to the fundamentals of modern financial analysis and applications to business challenges in valuation, risk analysis, corporate investment decisions, and basic security analysis and investment management. The four major sections of the course are: (A) an introduction to the financial system, the financial challenges firms and households face, and the principles of modern finance in tackling these challenges; (B) valuation of stocks, bonds, forwards, futures, and options; (C) methods for incorporating risk analysis into valuation models, including portfolio theory, mean-variance optimization, and the Capital Asset Pricing Model; and (D) applications to corporate financial decisions, including capital budgeting and real options.', 'https://www.youtube.com/playlist?list=PLUl4u3cNGP63B2lDhyKOsImI7FjCf6eDW', 'https://ocw.mit.edu/courses/sloan-school-of-management/15-401-finance-theory-i-fall-2008/', 'https://img.youtube.com/vi/ZWKnK9LIETA/0.jpg'),
+(39, 'Financial Markets', 'Engleski', '2011.', 23, 28, 'ECON 252', 'An overview of the ideas, methods, and institutions that permit human society to manage risks and foster enterprise. Description of practices today and analysis of prospects for the future. Introduction to risk management and behavioral finance principles to understand the functioning of securities, insurance, and banking industries.', 'https://www.youtube.com/playlist?list=PL8FB14A2200B87185', 'https://oyc.yale.edu/economics/econ-252', 'https://img.youtube.com/vi/WQui_3Hpmmc/0.jpg'),
+(40, 'Game Theory', 'Engleski', '2007.', 24, 29, 'ECON 159', 'This course is an introduction to game theory and strategic thinking. Ideas such as dominance, backward induction, Nash equilibrium, evolutionary stability, commitment, credibility, asymmetric information, adverse selection, and signaling are discussed and applied to games played in class and to examples drawn from economics, politics, the movies, and elsewhere.', 'https://www.youtube.com/playlist?list=PL6EF60E1027E1A10B', 'https://oyc.yale.edu/economics/econ-159', 'https://img.youtube.com/vi/nM3rTU927io/0.jpg'),
+(41, 'Public Economics and Finance', 'Engleski', NULL, 13, 21, NULL, 'Public finance (also known as public economics) analyzes the impact of public policy on the allocation of resources and the distribution of income in the economy. In this course, you will learn how to use the tools of microeconomics and empirical analysis to analyze the economic effects of public expenditures and taxation.', 'https://www.youtube.com/playlist?list=PLPClF5HvrYnl5SiVFEdC07HvJY4ut_ZTc', 'https://www.openculture.com/public-economics-and-finance-a-free-online-course-from-nyu', 'https://img.youtube.com/vi/rto4Me9gSfk/0.jpg'),
+(42, 'Special Topics in Supply Chain Management', 'Engleski', '2005.', 16, 12, 'ESD.290', '	This subject presents a range of advanced topics in integrated logistics and supply chain management. The course was conducted in a lecture-discussion format, with participation of corporate executives as guest lecturers. Students prepare industry assessment analyses and make formal classroom presentations. Specific topics alternate from year to year, but basic content includes procurement strategies and strategic sourcing, dynamic pricing and revenue management tactics, mitigation of supply chain risk through supply contracts, strategic outsourcing of supply chain functions and operations, management and operation of third party logistics providers, and management of supply chain security.', 'https://www.youtube.com/playlist?list=PLF9071540F59BA1F0', 'https://ocw.mit.edu/courses/engineering-systems-division/esd-290-special-topics-in-supply-chain-management-spring-2005/', 'https://img.youtube.com/vi/IqmrNUoiy7g/0.jpg'),
+(43, 'Introduction to Lean Six Sigma Methods', 'Engleski', '2008.', 14, 9, '16.660', 'This course introduces the fundamental Lean Six Sigma principles that underlay modern continuous improvement approaches for industry, government and other organizations. Lean emerged from the Japanese automotive industry, particularly Toyota, and is focused on the creation of value through the relentless elimination of waste. Six Sigma is a quality system developed at Motorola which focuses on elimination of variation from all processes. The basic principles have been applied to a wide range of organizations and sectors to improve quality, productivity, customer satisfaction, employee satisfaction, time-to-market and financial performance.', 'https://www.youtube.com/playlist?list=PL8C6BE63DA137DD01', 'https://dspace.mit.edu/handle/1721.1/86011', 'https://img.youtube.com/vi/Swo3Lvw7ivg/0.jpg');
 
 -- --------------------------------------------------------
 
@@ -274,7 +298,15 @@ INSERT INTO `pripadnost_kategoriji` (`idPripadnost_kategoriji`, `predavanje`, `k
 (33, 33, 5),
 (34, 34, 5),
 (35, 34, 7),
-(36, 35, 5);
+(36, 35, 5),
+(37, 36, 9),
+(38, 37, 9),
+(39, 38, 9),
+(40, 39, 9),
+(41, 40, 9),
+(42, 41, 9),
+(43, 42, 9),
+(44, 43, 9);
 
 -- --------------------------------------------------------
 
@@ -361,7 +393,15 @@ INSERT INTO `zaposlenje` (`idZaposlenje`, `ustanova`, `predavac`) VALUES
 (32, 3, 37),
 (33, 13, 38),
 (34, 14, 39),
-(35, 2, 40);
+(35, 2, 40),
+(36, 3, 41),
+(37, 5, 42),
+(38, 3, 43),
+(39, 5, 44),
+(40, 5, 45),
+(41, 14, 46),
+(42, 3, 47),
+(43, 3, 48);
 
 --
 -- Indexes for dumped tables
@@ -423,25 +463,25 @@ ALTER TABLE `kategorije`
 -- AUTO_INCREMENT for table `lekcije`
 --
 ALTER TABLE `lekcije`
-  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `predavaci`
 --
 ALTER TABLE `predavaci`
-  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `predavanja`
 --
 ALTER TABLE `predavanja`
-  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `pripadnost_kategoriji`
 --
 ALTER TABLE `pripadnost_kategoriji`
-  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `ustanove`
@@ -453,7 +493,7 @@ ALTER TABLE `ustanove`
 -- AUTO_INCREMENT for table `zaposlenje`
 --
 ALTER TABLE `zaposlenje`
-  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
