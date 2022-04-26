@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2022 at 08:47 PM
+-- Generation Time: Apr 26, 2022 at 12:57 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -96,7 +96,16 @@ INSERT INTO `lekcije` (`idLekcije`, `predavac`, `predavanja`) VALUES
 (24, 31, 23),
 (25, 8, 24),
 (26, 32, 25),
-(27, 33, 26);
+(27, 33, 26),
+(28, 34, 27),
+(29, 35, 28),
+(30, 36, 29),
+(31, 36, 30),
+(32, 37, 31),
+(33, 37, 32),
+(34, 38, 33),
+(35, 39, 34),
+(36, 40, 35);
 
 -- --------------------------------------------------------
 
@@ -143,7 +152,14 @@ INSERT INTO `predavaci` (`idPredavac`, `ime`, `prezime`, `slika_predavaca`) VALU
 (30, 'Jeffrey', 'Hoffman', NULL),
 (31, 'Barbara', 'Imperiali', NULL),
 (32, 'Stephen', 'C. Stearns', NULL),
-(33, 'Mark', 'Saltzman', NULL);
+(33, 'Mark', 'Saltzman', NULL),
+(34, 'Denis', 'Auroux', NULL),
+(35, 'Arthur', 'Mattuck', NULL),
+(36, 'Gilbert', 'Strang', NULL),
+(37, 'Klaus-Jürgen', 'Bathe', NULL),
+(38, 'Michael', 'C. Cranston', NULL),
+(39, 'Elizabeth', 'Baue', NULL),
+(40, 'Brad', 'Osgood', NULL);
 
 -- --------------------------------------------------------
 
@@ -195,7 +211,16 @@ INSERT INTO `predavanja` (`idPredavanja`, `naziv_predavanja`, `jezik`, `godina`,
 (23, 'Introductory Biology', 'Engleski', '2018.', 35, 28, 'MIT 7.016', 'Introductory Biology provides an introduction to fundamental principles of biochemistry, molecular biology and genetics for understanding the functions of living systems. Taught for the first time in Fall 2013, this course covers examples of the use of chemical biology and twenty-first-century molecular genetics in understanding human health and therapeutic intervention.', 'https://www.youtube.com/playlist?list=PLUl4u3cNGP63LmSVIVzy584-ZbjbJ-Y63', 'https://ocw.mit.edu/courses/biology/7-016-introductory-biology-fall-2018/', 'https://img.youtube.com/vi/KlVHqq38KJU/0.jpg'),
 (24, 'Virology', 'Engleski', '2011.', 26, 30, 'Biology W3310', 'The course will emphasize the common reactions that must be completed by all viruses for successful reproduction within a host cell and survival and spread within a host population. The molecular basis of alternative reproductive cycles, the interactions of viruses with host organisms, and how these lead to disease are presented with examples drawn from a set of representative animal and human viruses, although selected bacterial viruses will be discussed.', 'https://www.youtube.com/playlist?list=PLF03C29905EF9A6CA', NULL, 'https://img.youtube.com/vi/E0rpsjyo3C0/0.jpg'),
 (25, 'Principles of Evolution, Ecology and Behavior', 'Engleski', '2009.', 36, 27, 'EEB 122', 'This course presents the principles of evolution, ecology, and behavior for students beginning their study of biology and of the environment. It discusses major ideas and results in a manner accessible to all Yale College undergraduates. Recent advances have energized these fields with results that have implications well beyond their boundaries: ideas, mechanisms, and processes that should form part of the toolkit of all biologists and educated citizens.', 'https://www.youtube.com/playlist?list=PL6299F3195349CCDA', 'http://oyc.yale.edu/ecology-and-evolutionary-biology/eeb-122', 'https://img.youtube.com/vi/WJayMGhZxO0/0.jpg'),
-(26, 'Frontiers of Biomedical Engineering', 'Engleski', '2008.', 25, 20, 'BENG 100', 'The course covers basic concepts of biomedical engineering and their connection with the spectrum of human activity. It serves as an introduction to the fundamental science and engineering on which biomedical engineering is based. Case studies of drugs and medical products illustrate the product development-product testing cycle, patent protection, and FDA approval. It is designed for science and non-science majors.', 'https://www.youtube.com/playlist?list=PL27E877E8206F196B', 'http://oyc.yale.edu/biomedical-engineering/beng-100', 'https://img.youtube.com/vi/Sn0bOX5Hau4/0.jpg');
+(26, 'Frontiers of Biomedical Engineering', 'Engleski', '2008.', 25, 20, 'BENG 100', 'The course covers basic concepts of biomedical engineering and their connection with the spectrum of human activity. It serves as an introduction to the fundamental science and engineering on which biomedical engineering is based. Case studies of drugs and medical products illustrate the product development-product testing cycle, patent protection, and FDA approval. It is designed for science and non-science majors.', 'https://www.youtube.com/playlist?list=PL27E877E8206F196B', 'http://oyc.yale.edu/biomedical-engineering/beng-100', 'https://img.youtube.com/vi/Sn0bOX5Hau4/0.jpg'),
+(27, 'Multivariable Calculus', 'Engleski', '2007.', 35, 28, '18.02', '	This course covers vector and multi-variable calculus. It is the second semester in the freshman calculus sequence. Topics include vectors and matrices, partial derivatives, double and triple integrals, and vector calculus in 2 and 3-space.', 'https://www.youtube.com/playlist?list=PL4C4C8A7D06566F38', 'https://ocw.mit.edu/courses/mathematics/18-02-multivariable-calculus-fall-2007/', 'https://img.youtube.com/vi/PxCxlsl_YwY/0.jpg'),
+(28, 'Differential Equations', 'Engleski', '2011.', 32, 31, '18.03SC', 'Differential equations are the language in which the laws of nature are expressed. Understanding properties of solutions of differential equations is fundamental to much of contemporary science and engineering. Ordinary differential equations (ODE\'s) deal with functions of one variable, which can often be thought of as time.', 'https://www.youtube.com/playlist?list=PL64BDFBDA2AF24F7E', 'https://ocw.mit.edu/courses/mathematics/18-03sc-differential-equations-fall-2011/', 'https://img.youtube.com/vi/jOBBwI4CYjM/0.jpg'),
+(29, 'Mathematical Methods for Engineers I / Computational Science', 'Engleski', '2008.', 50, 42, '18.085', 'This course provides a review of linear algebra, including applications to networks, structures, and estimation, Lagrange multipliers. Also covered are: differential equations of equilibrium; Laplace\'s equation and potential flow; boundary-value problems; minimum principles and calculus of variations; Fourier series; discrete Fourier transform; convolution; and applications.\r\nNote: This course was previously called \"Mathematical Methods for Engineers I.', 'https://www.youtube.com/playlist?list=PLF706B428FB7BD52C', 'https://ocw.mit.edu/courses/mathematics/18-085-computational-science-and-engineering-i-fall-2008/', 'https://img.youtube.com/vi/0BAMQmT-tf0/0.jpg'),
+(30, 'Mathematical Methods for Engineers II', 'Engleski', '2006.', 29, 25, '18.086', 'This graduate-level course is a continuation of Mathematical Methods for Engineers I (18.085). Topics include numerical methods; initial-value problems; network flows; and optimization.', 'https://www.youtube.com/playlist?list=PL3A13781649466805', 'https://ocw.mit.edu/courses/mathematics/18-086-mathematical-methods-for-engineers-ii-spring-2006/', 'https://img.youtube.com/vi/zha1744fTRs/0.jpg'),
+(31, 'Linear Finite Element Analysis', 'Engleski', '1982.', 12, 11, 'RES.2-002', 'This video series is a comprehensive course of study that presents effective finite element procedures for the linear analysis of solids and structures. The finite element method is the ideal tool for solving static and dynamic problems in engineering and the sciences. Linear analysis assumes linear elastic behavior and infinitesimally small displacements and strains. To establish appropriate models for analysis, it is necessary to become familiar with the finite element methods available.', 'https://www.youtube.com/playlist?list=PLD4017FC423EC3EB5', 'https://ocw.mit.edu/resources/res-2-002-finite-element-procedures-for-solids-and-structures-spring-2010/', 'https://img.youtube.com/vi/oNqSzzycRhw/0.jpg'),
+(32, 'Nonlinear Finite Element Analysis', 'Engleski', '1986.', 22, 19, 'RES.2-002', 'In these videos, Professor K. J. Bathe, a researcher of world renown in the field of finite element analysis, builds upon the concepts developed in his previous video course on Linear Analysis. General nonlinear analysis techniques are presented by emphasizing physical concepts. The mathematical foundation of nonlinear finite element techniques is given in light of these physical requirements. A wide range of questions in engineering and the sciences can be addressed with these methods. Upon completion of the course, participants will be able to simulate and analyze problems such as: Large displacement collapse or buckling of structures, Progressive damage of structural components under high-temperature conditions, Stresses and strains of structures under severe earthquake loads, Accident conditions due to sudden overloads, Construction and repair of structures, Stability of underground openings', 'https://www.youtube.com/playlist?list=PL75C727EA9F6A0E8B', 'https://ocw.mit.edu/resources/res-2-002-finite-element-procedures-for-solids-and-structures-spring-2010/nonlinear/', 'https://img.youtube.com/vi/iOilZsS_cnM/0.jpg'),
+(33, 'Introduction to Probability and Statistics', 'Engleski', '2013.', 16, 25, '131A', '	Introductory course covering basic principles of probability and statistical inference. Axiomatic definition of probability, random variables, probability distributions, expectation.', 'https://www.youtube.com/playlist?list=PLqOZ6FD_RQ7l-ML8sMNFHx0CY7jyudZq2', 'https://ocw.uci.edu/courses/math_131a_introduction_to_probability_and_statistics.html', 'https://img.youtube.com/vi/BV7xnuJNkSQ/0.jpg'),
+(34, 'Statistics for the Behavioral Sciences', 'Engleski', NULL, 23, 24, 'PSYCH-UA 10', 'This applied math course provides students with the basic tools for evaluating data from studies in the behavioral sciences, particularly psychology. Students will gain familiarity with data description, variance and variability, significance tests, confident intervals, correlation and linear regression, analysis of variance, and other related topics. The goal is to learn the application of statistical reasoning to decision making. Current events are often used to illustrate these issues.', 'https://www.youtube.com/playlist?list=PL65EEC7C0F625F8DF', 'https://as.nyu.edu/content/nyu-as/as/departments/psychology/courses/statistics-for-the-behavioral-sciences.html', 'https://img.youtube.com/vi/CE1s5uydSiI/0.jpg'),
+(35, 'The Fourier Transforms and Its Applications', 'Engleski', '2007.', 30, 26, 'EE 261', 'The Fourier transform is a tool for solving physical problems. In this course the emphasis is on relating the theoretical principles to solving practical engineering and science problems.', 'https://www.youtube.com/playlist?list=PLB24BC7956EE040CD', 'https://see.stanford.edu/course/ee261', 'https://img.youtube.com/vi/zKEh9CxFpsM/0.jpg');
 
 -- --------------------------------------------------------
 
@@ -239,7 +264,17 @@ INSERT INTO `pripadnost_kategoriji` (`idPripadnost_kategoriji`, `predavanje`, `k
 (23, 23, 1),
 (24, 24, 1),
 (25, 25, 1),
-(26, 26, 1);
+(26, 26, 1),
+(27, 27, 5),
+(28, 28, 5),
+(29, 29, 5),
+(30, 30, 5),
+(31, 31, 5),
+(32, 32, 5),
+(33, 33, 5),
+(34, 34, 5),
+(35, 34, 7),
+(36, 35, 5);
 
 -- --------------------------------------------------------
 
@@ -271,7 +306,9 @@ INSERT INTO `ustanove` (`idUstanove`, `naziv_ustanove`, `drzava`, `mjesto`, `sli
 (9, 'Harvard University', 'USA', 'Cambridge', NULL),
 (10, 'University of Toronto', 'Canada', 'Toronto', NULL),
 (11, 'Memorial University of Newfoundland', 'Canada', 'St. John\'s', NULL),
-(12, 'ETH Zürich', 'Switzerland', 'Zürich', NULL);
+(12, 'ETH Zürich', 'Switzerland', 'Zürich', NULL),
+(13, 'University of California, Irvine', 'USA', 'Irvine', NULL),
+(14, 'New York University', 'USA', 'New York City', NULL);
 
 -- --------------------------------------------------------
 
@@ -317,7 +354,14 @@ INSERT INTO `zaposlenje` (`idZaposlenje`, `ustanova`, `predavac`) VALUES
 (25, 3, 30),
 (26, 3, 31),
 (27, 5, 32),
-(28, 5, 33);
+(28, 5, 33),
+(29, 3, 34),
+(30, 3, 35),
+(31, 3, 36),
+(32, 3, 37),
+(33, 13, 38),
+(34, 14, 39),
+(35, 2, 40);
 
 --
 -- Indexes for dumped tables
@@ -379,37 +423,37 @@ ALTER TABLE `kategorije`
 -- AUTO_INCREMENT for table `lekcije`
 --
 ALTER TABLE `lekcije`
-  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `predavaci`
 --
 ALTER TABLE `predavaci`
-  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `predavanja`
 --
 ALTER TABLE `predavanja`
-  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `pripadnost_kategoriji`
 --
 ALTER TABLE `pripadnost_kategoriji`
-  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `ustanove`
 --
 ALTER TABLE `ustanove`
-  MODIFY `idUstanove` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idUstanove` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `zaposlenje`
 --
 ALTER TABLE `zaposlenje`
-  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
