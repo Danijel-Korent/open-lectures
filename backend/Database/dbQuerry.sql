@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2022 at 08:43 AM
+-- Generation Time: Apr 28, 2022 at 08:53 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -117,7 +117,12 @@ INSERT INTO `lekcije` (`idLekcije`, `predavac`, `predavanja`) VALUES
 (45, 49, 44),
 (46, 50, 45),
 (47, 51, 46),
-(48, 52, 47);
+(48, 52, 47),
+(49, 53, 48),
+(50, 53, 49),
+(51, 54, 50),
+(52, 55, 51),
+(53, 56, 52);
 
 -- --------------------------------------------------------
 
@@ -183,7 +188,11 @@ INSERT INTO `predavaci` (`idPredavac`, `ime`, `prezime`, `slika_predavaca`) VALU
 (49, 'Paul', 'Bloom', NULL),
 (50, '	Ceasar', 'McDowell', NULL),
 (51, 'Benjamin', 'Karney', NULL),
-(52, '	Kelly', 'D. Brownell', NULL);
+(52, '	Kelly', 'D. Brownell', NULL),
+(53, 'Michael', 'J. McBride', NULL),
+(54, 'Robert', 'Field', NULL),
+(55, 'Donald', 'Sadoway', NULL),
+(56, 'Keith', 'A. Nelson', NULL);
 
 -- --------------------------------------------------------
 
@@ -256,7 +265,12 @@ INSERT INTO `predavanja` (`idPredavanja`, `naziv_predavanja`, `jezik`, `godina`,
 (44, 'Introduction to Psychology', 'Engleski', '2007.', 20, 18, '	PSYC 110', 'What do your dreams mean? Do men and women differ in the nature and intensity of their sexual desires? Can apes learn sign language? Why cant we tickle ourselves? This course tries to answer these questions and many others, providing a comprehensive overview of the scientific study of thought and behavior. It explores topics such as perception, communication, learning, memory, decision-making, religion, persuasion, love, lust, hunger, art, fiction, and dreams. We will look at how these aspects of the mind develop in children, how they differ across people, how they are wired-up in the brain, and how they break down due to illness and injury.', 'https://www.youtube.com/playlist?list=PL6A08EB4EEFF3E91F', 'https://oyc.yale.edu/introduction-psychology/psyc-110', 'https://img.youtube.com/vi/7emS3ye3cVU/0.jpg'),
 (45, 'Reflective Practice: An Approach for Expanding Your Learning', 'Engleski', '2007.', 10, 24, NULL, '	The course is an introduction to the approach of Reflective Practice developed by Donald Schön. It is an approach that enables professionals to understand how they use their knowledge in practical situations and how they can combine practice and learning in a more effective way. Through greater awareness of how they deploy their knowledge in practical situations, professionals can increase their capacities of learning in a more timely way. Understanding how they frame situations and ideas helps professionals to achieve greater flexibility and increase their capacity of conceptual innovation.', 'https://www.youtube.com/playlist?list=PL773D0AF1A86E4E58', 'https://ocw.mit.edu/courses/urban-studies-and-planning/11-965-reflective-practice-an-approach-for-expanding-your-learning-frontiers-january-iap-2007/', 'https://img.youtube.com/vi/yffHXdEQO08/0.jpg'),
 (46, 'Families and Couples: Psychology', 'Engleski', '2009.', 18, 20, 'M176', 'Professor Benjamin Karney lectures on families and couples. This course examines relationships and their connection to individual psychopathology, marital discord, and family disruption.', 'https://www.youtube.com/playlist?list=PLA1DA9D11E15C116D', NULL, 'https://img.youtube.com/vi/2OUocz6SdtQ/0.jpg'),
-(47, 'The Psychology, Biology and Politics of Food', 'Engleski', '2008.', 20, 20, 'PSYC 123', 'This course encompasses the study of eating as it affects the health and well-being of every human. Topics include taste preferences, food aversions, the regulation of hunger and satiety, food as comfort and friendship, eating as social ritual, and social norms of blame for food problems. The politics of food discusses issues such as sustainable agriculture, organic farming, genetically modified foods, nutrition policy, and the influence of food and agriculture industries. Also examined are problems such as malnutrition, eating disorders, and the global obesity epidemic; the impact of food advertising aimed at children; poverty and food; and how each individual’s eating is affected by the modern environment.', 'https://oyc.yale.edu/psychology/psyc-123', 'https://oyc.yale.edu/psychology/psyc-123/lecture-1', 'https://oyc.yale.edu/sites/default/files/brownell_4.jpg');
+(47, 'The Psychology, Biology and Politics of Food', 'Engleski', '2008.', 20, 20, 'PSYC 123', 'This course encompasses the study of eating as it affects the health and well-being of every human. Topics include taste preferences, food aversions, the regulation of hunger and satiety, food as comfort and friendship, eating as social ritual, and social norms of blame for food problems. The politics of food discusses issues such as sustainable agriculture, organic farming, genetically modified foods, nutrition policy, and the influence of food and agriculture industries. Also examined are problems such as malnutrition, eating disorders, and the global obesity epidemic; the impact of food advertising aimed at children; poverty and food; and how each individual’s eating is affected by the modern environment.', 'https://oyc.yale.edu/psychology/psyc-123', 'https://oyc.yale.edu/psychology/psyc-123/lecture-1', 'https://oyc.yale.edu/sites/default/files/brownell_4.jpg'),
+(48, 'Freshman Organic Chemistry I', 'Engleski', '2008.', 37, 30, 'CHEM 125a', 'This is the first semester in a two-semester introductory course focused on current theories of structure and mechanism in organic chemistry, their historical development, and their basis in experimental observation. The course is open to freshmen with excellent preparation in chemistry and physics, and it aims to develop both taste for original science and intellectual skills necessary for creative research.', 'https://www.youtube.com/playlist?list=PL3F629F73640F831D', 'https://oyc.yale.edu/chemistry/chem-125a', 'https://img.youtube.com/vi/mxMjroKqz_Y/0.jpg'),
+(49, 'Freshman Organic Chemistry II', 'Engleski', '2011.', 38, 31, 'CHEM 125b', 'This is a continuation of Freshman Organic Chemistry I (CHEM 125a), the introductory course on current theories of structure and mechanism in organic chemistry for students with excellent preparation in chemistry and physics. This semester treats simple and complex reaction mechanisms, spectroscopy, organic synthesis, and some molecules of nature.', 'https://www.youtube.com/playlist?list=PLB572BA3ED0F700F1', 'https://oyc.yale.edu/chemistry/chem-125b', 'https://img.youtube.com/vi/5sLb4DS0LM8/0.jpg'),
+(50, 'Small-Molecule Spectroscopy and Dynamics', 'Engleski', '2008.', 38, 34, '5.80', '	The goal of this course is to illustrate the spectroscopy of small molecules in the gas phase: quantum mechanical effective Hamiltonian models for rotational, vibrational, and electronic structure; transition selection rules and relative intensities; diagnostic patterns and experimental methods for the assignment of non-textbook spectra; breakdown of the Born-Oppenheimer approximation (spectroscopic perturbations); the stationary phase approximation; nondegenerate and quasidegenerate perturbation theory (van Vleck transformation); qualitative molecular orbital theory (Walsh diagrams); the notation of atomic and molecular spectroscopy.', 'https://www.youtube.com/playlist?list=PL683876BE6097A1C2', 'https://ocw.mit.edu/courses/chemistry/5-80-small-molecule-spectroscopy-and-dynamics-fall-2008/', 'https://img.youtube.com/vi/PjpLw1iqr4E/0.jpg'),
+(51, 'Introduction to Solid State Chemistry', 'Engleski', '2010.', 61, 35, '3.091SC', 'Introduction to Solid State Chemistry is a first-year single-semester college course on the principles of chemistry. This unique and popular course satisfies MIT\'s general chemistry degree requirement, with an emphasis on solid-state materials and their application to engineering systems.', 'https://www.youtube.com/playlist?list=PL36EC6A6180271B0F', 'https://ocw.mit.edu/courses/materials-science-and-engineering/3-091sc-introduction-to-solid-state-chemistry-fall-2010/', 'https://img.youtube.com/vi/fFg4uXMpnV0/0.jpg'),
+(52, 'Thermodynamics & Kinetics in Chemistry', 'Engleski', '2008.', 36, 30, '	5.60', 'This subject deals primarily with equilibrium properties of macroscopic systems, basic thermodynamics, chemical equilibrium of reactions in gas and solution phase, and rates of chemical reactions.', 'https://www.youtube.com/playlist?list=PLA62087102CC93765', 'https://ocw.mit.edu/courses/chemistry/5-60-thermodynamics-kinetics-spring-2008/', 'https://img.youtube.com/vi/kLqduWF6GXE/0.jpg');
 
 -- --------------------------------------------------------
 
@@ -322,7 +336,12 @@ INSERT INTO `pripadnost_kategoriji` (`idPripadnost_kategoriji`, `predavanje`, `k
 (45, 44, 7),
 (46, 45, 7),
 (47, 46, 7),
-(48, 47, 7);
+(48, 47, 7),
+(49, 48, 2),
+(50, 49, 2),
+(51, 50, 2),
+(52, 51, 2),
+(53, 52, 2);
 
 -- --------------------------------------------------------
 
@@ -421,7 +440,11 @@ INSERT INTO `zaposlenje` (`idZaposlenje`, `ustanova`, `predavac`) VALUES
 (44, 5, 49),
 (45, 3, 50),
 (46, 8, 51),
-(47, 5, 52);
+(47, 5, 52),
+(48, 5, 53),
+(49, 3, 54),
+(50, 3, 55),
+(51, 3, 56);
 
 --
 -- Indexes for dumped tables
@@ -483,25 +506,25 @@ ALTER TABLE `kategorije`
 -- AUTO_INCREMENT for table `lekcije`
 --
 ALTER TABLE `lekcije`
-  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `predavaci`
 --
 ALTER TABLE `predavaci`
-  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `predavanja`
 --
 ALTER TABLE `predavanja`
-  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `pripadnost_kategoriji`
 --
 ALTER TABLE `pripadnost_kategoriji`
-  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `ustanove`
@@ -513,7 +536,7 @@ ALTER TABLE `ustanove`
 -- AUTO_INCREMENT for table `zaposlenje`
 --
 ALTER TABLE `zaposlenje`
-  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
