@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2022 at 06:45 PM
+-- Generation Time: Apr 28, 2022 at 08:43 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -113,7 +113,11 @@ INSERT INTO `lekcije` (`idLekcije`, `predavac`, `predavanja`) VALUES
 (41, 45, 40),
 (42, 46, 41),
 (43, 47, 42),
-(44, 48, 43);
+(44, 48, 43),
+(45, 49, 44),
+(46, 50, 45),
+(47, 51, 46),
+(48, 52, 47);
 
 -- --------------------------------------------------------
 
@@ -175,7 +179,11 @@ INSERT INTO `predavaci` (`idPredavac`, `ime`, `prezime`, `slika_predavaca`) VALU
 (45, 'Ben', 'Polak', NULL),
 (46, 'Nirupama', 'Rao', NULL),
 (47, 'Brian', 'Subirana', NULL),
-(48, 'Earll', 'Murman', NULL);
+(48, 'Earll', 'Murman', NULL),
+(49, 'Paul', 'Bloom', NULL),
+(50, '	Ceasar', 'McDowell', NULL),
+(51, 'Benjamin', 'Karney', NULL),
+(52, '	Kelly', 'D. Brownell', NULL);
 
 -- --------------------------------------------------------
 
@@ -244,7 +252,11 @@ INSERT INTO `predavanja` (`idPredavanja`, `naziv_predavanja`, `jezik`, `godina`,
 (40, 'Game Theory', 'Engleski', '2007.', 24, 29, 'ECON 159', 'This course is an introduction to game theory and strategic thinking. Ideas such as dominance, backward induction, Nash equilibrium, evolutionary stability, commitment, credibility, asymmetric information, adverse selection, and signaling are discussed and applied to games played in class and to examples drawn from economics, politics, the movies, and elsewhere.', 'https://www.youtube.com/playlist?list=PL6EF60E1027E1A10B', 'https://oyc.yale.edu/economics/econ-159', 'https://img.youtube.com/vi/nM3rTU927io/0.jpg'),
 (41, 'Public Economics and Finance', 'Engleski', NULL, 13, 21, NULL, 'Public finance (also known as public economics) analyzes the impact of public policy on the allocation of resources and the distribution of income in the economy. In this course, you will learn how to use the tools of microeconomics and empirical analysis to analyze the economic effects of public expenditures and taxation.', 'https://www.youtube.com/playlist?list=PLPClF5HvrYnl5SiVFEdC07HvJY4ut_ZTc', 'https://www.openculture.com/public-economics-and-finance-a-free-online-course-from-nyu', 'https://img.youtube.com/vi/rto4Me9gSfk/0.jpg'),
 (42, 'Special Topics in Supply Chain Management', 'Engleski', '2005.', 16, 12, 'ESD.290', '	This subject presents a range of advanced topics in integrated logistics and supply chain management. The course was conducted in a lecture-discussion format, with participation of corporate executives as guest lecturers. Students prepare industry assessment analyses and make formal classroom presentations. Specific topics alternate from year to year, but basic content includes procurement strategies and strategic sourcing, dynamic pricing and revenue management tactics, mitigation of supply chain risk through supply contracts, strategic outsourcing of supply chain functions and operations, management and operation of third party logistics providers, and management of supply chain security.', 'https://www.youtube.com/playlist?list=PLF9071540F59BA1F0', 'https://ocw.mit.edu/courses/engineering-systems-division/esd-290-special-topics-in-supply-chain-management-spring-2005/', 'https://img.youtube.com/vi/IqmrNUoiy7g/0.jpg'),
-(43, 'Introduction to Lean Six Sigma Methods', 'Engleski', '2008.', 14, 9, '16.660', 'This course introduces the fundamental Lean Six Sigma principles that underlay modern continuous improvement approaches for industry, government and other organizations. Lean emerged from the Japanese automotive industry, particularly Toyota, and is focused on the creation of value through the relentless elimination of waste. Six Sigma is a quality system developed at Motorola which focuses on elimination of variation from all processes. The basic principles have been applied to a wide range of organizations and sectors to improve quality, productivity, customer satisfaction, employee satisfaction, time-to-market and financial performance.', 'https://www.youtube.com/playlist?list=PL8C6BE63DA137DD01', 'https://dspace.mit.edu/handle/1721.1/86011', 'https://img.youtube.com/vi/Swo3Lvw7ivg/0.jpg');
+(43, 'Introduction to Lean Six Sigma Methods', 'Engleski', '2008.', 14, 9, '16.660', 'This course introduces the fundamental Lean Six Sigma principles that underlay modern continuous improvement approaches for industry, government and other organizations. Lean emerged from the Japanese automotive industry, particularly Toyota, and is focused on the creation of value through the relentless elimination of waste. Six Sigma is a quality system developed at Motorola which focuses on elimination of variation from all processes. The basic principles have been applied to a wide range of organizations and sectors to improve quality, productivity, customer satisfaction, employee satisfaction, time-to-market and financial performance.', 'https://www.youtube.com/playlist?list=PL8C6BE63DA137DD01', 'https://dspace.mit.edu/handle/1721.1/86011', 'https://img.youtube.com/vi/Swo3Lvw7ivg/0.jpg'),
+(44, 'Introduction to Psychology', 'Engleski', '2007.', 20, 18, '	PSYC 110', 'What do your dreams mean? Do men and women differ in the nature and intensity of their sexual desires? Can apes learn sign language? Why cant we tickle ourselves? This course tries to answer these questions and many others, providing a comprehensive overview of the scientific study of thought and behavior. It explores topics such as perception, communication, learning, memory, decision-making, religion, persuasion, love, lust, hunger, art, fiction, and dreams. We will look at how these aspects of the mind develop in children, how they differ across people, how they are wired-up in the brain, and how they break down due to illness and injury.', 'https://www.youtube.com/playlist?list=PL6A08EB4EEFF3E91F', 'https://oyc.yale.edu/introduction-psychology/psyc-110', 'https://img.youtube.com/vi/7emS3ye3cVU/0.jpg'),
+(45, 'Reflective Practice: An Approach for Expanding Your Learning', 'Engleski', '2007.', 10, 24, NULL, '	The course is an introduction to the approach of Reflective Practice developed by Donald Schön. It is an approach that enables professionals to understand how they use their knowledge in practical situations and how they can combine practice and learning in a more effective way. Through greater awareness of how they deploy their knowledge in practical situations, professionals can increase their capacities of learning in a more timely way. Understanding how they frame situations and ideas helps professionals to achieve greater flexibility and increase their capacity of conceptual innovation.', 'https://www.youtube.com/playlist?list=PL773D0AF1A86E4E58', 'https://ocw.mit.edu/courses/urban-studies-and-planning/11-965-reflective-practice-an-approach-for-expanding-your-learning-frontiers-january-iap-2007/', 'https://img.youtube.com/vi/yffHXdEQO08/0.jpg'),
+(46, 'Families and Couples: Psychology', 'Engleski', '2009.', 18, 20, 'M176', 'Professor Benjamin Karney lectures on families and couples. This course examines relationships and their connection to individual psychopathology, marital discord, and family disruption.', 'https://www.youtube.com/playlist?list=PLA1DA9D11E15C116D', NULL, 'https://img.youtube.com/vi/2OUocz6SdtQ/0.jpg'),
+(47, 'The Psychology, Biology and Politics of Food', 'Engleski', '2008.', 20, 20, 'PSYC 123', 'This course encompasses the study of eating as it affects the health and well-being of every human. Topics include taste preferences, food aversions, the regulation of hunger and satiety, food as comfort and friendship, eating as social ritual, and social norms of blame for food problems. The politics of food discusses issues such as sustainable agriculture, organic farming, genetically modified foods, nutrition policy, and the influence of food and agriculture industries. Also examined are problems such as malnutrition, eating disorders, and the global obesity epidemic; the impact of food advertising aimed at children; poverty and food; and how each individual’s eating is affected by the modern environment.', 'https://oyc.yale.edu/psychology/psyc-123', 'https://oyc.yale.edu/psychology/psyc-123/lecture-1', 'https://oyc.yale.edu/sites/default/files/brownell_4.jpg');
 
 -- --------------------------------------------------------
 
@@ -306,7 +318,11 @@ INSERT INTO `pripadnost_kategoriji` (`idPripadnost_kategoriji`, `predavanje`, `k
 (41, 40, 9),
 (42, 41, 9),
 (43, 42, 9),
-(44, 43, 9);
+(44, 43, 9),
+(45, 44, 7),
+(46, 45, 7),
+(47, 46, 7),
+(48, 47, 7);
 
 -- --------------------------------------------------------
 
@@ -401,7 +417,11 @@ INSERT INTO `zaposlenje` (`idZaposlenje`, `ustanova`, `predavac`) VALUES
 (40, 5, 45),
 (41, 14, 46),
 (42, 3, 47),
-(43, 3, 48);
+(43, 3, 48),
+(44, 5, 49),
+(45, 3, 50),
+(46, 8, 51),
+(47, 5, 52);
 
 --
 -- Indexes for dumped tables
@@ -463,25 +483,25 @@ ALTER TABLE `kategorije`
 -- AUTO_INCREMENT for table `lekcije`
 --
 ALTER TABLE `lekcije`
-  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `predavaci`
 --
 ALTER TABLE `predavaci`
-  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `predavanja`
 --
 ALTER TABLE `predavanja`
-  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `pripadnost_kategoriji`
 --
 ALTER TABLE `pripadnost_kategoriji`
-  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `ustanove`
@@ -493,7 +513,7 @@ ALTER TABLE `ustanove`
 -- AUTO_INCREMENT for table `zaposlenje`
 --
 ALTER TABLE `zaposlenje`
-  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
