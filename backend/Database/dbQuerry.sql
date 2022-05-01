@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2022 at 10:13 PM
+-- Generation Time: May 01, 2022 at 10:38 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -165,7 +165,13 @@ INSERT INTO `lekcije` (`idLekcije`, `predavac`, `predavanja`) VALUES
 (93, 90, 93),
 (94, 91, 94),
 (95, 92, 95),
-(96, 93, 96);
+(96, 93, 96),
+(97, 94, 97),
+(98, 95, 98),
+(99, 96, 99),
+(100, 97, 100),
+(101, 98, 101),
+(102, 99, 102);
 
 -- --------------------------------------------------------
 
@@ -271,7 +277,13 @@ INSERT INTO `predavaci` (`idPredavac`, `ime`, `prezime`, `slika_predavaca`) VALU
 (90, 'Allan', 'Adams', NULL),
 (91, 'Barton', 'Zwiebach', NULL),
 (92, 'James', 'Binney', NULL),
-(93, 'Charles', 'Bailyn', NULL);
+(93, 'Charles', 'Bailyn', NULL),
+(94, 'Iván', 'Szelényi', NULL),
+(95, 'David', 'Hardt', NULL),
+(96, 'Gerbrand', 'Ceder', NULL),
+(97, 'Leo', 'Anthony Celi', NULL),
+(98, 'Michael', 'Short', NULL),
+(99, 'Andrew', 'Kadak', NULL);
 
 -- --------------------------------------------------------
 
@@ -394,7 +406,12 @@ INSERT INTO `predavanja` (`idPredavanja`, `naziv_predavanja`, `jezik`, `godina`,
 (94, 'Quantum Physics II', 'Engleski', '2013.', 26, 36, '8.05', 'Together, this course and 8.06 Quantum Physics III cover quantum physics with applications drawn from modern physics. Topics covered in this course include the general formalism of quantum mechanics, harmonic oscillator, quantum mechanics in three-dimensions, angular momentum, spin, and addition of angular momentum.', 'https://www.youtube.com/playlist?list=PLyQSN7X0ro21y1VjcdTi5jbpH26O-Tk68', 'https://ocw.mit.edu/courses/physics/8-05-quantum-physics-ii-fall-2013/', 'https://img.youtube.com/vi/QI13S04w8dM/0.jpg'),
 (95, 'Quantum Mechanics', 'Engleski', '2009.', 27, 22, NULL, 'In this series of physics lectures, Professor J.J. Binney explains how probabilities are obtained from quantum amplitudes, why they give rise to quantum interference, the concept of a complete set of amplitudes and how this defines a \"quantum state\".', 'https://www.youtube.com/playlist?list=PLaLOVNqqD-2F6oe_-BUniUBz_5pmp1tyk', 'https://podcasts.ox.ac.uk/series/quantum-mechanics', 'https://img.youtube.com/vi/EPRelaoQeCU/0.jpg'),
 (96, 'Frontiers/Controversies in Astrophysics', 'Engleski', '2007.', 24, 19, 'ASTR 160', 'This course focuses on three particularly interesting areas of astronomy that are advancing very rapidly: Extra-Solar Planets, Black Holes, and Dark Energy. Particular attention is paid to current projects that promise to improve our understanding significantly over the next few years. The course explores not just what is known, but what is currently not known, and how astronomers are going about trying to find out.', 'https://www.youtube.com/playlist?list=PLD1515420F4E601A4', 'https://oyc.yale.edu/astronomy/astr-160', 'https://img.youtube.com/vi/40OQdPbeM0c/0.jpg'),
-(97, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(97, 'Foundations of Modern Social Theory', 'Engleski', '2009.', 25, 20, 'SOCY 151', 'This course provides an overview of major works of social thought from the beginning of the modern era through the 1920s. Attention is paid to social and intellectual contexts, conceptual frameworks and methods, and contributions to contemporary social analysis. Writers include Hobbes, Locke, Rousseau, Montesquieu, Adam Smith, Marx, Weber, and Durkheim.', 'https://www.youtube.com/playlist?list=PLDF7B08FF8564D1FE', 'https://oyc.yale.edu/sociology/socy-151', 'https://img.youtube.com/vi/ISmzEqx_9RU/0.jpg'),
+(98, 'Control of Manufacturing Processes', 'Engleski', '2008.', 22, 30, '	2.830J / 6.780J / ESD.63J', 'This course explores statistical modeling and control in manufacturing processes. Topics include the use of experimental design and response surface modeling to understand manufacturing process physics, as well as defect and parametric yield modeling and optimization. Various forms of process control, including statistical process control, run by run and adaptive control, and real-time feedback control, are covered. Application contexts include semiconductor manufacturing, conventional metal and polymer processing, and emerging micro-nano manufacturing processes.', 'https://www.youtube.com/playlist?list=PL7CF97E01FDE7C51A', 'https://ocw.mit.edu/courses/mechanical-engineering/2-830j-control-of-manufacturing-processes-sma-6303-spring-2008/', 'https://img.youtube.com/vi/kC2SEiGaqoA/0.jpg'),
+(99, 'Atomistic Computer Modeling of Materials', 'Engleski', '2005.', 19, 25, '3.320', 'This course uses the theory and application of atomistic computer simulations to model, understand, and predict the properties of real materials. Specific topics include: energy models from classical potentials to first-principles approaches; density functional theory and the total-energy pseudopotential method; errors and accuracy of quantitative predictions: thermodynamic ensembles, Monte Carlo sampling and molecular dynamics simulations; free energy and phase transitions; fluctuations and transport properties; and coarse-graining approaches and mesoscale models. The course employs case studies from industrial applications of advanced materials to nanotechnology. Several laboratories will give students direct experience with simulations of classical force fields, electronic-structure approaches, molecular dynamics, and Monte Carlo.', 'https://www.youtube.com/playlist?list=PL13CB8C2EDA4453ED', 'https://ocw.mit.edu/courses/materials-science-and-engineering/3-320-atomistic-computer-modeling-of-materials-sma-5107-spring-2005/', 'https://img.youtube.com/vi/HcQ7bdBGbEs/0.jpg'),
+(100, 'Health Information Systems', 'Engleski', '2012.', 12, 12, '	HST.S14', 'The goal of this course is the development of innovations in information systems for developing countries that will (1) translate into improvement in health outcomes, (2) strengthen the existing organizational infrastructure, and (3) create a collaborative ecosystem to maximize the value of these innovations. The course will be taught by guest speakers who are internationally recognized experts in the field and who, with their operational experiences, will outline the challenges they faced and detail how these were addressed.', 'https://www.youtube.com/playlist?list=PLUl4u3cNGP62lAvsV9K1PMR_J-Ag5vVOm', 'https://ocw.mit.edu/courses/health-sciences-and-technology/hst-s14-health-information-systems-to-improve-quality-of-care-in-resource-poor-settings-spring-2012/', 'https://img.youtube.com/vi/vQY3NziSZ2w/0.jpg'),
+(101, 'Nuclear Systems Design Project', 'Engleski', '2011.', 10, 8, '22.033 / 22.33', 'In this capstone design project course, students design a nuclear reactor that generates electricity, hydrogen and biofuels. Lectures introduce each major subsystem and explore design methods, and are followed by mid-term and final student presentations.', 'https://www.youtube.com/playlist?list=PL3C69700955EB813B', 'https://ocw.mit.edu/courses/nuclear-engineering/22-033-nuclear-systems-design-project-fall-2011/', 'https://img.youtube.com/vi/-AHhHlk8AbI/0.jpg'),
+(102, 'Nuclear Reactor Safety', 'Engleski', '2008.', 6, 7, '22.091 / 22.903', 'Problems in nuclear engineering often involve applying knowledge from many disciplines simultaneously in achieving satisfactory solutions. The course will focus on understanding the complete nuclear reactor system including the balance of plant, support systems and resulting interdependencies affecting the overall safety of the plant and regulatory oversight. Both the Seabrook and Pilgrim nuclear plant simulators will be used as part of the educational experience to provide as realistic as possible understanding of nuclear power systems short of being at the reactor.', 'https://www.youtube.com/playlist?list=PL9F849721A3694121', 'https://ocw.mit.edu/courses/nuclear-engineering/22-091-nuclear-reactor-safety-spring-2008/', 'https://img.youtube.com/vi/v_NcOpoHBsk/0.jpg');
 
 -- --------------------------------------------------------
 
@@ -511,7 +528,13 @@ INSERT INTO `pripadnost_kategoriji` (`idPripadnost_kategoriji`, `predavanje`, `k
 (96, 93, 3),
 (97, 94, 3),
 (98, 95, 3),
-(99, 96, 3);
+(99, 96, 3),
+(100, 97, 15),
+(101, 98, 15),
+(102, 99, 15),
+(103, 100, 15),
+(104, 101, 15),
+(105, 102, 15);
 
 -- --------------------------------------------------------
 
@@ -653,7 +676,13 @@ INSERT INTO `zaposlenje` (`idZaposlenje`, `ustanova`, `predavac`) VALUES
 (85, 3, 90),
 (86, 3, 91),
 (87, 17, 92),
-(88, 5, 93);
+(88, 5, 93),
+(89, 5, 94),
+(90, 3, 95),
+(91, 3, 96),
+(92, 3, 97),
+(93, 3, 98),
+(94, 3, 99);
 
 --
 -- Indexes for dumped tables
@@ -715,25 +744,25 @@ ALTER TABLE `kategorije`
 -- AUTO_INCREMENT for table `lekcije`
 --
 ALTER TABLE `lekcije`
-  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT for table `predavaci`
 --
 ALTER TABLE `predavaci`
-  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT for table `predavanja`
 --
 ALTER TABLE `predavanja`
-  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT for table `pripadnost_kategoriji`
 --
 ALTER TABLE `pripadnost_kategoriji`
-  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT for table `ustanove`
@@ -745,7 +774,7 @@ ALTER TABLE `ustanove`
 -- AUTO_INCREMENT for table `zaposlenje`
 --
 ALTER TABLE `zaposlenje`
-  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
