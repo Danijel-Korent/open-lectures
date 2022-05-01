@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2022 at 08:35 PM
+-- Generation Time: May 01, 2022 at 10:13 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -51,7 +51,7 @@ INSERT INTO `kategorije` (`idKategorije`, `naziv_kategorije`, `slika_kategorije`
 (12, 'Pedagogija', 'pedagogija.jpg'),
 (13, 'Politologija', 'politologija.jpg'),
 (14, NULL, NULL),
-(15, 'Bez kategorije', NULL);
+(15, 'Nekategorizirano', NULL);
 
 -- --------------------------------------------------------
 
@@ -156,7 +156,16 @@ INSERT INTO `lekcije` (`idLekcije`, `predavac`, `predavanja`) VALUES
 (84, 84, 83),
 (85, 85, 84),
 (86, 86, 85),
-(87, 87, 86);
+(87, 87, 86),
+(88, 88, 88),
+(89, 88, 89),
+(90, 89, 90),
+(91, 89, 91),
+(92, 89, 92),
+(93, 90, 93),
+(94, 91, 94),
+(95, 92, 95),
+(96, 93, 96);
 
 -- --------------------------------------------------------
 
@@ -256,7 +265,13 @@ INSERT INTO `predavaci` (`idPredavac`, `ime`, `prezime`, `slika_predavaca`) VALU
 (84, 'John', 'Merriman', NULL),
 (85, 'Jonathan', 'Holloway', NULL),
 (86, 'Daniel', 'Walkowitz', NULL),
-(87, 'Daniel', 'Fleming', NULL);
+(87, 'Daniel', 'Fleming', NULL),
+(88, 'Ramamurti', 'Shankar', NULL),
+(89, 'Walter', 'Lewin	', NULL),
+(90, 'Allan', 'Adams', NULL),
+(91, 'Barton', 'Zwiebach', NULL),
+(92, 'James', 'Binney', NULL),
+(93, 'Charles', 'Bailyn', NULL);
 
 -- --------------------------------------------------------
 
@@ -369,7 +384,17 @@ INSERT INTO `predavanja` (`idPredavanja`, `naziv_predavanja`, `jezik`, `godina`,
 (83, 'France Since 1871', 'Engleski', '2007.', 24, 18, 'HIST 276', 'This course covers the emergence of modern France. Topics include the social, economic, and political transformation of France; the impact of France\'s revolutionary heritage, of industrialization, and of the dislocation wrought by two world wars; and the political response of the Left and the Right to changing French society.', 'https://www.youtube.com/playlist?list=PLE653BF062C136B62', 'https://oyc.yale.edu/history/hist-276', 'https://img.youtube.com/vi/tZyo7koBa04/0.jpg'),
 (84, 'African American History: From Emancipation to the Present', 'Engleski', '2010.', 25, 20, 'AFAM 162', 'The purpose of this course is to examine the African American experience in the United States from 1863 to the present. Prominent themes include the end of the Civil War and the beginning of Reconstruction; African Americans’ urbanization experiences; the development of the modern civil rights movement and its aftermath; and the thought and leadership of Booker T. Washington, Ida B. Wells-Barnett, W.E.B. Du Bois, Marcus Garvey, Martin Luther King Jr., and Malcolm X.', 'https://oyc.yale.edu/african-american-studies/afam-162/lecture-1', 'https://oyc.yale.edu/african-american-studies/afam-162', 'https://oyc.yale.edu/sites/default/files/holloway_1_2.jpg'),
 (85, 'New York City: A Social History', 'Engleski', '2010.', 26, 29, NULL, '	New York City, growing from the small Dutch commercial settlement of New Amsterdam early in the seventeenth century into a bustling multi-cultural city of more than 7 million and metropolis of more than 15 million by the twentieth century, is a place with many stories. A semester of 14 weeks can only touch on some of them. This course will focus on the social history of the city – the peoples who have built the city and competing efforts by different numbers to authorize their dreams for the city. As arguably the capital for global capitalism today, one focus of this course will seek to plot its development and legacy for the shaping of the city. A more particular and related local story will be studied as well, however: the political and cultural interests, ideologies and players who shape and reshape the city as Manhattan, as New York and as the Metropolis.', 'https://www.youtube.com/playlist?list=PL78E65F2E6C63CD76', NULL, 'https://img.youtube.com/vi/dHSUBtfQfmU/0.jpg'),
-(86, 'Ancient Israel', 'Engleski', '2010.', 27, 29, NULL, '	This course is designed to make the acquaintance from scratch. My ancient Israel is strange, sometimes shocking, diverse, and mostly hidden. It can be approached from archaeology and non-biblical writing as well as from the Bible as its most famous artifact. I am a biblical scholar and student of ancient literature, so this class will lean toward what is written, embracing the Bible as a source. In a broadly chronological framework, we will ask what I hope to be unfamiliar questions, trying to get you to see things you had not considered before. The course assumes no prior knowledge, and all knowledge is built from the ground up based on “primary evidence,” the actual material from the ancient world – including the Bible. Every full-class meeting will involve conversation in response to some piece of primary evidence, with expectation that students have as much right as any scholar to figure out who these people are for themselves.', 'https://www.youtube.com/playlist?list=PL49208CAE353159FA', NULL, 'https://img.youtube.com/vi/0bBx4_Ax7rI/0.jpg');
+(86, 'Ancient Israel', 'Engleski', '2010.', 27, 29, NULL, '	This course is designed to make the acquaintance from scratch. My ancient Israel is strange, sometimes shocking, diverse, and mostly hidden. It can be approached from archaeology and non-biblical writing as well as from the Bible as its most famous artifact. I am a biblical scholar and student of ancient literature, so this class will lean toward what is written, embracing the Bible as a source. In a broadly chronological framework, we will ask what I hope to be unfamiliar questions, trying to get you to see things you had not considered before. The course assumes no prior knowledge, and all knowledge is built from the ground up based on “primary evidence,” the actual material from the ancient world – including the Bible. Every full-class meeting will involve conversation in response to some piece of primary evidence, with expectation that students have as much right as any scholar to figure out who these people are for themselves.', 'https://www.youtube.com/playlist?list=PL49208CAE353159FA', NULL, 'https://img.youtube.com/vi/0bBx4_Ax7rI/0.jpg'),
+(88, 'Fundamentals of Physics', 'Engleski', '2006.', 24, 29, 'PHYS 200', 'This course provides a thorough introduction to the principles and methods of physics for students who have good preparation in physics and mathematics. Emphasis is placed on problem solving and quantitative reasoning. This course covers Newtonian mechanics, special relativity, gravitation, thermodynamics, and waves.', 'https://www.youtube.com/playlist?list=PLFE3074A4CB751B2B', 'https://oyc.yale.edu/physics/phys-200', 'https://img.youtube.com/vi/abF2zesdlVk/0.jpg'),
+(89, 'Fundamentals of Physics II', 'Engleski', '2010.', 25, 30, '	PHYS 201', 'This is a continuation of Fundamentals of Physics, I (PHYS 200), the introductory course on the principles and methods of physics for students who have good preparation in physics and mathematics. This course covers electricity, magnetism, optics and quantum mechanics.', 'https://www.youtube.com/playlist?list=PLD07B2225BB40E582', 'https://oyc.yale.edu/physics/phys-201', 'https://img.youtube.com/vi/NK-BxowMIfg/0.jpg'),
+(90, 'Physics I: Classical Mechanics', 'Engleski', '1999.', 40, 30, '8.01x', 'Physics I is a first-year physics course which introduces students to classical mechanics', 'https://www.youtube.com/playlist?list=PLyQSN7X0ro203puVhQsmCj9qhlFQ-As8e', 'https://ocw.mit.edu/courses/physics/8-01x-physics-i-classical-mechanics-with-an-experimental-focus-fall-2002/', 'https://img.youtube.com/vi/wWnfJ0-xXRE/0.jpg'),
+(91, 'Physics II: Electricity and Magnetism', 'Engleski', '2002.', 40, 32, '8.02x', 'This course is an introduction to electromagnetism and electrostatics.', 'https://www.youtube.com/playlist?list=PLyQSN7X0ro2314mKyUiOILaOC2hk6Pc3j', 'https://ocw.mit.edu/courses/physics/8-02x-physics-ii-electricity-magnetism-with-an-experimental-focus-spring-2005/', 'https://img.youtube.com/vi/1xFRtdN5IJA/0.jpg'),
+(92, 'Physics III: Vibrations and Waves', 'Engleski', '2004.', 24, 30, '8.03', '	Vibrations and waves are everywhere. If you take any system and disturb it from a stable equilibrium, the resultant motion will be waves and vibrations. Think of a guitar string—pluck the string, and it vibrates. The sound waves generated make their way to our ears, and we hear the string’s sound. Our eyes see what’s happening because they receive the electromagnetic waves of the light reflected from the guitar string, so that we can recognize the beautiful sinusoidal waves on the string. In fact, without vibrations and waves, we could not recognize the universe around us at all!', 'https://www.youtube.com/playlist?list=PLyQSN7X0ro22WeXM2QCKJm2NP_xHpGV89', 'https://ocw.mit.edu/courses/physics/8-03sc-physics-iii-vibrations-and-waves-fall-2016/', 'https://img.youtube.com/vi/VuX_UExHa0M/0.jpg'),
+(93, 'Quantum Physics I', 'Engleski', '2013.', 25, 33, '	8.04', 'This course covers the experimental basis of quantum physics. It introduces wave mechanics, Schrödinger\'s equation in a single dimension, and Schrödinger\'s equation in three dimensions.', 'https://www.youtube.com/playlist?list=PLUl4u3cNGP61-9PEhRognw5vryrSEVLPr', 'https://ocw.mit.edu/courses/physics/8-04-quantum-physics-i-spring-2013/', 'https://img.youtube.com/vi/lZ3bPUKo5zc/0.jpg'),
+(94, 'Quantum Physics II', 'Engleski', '2013.', 26, 36, '8.05', 'Together, this course and 8.06 Quantum Physics III cover quantum physics with applications drawn from modern physics. Topics covered in this course include the general formalism of quantum mechanics, harmonic oscillator, quantum mechanics in three-dimensions, angular momentum, spin, and addition of angular momentum.', 'https://www.youtube.com/playlist?list=PLyQSN7X0ro21y1VjcdTi5jbpH26O-Tk68', 'https://ocw.mit.edu/courses/physics/8-05-quantum-physics-ii-fall-2013/', 'https://img.youtube.com/vi/QI13S04w8dM/0.jpg'),
+(95, 'Quantum Mechanics', 'Engleski', '2009.', 27, 22, NULL, 'In this series of physics lectures, Professor J.J. Binney explains how probabilities are obtained from quantum amplitudes, why they give rise to quantum interference, the concept of a complete set of amplitudes and how this defines a \"quantum state\".', 'https://www.youtube.com/playlist?list=PLaLOVNqqD-2F6oe_-BUniUBz_5pmp1tyk', 'https://podcasts.ox.ac.uk/series/quantum-mechanics', 'https://img.youtube.com/vi/EPRelaoQeCU/0.jpg'),
+(96, 'Frontiers/Controversies in Astrophysics', 'Engleski', '2007.', 24, 19, 'ASTR 160', 'This course focuses on three particularly interesting areas of astronomy that are advancing very rapidly: Extra-Solar Planets, Black Holes, and Dark Energy. Particular attention is paid to current projects that promise to improve our understanding significantly over the next few years. The course explores not just what is known, but what is currently not known, and how astronomers are going about trying to find out.', 'https://www.youtube.com/playlist?list=PLD1515420F4E601A4', 'https://oyc.yale.edu/astronomy/astr-160', 'https://img.youtube.com/vi/40OQdPbeM0c/0.jpg'),
+(97, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -477,7 +502,16 @@ INSERT INTO `pripadnost_kategoriji` (`idPripadnost_kategoriji`, `predavanje`, `k
 (87, 83, 6),
 (88, 84, 6),
 (89, 85, 6),
-(90, 86, 6);
+(90, 86, 6),
+(91, 88, 3),
+(92, 89, 3),
+(93, 90, 3),
+(94, 91, 3),
+(95, 92, 3),
+(96, 93, 3),
+(97, 94, 3),
+(98, 95, 3),
+(99, 96, 3);
 
 -- --------------------------------------------------------
 
@@ -513,7 +547,8 @@ INSERT INTO `ustanove` (`idUstanove`, `naziv_ustanove`, `drzava`, `mjesto`, `sli
 (13, 'University of California, Irvine', 'USA', 'Irvine', NULL),
 (14, 'New York University', 'USA', 'New York City', NULL),
 (15, 'UNSW Sydney', 'Australia', 'Sydney', NULL),
-(16, 'University at Buffalo', 'USA', 'Buffalo', NULL);
+(16, 'University at Buffalo', 'USA', 'Buffalo', NULL),
+(17, 'University of Oxford', 'United Kingdom', 'Oxford', NULL);
 
 -- --------------------------------------------------------
 
@@ -612,7 +647,13 @@ INSERT INTO `zaposlenje` (`idZaposlenje`, `ustanova`, `predavac`) VALUES
 (79, 5, 84),
 (80, 5, 85),
 (81, 14, 86),
-(82, 14, 87);
+(82, 14, 87),
+(83, 5, 88),
+(84, 3, 89),
+(85, 3, 90),
+(86, 3, 91),
+(87, 17, 92),
+(88, 5, 93);
 
 --
 -- Indexes for dumped tables
@@ -674,37 +715,37 @@ ALTER TABLE `kategorije`
 -- AUTO_INCREMENT for table `lekcije`
 --
 ALTER TABLE `lekcije`
-  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT for table `predavaci`
 --
 ALTER TABLE `predavaci`
-  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT for table `predavanja`
 --
 ALTER TABLE `predavanja`
-  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT for table `pripadnost_kategoriji`
 --
 ALTER TABLE `pripadnost_kategoriji`
-  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT for table `ustanove`
 --
 ALTER TABLE `ustanove`
-  MODIFY `idUstanove` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `idUstanove` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `zaposlenje`
 --
 ALTER TABLE `zaposlenje`
-  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
