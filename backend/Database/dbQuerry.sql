@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2022 at 09:00 PM
+-- Generation Time: May 01, 2022 at 05:52 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -50,7 +50,7 @@ INSERT INTO `kategorije` (`idKategorije`, `naziv_kategorije`, `slika_kategorije`
 (11, 'Filozofija', 'filozofija.jpg'),
 (12, 'Pedagogija', 'pedagogija.jpg'),
 (13, 'Politologija', 'politologija.jpg'),
-(14, 'Računarstvo', 'racunarstvo.jpg'),
+(14, NULL, NULL),
 (15, 'Bez kategorije', NULL);
 
 -- --------------------------------------------------------
@@ -78,7 +78,7 @@ INSERT INTO `lekcije` (`idLekcije`, `predavac`, `predavanja`) VALUES
 (6, 14, 6),
 (7, 15, 7),
 (8, 16, 8),
-(9, 17, 8),
+(9, 0, 0),
 (10, 18, 9),
 (11, 18, 10),
 (12, 19, 11),
@@ -124,7 +124,19 @@ INSERT INTO `lekcije` (`idLekcije`, `predavac`, `predavanja`) VALUES
 (52, 55, 51),
 (53, 56, 52),
 (54, 57, 53),
-(55, 58, 54);
+(55, 58, 54),
+(56, 59, 55),
+(57, 60, 56),
+(58, 61, 57),
+(59, 62, 58),
+(60, 63, 59),
+(61, 64, 60),
+(62, 65, 61),
+(63, 66, 62),
+(64, 27, 63),
+(65, 67, 64),
+(66, 67, 65),
+(67, 26, 66);
 
 -- --------------------------------------------------------
 
@@ -196,7 +208,16 @@ INSERT INTO `predavaci` (`idPredavac`, `ime`, `prezime`, `slika_predavaca`) VALU
 (55, 'Donald', 'Sadoway', NULL),
 (56, 'Keith', 'A. Nelson', NULL),
 (57, 'James', 'Paradis', NULL),
-(58, 'Tamar', 'Gendler', NULL);
+(58, 'Tamar', 'Gendler', NULL),
+(59, 'Malcom', 'Ryan', NULL),
+(60, 'Erik', 'Demaine', NULL),
+(61, 'Charles', 'Leiserson', NULL),
+(62, 'Saman', 'Amarasinghe', NULL),
+(63, 'Mehran', 'Sahami', NULL),
+(64, 'Julie', 'Zelenski', NULL),
+(65, 'Jerry', 'Cain', NULL),
+(66, 'Geoffrey', 'Challen', NULL),
+(67, 'Andrew', 'Ng', NULL);
 
 -- --------------------------------------------------------
 
@@ -276,7 +297,19 @@ INSERT INTO `predavanja` (`idPredavanja`, `naziv_predavanja`, `jezik`, `godina`,
 (51, 'Introduction to Solid State Chemistry', 'Engleski', '2010.', 61, 35, '3.091SC', 'Introduction to Solid State Chemistry is a first-year single-semester college course on the principles of chemistry. This unique and popular course satisfies MIT\'s general chemistry degree requirement, with an emphasis on solid-state materials and their application to engineering systems.', 'https://www.youtube.com/playlist?list=PL36EC6A6180271B0F', 'https://ocw.mit.edu/courses/materials-science-and-engineering/3-091sc-introduction-to-solid-state-chemistry-fall-2010/', 'https://img.youtube.com/vi/fFg4uXMpnV0/0.jpg'),
 (52, 'Thermodynamics & Kinetics in Chemistry', 'Engleski', '2008.', 36, 30, '	5.60', 'This subject deals primarily with equilibrium properties of macroscopic systems, basic thermodynamics, chemical equilibrium of reactions in gas and solution phase, and rates of chemical reactions.', 'https://www.youtube.com/playlist?list=PLA62087102CC93765', 'https://ocw.mit.edu/courses/chemistry/5-60-thermodynamics-kinetics-spring-2008/', 'https://img.youtube.com/vi/kLqduWF6GXE/0.jpg'),
 (53, 'Darwin and Design', 'Engleski', '2010.', 21, 19, '21L.448J', 'Humans are social animals; social demands, both cooperative and competitive, structure our development, our brain and our mind. This course covers social development, social behaviour, social cognition and social neuroscience, in both human and non-human social animals. Topics include altruism, empathy, communication, theory of mind, aggression, power, groups, mating, and morality. Methods include evolutionary biology, neuroscience, cognitive science, social psychology and anthropology.', 'https://www.youtube.com/playlist?list=PLF7D7F81CD5E07497', 'https://ocw.mit.edu/courses/literature/21l-448j-darwin-and-design-fall-2010/', 'https://img.youtube.com/vi/fW4JKL0AFxA/0.jpg'),
-(54, 'Philosophy and the Science of Human Nature', 'Engleski', '2011.', 26, 20, 'PHIL 181', 'Philosophy and the Science of Human Nature pairs central texts from Western philosophical tradition (including works by Plato, Aristotle, Epictetus, Hobbes, Kant, Mill, Rawls, and Nozick) with recent findings in cognitive science and related fields. The course is structured around three intertwined sets of topics: Happiness and Flourishing; Morality and Justice; and Political Legitimacy and Social Structures.', 'https://www.youtube.com/playlist?list=PL3F6BC200B2930084', 'https://oyc.yale.edu/philosophy/phil-181', 'https://img.youtube.com/vi/lIlRWR9vNtE/0.jpg');
+(54, 'Philosophy and the Science of Human Nature', 'Engleski', '2011.', 26, 20, 'PHIL 181', 'Philosophy and the Science of Human Nature pairs central texts from Western philosophical tradition (including works by Plato, Aristotle, Epictetus, Hobbes, Kant, Mill, Rawls, and Nozick) with recent findings in cognitive science and related fields. The course is structured around three intertwined sets of topics: Happiness and Flourishing; Morality and Justice; and Political Legitimacy and Social Structures.', 'https://www.youtube.com/playlist?list=PL3F6BC200B2930084', 'https://oyc.yale.edu/philosophy/phil-181', 'https://img.youtube.com/vi/lIlRWR9vNtE/0.jpg'),
+(55, 'Programming for Designers', 'Engleski', '2011.', 18, 15, 'COMP1400-T2', 'An introduction to the concepts and techniques of object oriented programming with a focus on the construction of interactive multimedia applications. Delivery is through lectures and computer lab classes. Assessment will be via a number of in-class exercises and staged assignments.', 'https://www.youtube.com/playlist?list=PL33A90F8537C8B1FB', 'https://thebox.unsw.edu.au/4D508202-840C-11DF-8BFC0050568336DC/LAYOUT/grid/mediaType/unswVideo', 'https://img.youtube.com/vi/8wHvAq06Y-o/0.jpg'),
+(56, 'Introduction to Algorithms', 'Engleski', '2011.', 47, 42, '6.006', '	This course provides an introduction to mathematical modeling of computational problems. It covers the common algorithms, algorithmic paradigms, and data structures used to solve these problems. The course emphasizes the relationship between algorithms and programming, and introduces basic performance measures and analysis techniques for these problems.', 'https://www.youtube.com/playlist?list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb', 'https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/', 'https://img.youtube.com/vi/HtSuA80QTyo/0.jpg'),
+(57, 'Performance Engineering of Software Systems', 'Engleski', '2018.', 23, 30, '6.172', '6.172 provides a hands-on, project-based introduction to building scalable and high-performance software systems. Topics include performance analysis, algorithmic techniques for high performance, instruction-level optimizations, caching optimizations, parallel programming, and building scalable systems. The course programming language is C.', 'https://www.youtube.com/playlist?list=PLUl4u3cNGP63VIBQVWguXxZZi0566y7Wf', 'https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-172-performance-engineering-of-software-systems-fall-2018/', 'https://img.youtube.com/vi/o7h_sYMk_oc/0.jpg'),
+(58, 'Performance Engineering of Software Systems', 'Engleski', '2010.', 24, 29, '6.172', 'This class is a hands-on, project-based introduction to building scalable and high-performance software systems. Topics include performance analysis, algorithmic techniques for high performance, instruction-level optimizations, cache and memory hierarchy optimization, parallel programming, and building scalable distributed systems.', 'https://www.youtube.com/playlist?list=PLD2AE32F507F10481', 'https://dspace.mit.edu/handle/1721.1/122680', 'https://img.youtube.com/vi/JzpkXLH9zLQ/0.jpg'),
+(59, 'Programming Methodology', 'Engleski', '2007.', 28, 22, 'CS106A', 'An introduction to the engineering of computer applications emphasizing modern software engineering principles: object-oriented design, decomposition, encapsulation, abstraction, and testing. Uses the Java programming language. Emphasis is on good programming style and the built-in facilities of the Java language. . The course is explicitly designed to appeal to humanists and social scientists as well as hard-core techies. In fact, most Programming Methodology graduates end up majoring outside of the School of Engineering.', 'https://www.youtube.com/playlist?list=PL84A56BC7F4A1F852', 'https://see.stanford.edu/course/cs106a', 'https://img.youtube.com/vi/C5HeRliZ0Ns/0.jpg'),
+(60, 'Programming Abstractions', 'Engleski', '2008.', 27, 21, '	CS106B', 'This course (CS 106B) is the successor to CS 106A and covers more advanced programming topics such as recursion, algorithmic analysis, and data abstraction. It is taught using the C++ programming language, which is similar to both C and Java. In the past when both CS 106A and CS106B were taught in C/C++, the coupling between the two classes was very tight and it was unheard for students to take CS106B without having completed our CS 106A (we recommended CS 106X instead). Nowadays, some students do go straight into CS106B, this is typically appropriate for a student who done well in an intro programming course and has sufficient familiarity with good programming style and software engineering issues (at the level of CS 106A) to use this understanding as a foundation on which to tackle advanced topics. Topics: Abstraction and its relation to programming. Software engineering principles of data abstraction and modularity. Object-oriented programming, fundamental data structures (such as stacks, queues, sets) and data-directed design. Recursion and recursive data structures (linked lists, trees, graphs). Introduction to time and space complexity analysis.', 'https://www.youtube.com/playlist?list=PLFE6E58F856038C69', 'https://see.stanford.edu/Course/CS106B', 'https://img.youtube.com/vi/K8DjFXkMRbY/0.jpg'),
+(61, 'Programming Paradigms', 'Engleski', '2008.', 27, 22, 'CS107', 'Programming Paradigms (CS107) introduces several programming languages, including C, Assembly, C++, Concurrent Programming, Scheme, and Python. The class aims to teach students how to write code for each of these individual languages and to understand the programming paradigms behind these languages. Advanced memory management features of C and C++; the differences between imperative and object-oriented paradigms. The functional paradigm (using LISP) and concurrent programming (using C and C++). Brief survey of other modern languages such as Python, Objective C, and C#. Prerequisites: You should be comfortable with arrays, pointers, references, classes, methods, dynamic memory allocation, recursion, linked lists, binary search trees, hashing, iterators, and function pointers. You should be able to write well-decomposed, easy-to-understand code, and understand the value that comes with good variable names, short function and method implementations, and thoughtful, articulate comments.', 'https://www.youtube.com/playlist?list=PL9D558D49CA734A02', 'https://see.stanford.edu/course/cs107', 'https://img.youtube.com/vi/H4MQXBF6FN4/0.jpg'),
+(62, 'Introduction to operating systems', 'Engleski', '2017.', 37, 28, 'CSE 421/521', 'This course is an introduction to operating system design and implementation. We study operating systems because they are examples of mature and elegant solutions to a difficult design problem: how to safely and efficiently share system resources and provide abstractions useful to applications.', 'https://www.youtube.com/playlist?list=PLE6LEE8y2Jp_z8pkiuvHo7Vz-eQEKsk-I', 'https://ops-class.org/courses/buffalo/CSE421_Spring2017/', 'https://img.youtube.com/vi/TdYWlQUmLEY/0.jpg'),
+(63, 'Parallel Computer Architecture', 'Engleski', '2012.', 24, 35, '18-742', NULL, 'https://www.youtube.com/playlist?list=PL5PHm2jkkXmh4cDkC3s1VBB7-njlgiG5d', 'https://course.ece.cmu.edu/~ece742/f12/doku.php', 'https://img.youtube.com/vi/YnqpW-mCYX8/0.jpg'),
+(64, 'Machine Learning', 'Engleski', '2018.', 20, 27, 'CS229', 'This course provides a broad introduction to machine learning and statistical pattern recognition. Topics include: supervised learning (generative/discriminative learning, parametric/non-parametric learning, neural networks, support vector machines); unsupervised learning (clustering, dimensionality reduction, kernel methods); learning theory (bias/variance tradeoffs, practical advice); reinforcement learning and adaptive control. The course will also discuss recent applications of machine learning, such as to robotic control, data mining, autonomous navigation, bioinformatics, speech recognition, and text and web data processing.', 'https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU', 'https://cs229.stanford.edu/syllabus-autumn2018.html', 'https://img.youtube.com/vi/jGwO_UgTS7I/0.jpg'),
+(65, 'Machine Learning', 'Engleski', '2008.', 20, 25, 'CS229', '	This course provides a broad introduction to machine learning and statistical pattern recognition. Topics include: supervised learning (generative/discriminative learning, parametric/non-parametric learning, neural networks, support vector machines); unsupervised learning (clustering, dimensionality reduction, kernel methods); learning theory (bias/variance tradeoffs; VC theory; large margins); reinforcement learning and adaptive control. The course will also discuss recent applications of machine learning, such as to robotic control, data mining, autonomous navigation, bioinformatics, speech recognition, and text and web data processing.', 'https://www.youtube.com/playlist?list=PLA89DCFA6ADACE599', 'https://see.stanford.edu/Course/CS229', 'https://img.youtube.com/vi/UzxYlbK2c7E/0.jpg'),
+(66, 'AI for Video Games', 'Engleski', '2022.', 20, 22, 'COMP 4303', 'This course provides an introduction to specific state-of-the-art algorithmic techniques and data structures that are used to efficiently implement humanlike abilities (e.g., awareness, memory, rational decision-making (under uncertainty), movement, co-operation in groups) in computer game agents.', 'https://www.youtube.com/playlist?list=PL_xRyXins84_gIuIZmdOUOoYQR95I9k95', 'http://www.cs.mun.ca/~dchurchill/teaching.shtml', 'https://img.youtube.com/vi/cCmnpbB4Gik/0.jpg');
 
 -- --------------------------------------------------------
 
@@ -313,7 +346,7 @@ INSERT INTO `pripadnost_kategoriji` (`idPripadnost_kategoriji`, `predavanje`, `k
 (16, 16, 8),
 (17, 17, 8),
 (18, 18, 8),
-(19, 19, 8),
+(19, 0, 0),
 (20, 20, 15),
 (21, 21, 15),
 (22, 22, 15),
@@ -349,7 +382,21 @@ INSERT INTO `pripadnost_kategoriji` (`idPripadnost_kategoriji`, `predavanje`, `k
 (52, 51, 2),
 (53, 52, 2),
 (54, 53, 11),
-(55, 54, 11);
+(55, 54, 11),
+(56, 55, 8),
+(57, 56, 8),
+(58, 57, 8),
+(59, 58, 8),
+(60, 59, 8),
+(61, 60, 8),
+(62, 61, 8),
+(63, 62, 8),
+(64, 63, 8),
+(65, 64, 8),
+(66, 65, 8),
+(67, 66, 8),
+(68, 19, 10),
+(69, 19, 8);
 
 -- --------------------------------------------------------
 
@@ -383,7 +430,9 @@ INSERT INTO `ustanove` (`idUstanove`, `naziv_ustanove`, `drzava`, `mjesto`, `sli
 (11, 'Memorial University of Newfoundland', 'Canada', 'St. John\'s', NULL),
 (12, 'ETH Zürich', 'Switzerland', 'Zürich', NULL),
 (13, 'University of California, Irvine', 'USA', 'Irvine', NULL),
-(14, 'New York University', 'USA', 'New York City', NULL);
+(14, 'New York University', 'USA', 'New York City', NULL),
+(15, 'UNSW Sydney', 'Australia', 'Sydney', NULL),
+(16, 'University at Buffalo', 'USA', 'Buffalo', NULL);
 
 -- --------------------------------------------------------
 
@@ -454,7 +503,16 @@ INSERT INTO `zaposlenje` (`idZaposlenje`, `ustanova`, `predavac`) VALUES
 (50, 3, 55),
 (51, 3, 56),
 (52, 3, 57),
-(53, 5, 58);
+(53, 5, 58),
+(54, 15, 59),
+(55, 3, 60),
+(56, 3, 61),
+(57, 3, 62),
+(58, 2, 63),
+(59, 2, 64),
+(60, 2, 65),
+(61, 16, 66),
+(62, 2, 67);
 
 --
 -- Indexes for dumped tables
@@ -516,37 +574,37 @@ ALTER TABLE `kategorije`
 -- AUTO_INCREMENT for table `lekcije`
 --
 ALTER TABLE `lekcije`
-  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `predavaci`
 --
 ALTER TABLE `predavaci`
-  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `predavanja`
 --
 ALTER TABLE `predavanja`
-  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `pripadnost_kategoriji`
 --
 ALTER TABLE `pripadnost_kategoriji`
-  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `ustanove`
 --
 ALTER TABLE `ustanove`
-  MODIFY `idUstanove` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `idUstanove` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `zaposlenje`
 --
 ALTER TABLE `zaposlenje`
-  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
