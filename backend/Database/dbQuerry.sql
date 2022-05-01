@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2022 at 06:54 PM
+-- Generation Time: May 01, 2022 at 08:35 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -145,7 +145,18 @@ INSERT INTO `lekcije` (`idLekcije`, `predavac`, `predavanja`) VALUES
 (73, 73, 72),
 (74, 74, 73),
 (75, 75, 74),
-(76, 13, 75);
+(76, 13, 75),
+(77, 77, 76),
+(78, 78, 77),
+(79, 79, 78),
+(80, 80, 79),
+(81, 81, 80),
+(82, 82, 81),
+(83, 83, 82),
+(84, 84, 83),
+(85, 85, 84),
+(86, 86, 85),
+(87, 87, 86);
 
 -- --------------------------------------------------------
 
@@ -234,7 +245,18 @@ INSERT INTO `predavaci` (`idPredavac`, `ime`, `prezime`, `slika_predavaca`) VALU
 (72, 'Anant', 'Agarwal', NULL),
 (73, 'Nonie', 'Politi', NULL),
 (74, 'Dennis', 'Freeman', NULL),
-(75, 'James', 'Roberge', NULL);
+(75, 'James', 'Roberge', NULL),
+(77, 'Diana', 'E. E. Kleiner', NULL),
+(78, 'Paul', 'Freedman', NULL),
+(79, 'Keith', 'E. Wrightson', NULL),
+(80, 'John', 'Merriman', NULL),
+(81, 'Frank', 'Snowden', NULL),
+(82, 'Joanne', 'Freeman', NULL),
+(83, 'David', 'W. Blight', NULL),
+(84, 'John', 'Merriman', NULL),
+(85, 'Jonathan', 'Holloway', NULL),
+(86, 'Daniel', 'Walkowitz', NULL),
+(87, 'Daniel', 'Fleming', NULL);
 
 -- --------------------------------------------------------
 
@@ -336,7 +358,18 @@ INSERT INTO `predavanja` (`idPredavanja`, `naziv_predavanja`, `jezik`, `godina`,
 (72, 'Digital Circuit Design', 'Engleski', '2011.', 32, 23, 'ELEC2141', 'Introduction to modern digital logic design, combinational logic, switch logic and basic gates, Boolean algebra, two-level logic, regular logic structures, multi-level networks and transformations, programmable logic devices, time response. Sequential logic, networks with feedback, basic latches and flip-flops, timing methodologies, registers and counters, programmable logic devices. Finite state machine design, concepts of FSMs, basic design approach, specification methods, state minimization, state encoding, FSM partitioning, implementation of FSMs, programmable logic devices. Elements of computers, arithmetic circuits, arithmetic and logic units, register and bus structures, controllers/ sequencers, microprogramming. Experience with computer-aided design tools for logic design, schematic entry, state diagram entry, hardware description language entry, compilation to logic networks, simulation, mapping to programmable logic devices. Practical topics, non-gate logic, asynchronous inputs and metastability, memories: RAM and ROM, Implementation technologies and mapping problems expressed in words to digital abstractions.', 'https://www.youtube.com/playlist?list=PLB52B8F4E464CEEF7', 'https://www.handbook.unsw.edu.au/undergraduate/courses/2019/ELEC2141', 'https://img.youtube.com/vi/esAE1WLAubM/0.jpg'),
 (73, 'Signals and Systems', 'Engleski', '2011.', 25, 20, '6.003', 'The analysis of signals and systems forms a key part of many modern technologies, including communications and feedback & control. These lectures give a conceptual and mathematical introduction to the topic, covering both analog and digital systems.', 'https://www.youtube.com/playlist?list=PLUl4u3cNGP61kdPAOC7CzFjJZ8f1eMUxs', 'https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-003-signals-and-systems-fall-2011/', 'https://img.youtube.com/vi/gxgV_oOG7Zc/0.jpg'),
 (74, 'Electronic Feedback Systems', 'Engleski', '1985.', 20, 17, NULL, 'Feedback control is an important technique that is used in many modern electronic and electromechanical systems. The successful inclusion of this technique improves performance, reliability, and cost effectiveness of many designs. In this series of lectures we introduce the analytical concepts that underlie classical feedback system design. The application of these concepts is illustrated by a variety of experiments and demonstration systems. The diversity of the demonstration systems reinforces the value of the analytic methods.', 'https://www.youtube.com/playlist?list=PLUl4u3cNGP62in17jH_DiJMkCGNM6Xni-', 'https://ocw.mit.edu/resources/res-6-010-electronic-feedback-systems-spring-2013/', 'https://img.youtube.com/vi/CWlJLpAE4BI/0.jpg'),
-(75, 'Biomedical Electronics', 'Engleski', '2013.', 21, 24, 'ECE5030', 'Covers the theory and practical aspects of recording and analyzing electronic data collected from biological systems. Topics may include electrode and amplifier design, tissue impedance and effects on waveforms, sensors, statistical and signal processing algorithms, noise reduction, and safety considerations.', 'https://www.youtube.com/playlist?list=PLKcjQ_UFkrd7zbPHRkDpB7i113wDG_Rb3', 'http://people.ece.cornell.edu/land/courses/ece5030/', 'https://img.youtube.com/vi/thCFMeB8pHM/0.jpg');
+(75, 'Biomedical Electronics', 'Engleski', '2013.', 21, 24, 'ECE5030', 'Covers the theory and practical aspects of recording and analyzing electronic data collected from biological systems. Topics may include electrode and amplifier design, tissue impedance and effects on waveforms, sensors, statistical and signal processing algorithms, noise reduction, and safety considerations.', 'https://www.youtube.com/playlist?list=PLKcjQ_UFkrd7zbPHRkDpB7i113wDG_Rb3', 'http://people.ece.cornell.edu/land/courses/ece5030/', 'https://img.youtube.com/vi/thCFMeB8pHM/0.jpg'),
+(76, 'Roman Architecture', 'Engleski', '2009.', 24, 28, 'HSAR 252', 'This course is an introduction to the great buildings and engineering marvels of Rome and its empire, with an emphasis on urban planning and individual monuments and their decoration, including mural painting. While architectural developments in Rome, Pompeii, and Central Italy are highlighted, the course also provides a survey of sites and structures in what are now North Italy, Sicily, France, Spain, Germany, Greece, Turkey, Croatia, Jordan, Lebanon, Libya, and North Africa. The lectures are illustrated with over 1,500 images, many from Professor Kleiner\'s personal collection.', 'https://www.youtube.com/playlist?list=PLBCB3059E45654BCE', 'https://oyc.yale.edu/NODE/176', 'https://img.youtube.com/vi/8aJO3EfVjyk/0.jpg'),
+(77, 'The Early Middle Ages, 284–1000', 'Engleski', '2011.', 22, 17, 'HIST 210', 'Major developments in the political, social, and religious history of Western Europe from the accession of Diocletian to the feudal transformation. Topics include the conversion of Europe to Christianity, the fall of the Roman Empire, the rise of Islam and the Arabs, the \"Dark Ages,\" Charlemagne and the Carolingian renaissance, and the Viking and Hungarian invasions.', 'https://www.youtube.com/playlist?list=PL77A337915A76F660', 'https://oyc.yale.edu/history/hist-210', 'https://img.youtube.com/vi/tcIuAJ-jaSg/0.jpg'),
+(78, 'Early Modern England: Politics, Religion, and Society under ', 'Engleski', '2009.', 25, 19, 'HIST 251', 'This course is intended to provide an up-to-date introduction to the development of English society between the late fifteenth and the early eighteenth centuries. Particular issues addressed in the lectures will include: the changing social structure; households; local communities; gender roles; economic development; urbanization; religious change from the Reformation to the Act of Toleration; the Tudor and Stuart monarchies; rebellion, popular protest and civil war; witchcraft; education, literacy and print culture; crime and the law; poverty and social welfare; the changing structures and dynamics of political participation and the emergence of parliamentary government.', 'https://www.youtube.com/playlist?list=PL18B9F132DFD967A3', 'https://oyc.yale.edu/history/hist-251', 'https://img.youtube.com/vi/e3uBi2TZdUY/0.jpg'),
+(79, 'European Civilization, 1648-1945', 'Engleski', '2008.', 24, 18, '	HIST 202', 'This course offers a broad survey of modern European history, from the end of the Thirty Years\' War to the aftermath of World War II. Along with the consideration of major events and figures such as the French Revolution and Napoleon, attention will be paid to the experience of ordinary people in times of upheaval and transition. The period will thus be viewed neither in terms of historical inevitability nor as a procession of great men, but rather through the lens of the complex interrelations between demographic change, political revolution, and cultural development. Textbook accounts will be accompanied by the study of exemplary works of art, literature, and cinema.', 'https://www.youtube.com/playlist?list=PL3A8E6CE294860A24', 'https://oyc.yale.edu/history/hist-202', 'https://img.youtube.com/vi/eGFilsLo6OI/0.jpg'),
+(80, 'Epidemics in Western Society Since 1600', 'Engleski', '2010.', 26, 20, 'HIST 234', 'This course consists of an international analysis of the impact of epidemic diseases on western society and culture from the bubonic plague to HIV/AIDS and the recent experience of SARS and swine flu. Leading themes include: infectious disease and its impact on society; the development of public health measures; the role of medical ethics; the genre of plague literature; the social reactions of mass hysteria and violence; the rise of the germ theory of disease; the development of tropical medicine; a comparison of the social, cultural, and historical impact of major infectious diseases; and the issue of emerging and re-emerging diseases.', 'https://www.youtube.com/playlist?list=PL3AE7B3B6917DE8E6', 'https://oyc.yale.edu/history/hist-234', 'https://img.youtube.com/vi/o7xL3LuQkVo/0.jpg'),
+(81, 'The American Revolution', 'Engleski', '2010.', 25, 18, 'HIST 116', 'The American Revolution entailed some remarkable transformations--converting British colonists into American revolutionaries, and a cluster of colonies into a confederation of states with a common cause -- but it was far more complex and enduring then the fighting of a war. As John Adams put it, \"The Revolution was in the Minds of the people... before a drop of blood was drawn at Lexington\"--and it continued long past America\'s victory at Yorktown. This course will examine the Revolution from this broad perspective, tracing the participants\' shifting sense of themselves as British subjects, colonial settlers, revolutionaries, and Americans.', 'https://www.youtube.com/playlist?list=PLDA2BC5E785D495AB', 'https://oyc.yale.edu/history/hist-116', 'https://img.youtube.com/vi/8_ltTMQ6Gsg/0.jpg'),
+(82, 'The Civil War and Reconstruction Era, 1845-1877', 'Engleski', '2008.', 27, 22, '	HIST 119', 'This course explores the causes, course, and consequences of the American Civil War, from the 1840s to 1877. The primary goal of the course is to understand the multiple meanings of a transforming event in American history. Those meanings may be defined in many ways: national, sectional, racial, constitutional, individual, social, intellectual, or moral. Four broad themes are closely examined: the crisis of union and disunion in an expanding republic; slavery, race, and emancipation as national problem, personal experience, and social process; the experience of modern, total war for individuals and society; and the political and social challenges of Reconstruction.', 'https://www.youtube.com/playlist?list=PL5DD220D6A1282057', 'https://oyc.yale.edu/history/hist-119', 'https://img.youtube.com/vi/yesO9SnEQ6Y/0.jpg'),
+(83, 'France Since 1871', 'Engleski', '2007.', 24, 18, 'HIST 276', 'This course covers the emergence of modern France. Topics include the social, economic, and political transformation of France; the impact of France\'s revolutionary heritage, of industrialization, and of the dislocation wrought by two world wars; and the political response of the Left and the Right to changing French society.', 'https://www.youtube.com/playlist?list=PLE653BF062C136B62', 'https://oyc.yale.edu/history/hist-276', 'https://img.youtube.com/vi/tZyo7koBa04/0.jpg'),
+(84, 'African American History: From Emancipation to the Present', 'Engleski', '2010.', 25, 20, 'AFAM 162', 'The purpose of this course is to examine the African American experience in the United States from 1863 to the present. Prominent themes include the end of the Civil War and the beginning of Reconstruction; African Americans’ urbanization experiences; the development of the modern civil rights movement and its aftermath; and the thought and leadership of Booker T. Washington, Ida B. Wells-Barnett, W.E.B. Du Bois, Marcus Garvey, Martin Luther King Jr., and Malcolm X.', 'https://oyc.yale.edu/african-american-studies/afam-162/lecture-1', 'https://oyc.yale.edu/african-american-studies/afam-162', 'https://oyc.yale.edu/sites/default/files/holloway_1_2.jpg'),
+(85, 'New York City: A Social History', 'Engleski', '2010.', 26, 29, NULL, '	New York City, growing from the small Dutch commercial settlement of New Amsterdam early in the seventeenth century into a bustling multi-cultural city of more than 7 million and metropolis of more than 15 million by the twentieth century, is a place with many stories. A semester of 14 weeks can only touch on some of them. This course will focus on the social history of the city – the peoples who have built the city and competing efforts by different numbers to authorize their dreams for the city. As arguably the capital for global capitalism today, one focus of this course will seek to plot its development and legacy for the shaping of the city. A more particular and related local story will be studied as well, however: the political and cultural interests, ideologies and players who shape and reshape the city as Manhattan, as New York and as the Metropolis.', 'https://www.youtube.com/playlist?list=PL78E65F2E6C63CD76', NULL, 'https://img.youtube.com/vi/dHSUBtfQfmU/0.jpg'),
+(86, 'Ancient Israel', 'Engleski', '2010.', 27, 29, NULL, '	This course is designed to make the acquaintance from scratch. My ancient Israel is strange, sometimes shocking, diverse, and mostly hidden. It can be approached from archaeology and non-biblical writing as well as from the Bible as its most famous artifact. I am a biblical scholar and student of ancient literature, so this class will lean toward what is written, embracing the Bible as a source. In a broadly chronological framework, we will ask what I hope to be unfamiliar questions, trying to get you to see things you had not considered before. The course assumes no prior knowledge, and all knowledge is built from the ground up based on “primary evidence,” the actual material from the ancient world – including the Bible. Every full-class meeting will involve conversation in response to some piece of primary evidence, with expectation that students have as much right as any scholar to figure out who these people are for themselves.', 'https://www.youtube.com/playlist?list=PL49208CAE353159FA', NULL, 'https://img.youtube.com/vi/0bBx4_Ax7rI/0.jpg');
 
 -- --------------------------------------------------------
 
@@ -433,7 +466,18 @@ INSERT INTO `pripadnost_kategoriji` (`idPripadnost_kategoriji`, `predavanje`, `k
 (76, 72, 10),
 (77, 73, 10),
 (78, 74, 10),
-(79, 75, 10);
+(79, 75, 10),
+(80, 76, 6),
+(81, 77, 6),
+(82, 78, 6),
+(83, 79, 6),
+(84, 80, 6),
+(85, 81, 6),
+(86, 82, 6),
+(87, 83, 6),
+(88, 84, 6),
+(89, 85, 6),
+(90, 86, 6);
 
 -- --------------------------------------------------------
 
@@ -557,7 +601,18 @@ INSERT INTO `zaposlenje` (`idZaposlenje`, `ustanova`, `predavac`) VALUES
 (67, 3, 72),
 (68, 15, 73),
 (69, 3, 74),
-(70, 3, 75);
+(70, 3, 75),
+(72, 5, 77),
+(73, 5, 78),
+(74, 5, 79),
+(75, 5, 80),
+(76, 5, 81),
+(77, 5, 82),
+(78, 5, 83),
+(79, 5, 84),
+(80, 5, 85),
+(81, 14, 86),
+(82, 14, 87);
 
 --
 -- Indexes for dumped tables
@@ -619,25 +674,25 @@ ALTER TABLE `kategorije`
 -- AUTO_INCREMENT for table `lekcije`
 --
 ALTER TABLE `lekcije`
-  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `predavaci`
 --
 ALTER TABLE `predavaci`
-  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `predavanja`
 --
 ALTER TABLE `predavanja`
-  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `pripadnost_kategoriji`
 --
 ALTER TABLE `pripadnost_kategoriji`
-  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT for table `ustanove`
@@ -649,7 +704,7 @@ ALTER TABLE `ustanove`
 -- AUTO_INCREMENT for table `zaposlenje`
 --
 ALTER TABLE `zaposlenje`
-  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
