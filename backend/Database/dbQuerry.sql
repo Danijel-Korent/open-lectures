@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2022 at 06:14 PM
+-- Generation Time: May 01, 2022 at 06:54 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -140,7 +140,12 @@ INSERT INTO `lekcije` (`idLekcije`, `predavac`, `predavanja`) VALUES
 (68, 68, 67),
 (69, 69, 68),
 (70, 70, 69),
-(71, 71, 70);
+(71, 71, 70),
+(72, 72, 71),
+(73, 73, 72),
+(74, 74, 73),
+(75, 75, 74),
+(76, 13, 75);
 
 -- --------------------------------------------------------
 
@@ -225,7 +230,11 @@ INSERT INTO `predavaci` (`idPredavac`, `ime`, `prezime`, `slika_predavaca`) VALU
 (68, 'Steven', 'B. Smith', NULL),
 (69, 'Ian', 'Shapiro', NULL),
 (70, 'John', 'Wargo', NULL),
-(71, 'Douglas', 'W. Rae', NULL);
+(71, 'Douglas', 'W. Rae', NULL),
+(72, 'Anant', 'Agarwal', NULL),
+(73, 'Nonie', 'Politi', NULL),
+(74, 'Dennis', 'Freeman', NULL),
+(75, 'James', 'Roberge', NULL);
 
 -- --------------------------------------------------------
 
@@ -321,7 +330,13 @@ INSERT INTO `predavanja` (`idPredavanja`, `naziv_predavanja`, `jezik`, `godina`,
 (67, 'Introduction to Political Philosophy', 'Engleski', '2006.', 24, 17, 'PLSC 114', 'This course is intended as an introduction to political philosophy as seen through an examination of some of the major texts and thinkers of the Western political tradition. Three broad themes that are central to understanding political life are focused upon: the polis experience (Plato, Aristotle), the sovereign state (Machiavelli, Hobbes), constitutional government (Locke), and democracy (Rousseau, Tocqueville). The way in which different political philosophies have given expression to various forms of political institutions and our ways of life are examined throughout the course.', 'https://www.youtube.com/playlist?list=PL8D95DEA9B7DFE825', 'https://oyc.yale.edu/political-science/plsc-114', 'https://img.youtube.com/vi/xhm55mIdSuk/0.jpg'),
 (68, 'The Moral Foundations of Politics', 'Engleski', '2010.', 25, 20, 'PLSC 118', 'This course explores main answers to the question \"when do governments deserve our allegiance?\" It starts with a survey of major political theories of the Enlightenment—Utilitarianism, Marxism, and the social contract tradition—through classical formulations, historical context, and contemporary debates relating to politics today. It then turns to the rejection of Enlightenment political thinking. Lastly, it deals with the nature of, and justifications for, democratic politics, and their relations to Enlightenment and Anti-Enlightenment political thinking. Practical implications of these arguments are covered through discussion of a variety of concrete problems.', 'https://www.youtube.com/playlist?list=PL2FD48CE33DFBEA7E', 'https://oyc.yale.edu/political-science/plsc-118/lecture-1', 'https://img.youtube.com/vi/s6MOA_Y3MKE/0.jpg'),
 (69, 'Environmental Politics and Law', 'Engleski', '2010.', 24, 19, 'EVST 255', 'Can law change human behavior to be less environmentally damaging? Law will be examined through case histories including: environmental effects of national security, pesticides, air pollution, consumer products, plastics, parks and protected area management, land use, urban growth and sprawl, public/private transit, drinking water standards, food safety, and hazardous site restoration. In each case we will review the structure of law and evaluate its strengths and weaknesses.', 'https://www.youtube.com/playlist?list=PL84DCD72C5B5DC403', 'https://oyc.yale.edu/environmental-studies/evst-255', 'https://img.youtube.com/vi/zKS3Ul-kuaw/0.jpg'),
-(70, 'Capitalism: Success, Crisis, and Reform', 'Engleski', '2009.', 23, 18, 'PLSC 270', 'In this course, we will seek to interpret capitalism using ideas from biological evolution: firms pursuing varied strategies and facing extinction when those strategies fail are analogous to organisms struggling for survival in nature. For this reason, it is less concerned with ultimate judgment of capitalism than with the ways it can be shaped to fit our more specific objectives–for the natural environment, public health, alleviation of poverty, and development of human potential in every child. Each book we read will be explicitly or implicitly an argument about good and bad consequences of capitalism.', 'https://www.youtube.com/playlist?list=PL2497FD1251EED4DD', 'https://oyc.yale.edu/political-science/plsc-270', 'https://img.youtube.com/vi/gw3xeGfM2Rk/0.jpg');
+(70, 'Capitalism: Success, Crisis, and Reform', 'Engleski', '2009.', 23, 18, 'PLSC 270', 'In this course, we will seek to interpret capitalism using ideas from biological evolution: firms pursuing varied strategies and facing extinction when those strategies fail are analogous to organisms struggling for survival in nature. For this reason, it is less concerned with ultimate judgment of capitalism than with the ways it can be shaped to fit our more specific objectives–for the natural environment, public health, alleviation of poverty, and development of human potential in every child. Each book we read will be explicitly or implicitly an argument about good and bad consequences of capitalism.', 'https://www.youtube.com/playlist?list=PL2497FD1251EED4DD', 'https://oyc.yale.edu/political-science/plsc-270', 'https://img.youtube.com/vi/gw3xeGfM2Rk/0.jpg'),
+(71, 'Circuits and Electronics', 'Engleski', '2007.', 26, 21, '6.002', '6.002 is designed to serve as a first course in an undergraduate electrical engineering (EE), or electrical engineering and computer science (EECS) curriculum', 'https://www.youtube.com/playlist?list=PL9F74AFA03AA06A11', 'https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-002-circuits-and-electronics-spring-2007/', 'https://img.youtube.com/vi/4TCnYYpZxEc/0.jpg');
+INSERT INTO `predavanja` (`idPredavanja`, `naziv_predavanja`, `jezik`, `godina`, `broj_predavanja`, `ukupno_trajanje`, `oznaka`, `opis_kolegija`, `link_1`, `link_2`, `image`) VALUES
+(72, 'Digital Circuit Design', 'Engleski', '2011.', 32, 23, 'ELEC2141', 'Introduction to modern digital logic design, combinational logic, switch logic and basic gates, Boolean algebra, two-level logic, regular logic structures, multi-level networks and transformations, programmable logic devices, time response. Sequential logic, networks with feedback, basic latches and flip-flops, timing methodologies, registers and counters, programmable logic devices. Finite state machine design, concepts of FSMs, basic design approach, specification methods, state minimization, state encoding, FSM partitioning, implementation of FSMs, programmable logic devices. Elements of computers, arithmetic circuits, arithmetic and logic units, register and bus structures, controllers/ sequencers, microprogramming. Experience with computer-aided design tools for logic design, schematic entry, state diagram entry, hardware description language entry, compilation to logic networks, simulation, mapping to programmable logic devices. Practical topics, non-gate logic, asynchronous inputs and metastability, memories: RAM and ROM, Implementation technologies and mapping problems expressed in words to digital abstractions.', 'https://www.youtube.com/playlist?list=PLB52B8F4E464CEEF7', 'https://www.handbook.unsw.edu.au/undergraduate/courses/2019/ELEC2141', 'https://img.youtube.com/vi/esAE1WLAubM/0.jpg'),
+(73, 'Signals and Systems', 'Engleski', '2011.', 25, 20, '6.003', 'The analysis of signals and systems forms a key part of many modern technologies, including communications and feedback & control. These lectures give a conceptual and mathematical introduction to the topic, covering both analog and digital systems.', 'https://www.youtube.com/playlist?list=PLUl4u3cNGP61kdPAOC7CzFjJZ8f1eMUxs', 'https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-003-signals-and-systems-fall-2011/', 'https://img.youtube.com/vi/gxgV_oOG7Zc/0.jpg'),
+(74, 'Electronic Feedback Systems', 'Engleski', '1985.', 20, 17, NULL, 'Feedback control is an important technique that is used in many modern electronic and electromechanical systems. The successful inclusion of this technique improves performance, reliability, and cost effectiveness of many designs. In this series of lectures we introduce the analytical concepts that underlie classical feedback system design. The application of these concepts is illustrated by a variety of experiments and demonstration systems. The diversity of the demonstration systems reinforces the value of the analytic methods.', 'https://www.youtube.com/playlist?list=PLUl4u3cNGP62in17jH_DiJMkCGNM6Xni-', 'https://ocw.mit.edu/resources/res-6-010-electronic-feedback-systems-spring-2013/', 'https://img.youtube.com/vi/CWlJLpAE4BI/0.jpg'),
+(75, 'Biomedical Electronics', 'Engleski', '2013.', 21, 24, 'ECE5030', 'Covers the theory and practical aspects of recording and analyzing electronic data collected from biological systems. Topics may include electrode and amplifier design, tissue impedance and effects on waveforms, sensors, statistical and signal processing algorithms, noise reduction, and safety considerations.', 'https://www.youtube.com/playlist?list=PLKcjQ_UFkrd7zbPHRkDpB7i113wDG_Rb3', 'http://people.ece.cornell.edu/land/courses/ece5030/', 'https://img.youtube.com/vi/thCFMeB8pHM/0.jpg');
 
 -- --------------------------------------------------------
 
@@ -413,7 +428,12 @@ INSERT INTO `pripadnost_kategoriji` (`idPripadnost_kategoriji`, `predavanje`, `k
 (71, 68, 13),
 (72, 69, 13),
 (73, 70, 13),
-(74, 70, 9);
+(74, 70, 9),
+(75, 71, 10),
+(76, 72, 10),
+(77, 73, 10),
+(78, 74, 10),
+(79, 75, 10);
 
 -- --------------------------------------------------------
 
@@ -533,7 +553,11 @@ INSERT INTO `zaposlenje` (`idZaposlenje`, `ustanova`, `predavac`) VALUES
 (63, 5, 68),
 (64, 5, 69),
 (65, 5, 70),
-(66, 5, 71);
+(66, 5, 71),
+(67, 3, 72),
+(68, 15, 73),
+(69, 3, 74),
+(70, 3, 75);
 
 --
 -- Indexes for dumped tables
@@ -595,25 +619,25 @@ ALTER TABLE `kategorije`
 -- AUTO_INCREMENT for table `lekcije`
 --
 ALTER TABLE `lekcije`
-  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `predavaci`
 --
 ALTER TABLE `predavaci`
-  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `predavanja`
 --
 ALTER TABLE `predavanja`
-  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `pripadnost_kategoriji`
 --
 ALTER TABLE `pripadnost_kategoriji`
-  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `ustanove`
@@ -625,7 +649,7 @@ ALTER TABLE `ustanove`
 -- AUTO_INCREMENT for table `zaposlenje`
 --
 ALTER TABLE `zaposlenje`
-  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
