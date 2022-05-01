@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2022 at 05:52 PM
+-- Generation Time: May 01, 2022 at 06:14 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -136,7 +136,11 @@ INSERT INTO `lekcije` (`idLekcije`, `predavac`, `predavanja`) VALUES
 (64, 27, 63),
 (65, 67, 64),
 (66, 67, 65),
-(67, 26, 66);
+(67, 26, 66),
+(68, 68, 67),
+(69, 69, 68),
+(70, 70, 69),
+(71, 71, 70);
 
 -- --------------------------------------------------------
 
@@ -217,7 +221,11 @@ INSERT INTO `predavaci` (`idPredavac`, `ime`, `prezime`, `slika_predavaca`) VALU
 (64, 'Julie', 'Zelenski', NULL),
 (65, 'Jerry', 'Cain', NULL),
 (66, 'Geoffrey', 'Challen', NULL),
-(67, 'Andrew', 'Ng', NULL);
+(67, 'Andrew', 'Ng', NULL),
+(68, 'Steven', 'B. Smith', NULL),
+(69, 'Ian', 'Shapiro', NULL),
+(70, 'John', 'Wargo', NULL),
+(71, 'Douglas', 'W. Rae', NULL);
 
 -- --------------------------------------------------------
 
@@ -309,7 +317,11 @@ INSERT INTO `predavanja` (`idPredavanja`, `naziv_predavanja`, `jezik`, `godina`,
 (63, 'Parallel Computer Architecture', 'Engleski', '2012.', 24, 35, '18-742', NULL, 'https://www.youtube.com/playlist?list=PL5PHm2jkkXmh4cDkC3s1VBB7-njlgiG5d', 'https://course.ece.cmu.edu/~ece742/f12/doku.php', 'https://img.youtube.com/vi/YnqpW-mCYX8/0.jpg'),
 (64, 'Machine Learning', 'Engleski', '2018.', 20, 27, 'CS229', 'This course provides a broad introduction to machine learning and statistical pattern recognition. Topics include: supervised learning (generative/discriminative learning, parametric/non-parametric learning, neural networks, support vector machines); unsupervised learning (clustering, dimensionality reduction, kernel methods); learning theory (bias/variance tradeoffs, practical advice); reinforcement learning and adaptive control. The course will also discuss recent applications of machine learning, such as to robotic control, data mining, autonomous navigation, bioinformatics, speech recognition, and text and web data processing.', 'https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU', 'https://cs229.stanford.edu/syllabus-autumn2018.html', 'https://img.youtube.com/vi/jGwO_UgTS7I/0.jpg'),
 (65, 'Machine Learning', 'Engleski', '2008.', 20, 25, 'CS229', '	This course provides a broad introduction to machine learning and statistical pattern recognition. Topics include: supervised learning (generative/discriminative learning, parametric/non-parametric learning, neural networks, support vector machines); unsupervised learning (clustering, dimensionality reduction, kernel methods); learning theory (bias/variance tradeoffs; VC theory; large margins); reinforcement learning and adaptive control. The course will also discuss recent applications of machine learning, such as to robotic control, data mining, autonomous navigation, bioinformatics, speech recognition, and text and web data processing.', 'https://www.youtube.com/playlist?list=PLA89DCFA6ADACE599', 'https://see.stanford.edu/Course/CS229', 'https://img.youtube.com/vi/UzxYlbK2c7E/0.jpg'),
-(66, 'AI for Video Games', 'Engleski', '2022.', 20, 22, 'COMP 4303', 'This course provides an introduction to specific state-of-the-art algorithmic techniques and data structures that are used to efficiently implement humanlike abilities (e.g., awareness, memory, rational decision-making (under uncertainty), movement, co-operation in groups) in computer game agents.', 'https://www.youtube.com/playlist?list=PL_xRyXins84_gIuIZmdOUOoYQR95I9k95', 'http://www.cs.mun.ca/~dchurchill/teaching.shtml', 'https://img.youtube.com/vi/cCmnpbB4Gik/0.jpg');
+(66, 'AI for Video Games', 'Engleski', '2022.', 20, 22, 'COMP 4303', 'This course provides an introduction to specific state-of-the-art algorithmic techniques and data structures that are used to efficiently implement humanlike abilities (e.g., awareness, memory, rational decision-making (under uncertainty), movement, co-operation in groups) in computer game agents.', 'https://www.youtube.com/playlist?list=PL_xRyXins84_gIuIZmdOUOoYQR95I9k95', 'http://www.cs.mun.ca/~dchurchill/teaching.shtml', 'https://img.youtube.com/vi/cCmnpbB4Gik/0.jpg'),
+(67, 'Introduction to Political Philosophy', 'Engleski', '2006.', 24, 17, 'PLSC 114', 'This course is intended as an introduction to political philosophy as seen through an examination of some of the major texts and thinkers of the Western political tradition. Three broad themes that are central to understanding political life are focused upon: the polis experience (Plato, Aristotle), the sovereign state (Machiavelli, Hobbes), constitutional government (Locke), and democracy (Rousseau, Tocqueville). The way in which different political philosophies have given expression to various forms of political institutions and our ways of life are examined throughout the course.', 'https://www.youtube.com/playlist?list=PL8D95DEA9B7DFE825', 'https://oyc.yale.edu/political-science/plsc-114', 'https://img.youtube.com/vi/xhm55mIdSuk/0.jpg'),
+(68, 'The Moral Foundations of Politics', 'Engleski', '2010.', 25, 20, 'PLSC 118', 'This course explores main answers to the question \"when do governments deserve our allegiance?\" It starts with a survey of major political theories of the Enlightenment—Utilitarianism, Marxism, and the social contract tradition—through classical formulations, historical context, and contemporary debates relating to politics today. It then turns to the rejection of Enlightenment political thinking. Lastly, it deals with the nature of, and justifications for, democratic politics, and their relations to Enlightenment and Anti-Enlightenment political thinking. Practical implications of these arguments are covered through discussion of a variety of concrete problems.', 'https://www.youtube.com/playlist?list=PL2FD48CE33DFBEA7E', 'https://oyc.yale.edu/political-science/plsc-118/lecture-1', 'https://img.youtube.com/vi/s6MOA_Y3MKE/0.jpg'),
+(69, 'Environmental Politics and Law', 'Engleski', '2010.', 24, 19, 'EVST 255', 'Can law change human behavior to be less environmentally damaging? Law will be examined through case histories including: environmental effects of national security, pesticides, air pollution, consumer products, plastics, parks and protected area management, land use, urban growth and sprawl, public/private transit, drinking water standards, food safety, and hazardous site restoration. In each case we will review the structure of law and evaluate its strengths and weaknesses.', 'https://www.youtube.com/playlist?list=PL84DCD72C5B5DC403', 'https://oyc.yale.edu/environmental-studies/evst-255', 'https://img.youtube.com/vi/zKS3Ul-kuaw/0.jpg'),
+(70, 'Capitalism: Success, Crisis, and Reform', 'Engleski', '2009.', 23, 18, 'PLSC 270', 'In this course, we will seek to interpret capitalism using ideas from biological evolution: firms pursuing varied strategies and facing extinction when those strategies fail are analogous to organisms struggling for survival in nature. For this reason, it is less concerned with ultimate judgment of capitalism than with the ways it can be shaped to fit our more specific objectives–for the natural environment, public health, alleviation of poverty, and development of human potential in every child. Each book we read will be explicitly or implicitly an argument about good and bad consequences of capitalism.', 'https://www.youtube.com/playlist?list=PL2497FD1251EED4DD', 'https://oyc.yale.edu/political-science/plsc-270', 'https://img.youtube.com/vi/gw3xeGfM2Rk/0.jpg');
 
 -- --------------------------------------------------------
 
@@ -396,7 +408,12 @@ INSERT INTO `pripadnost_kategoriji` (`idPripadnost_kategoriji`, `predavanje`, `k
 (66, 65, 8),
 (67, 66, 8),
 (68, 19, 10),
-(69, 19, 8);
+(69, 19, 8),
+(70, 67, 13),
+(71, 68, 13),
+(72, 69, 13),
+(73, 70, 13),
+(74, 70, 9);
 
 -- --------------------------------------------------------
 
@@ -512,7 +529,11 @@ INSERT INTO `zaposlenje` (`idZaposlenje`, `ustanova`, `predavac`) VALUES
 (59, 2, 64),
 (60, 2, 65),
 (61, 16, 66),
-(62, 2, 67);
+(62, 2, 67),
+(63, 5, 68),
+(64, 5, 69),
+(65, 5, 70),
+(66, 5, 71);
 
 --
 -- Indexes for dumped tables
@@ -574,25 +595,25 @@ ALTER TABLE `kategorije`
 -- AUTO_INCREMENT for table `lekcije`
 --
 ALTER TABLE `lekcije`
-  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `idLekcije` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `predavaci`
 --
 ALTER TABLE `predavaci`
-  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `idPredavac` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `predavanja`
 --
 ALTER TABLE `predavanja`
-  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `idPredavanja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `pripadnost_kategoriji`
 --
 ALTER TABLE `pripadnost_kategoriji`
-  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `idPripadnost_kategoriji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `ustanove`
@@ -604,7 +625,7 @@ ALTER TABLE `ustanove`
 -- AUTO_INCREMENT for table `zaposlenje`
 --
 ALTER TABLE `zaposlenje`
-  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `idZaposlenje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
