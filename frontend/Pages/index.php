@@ -74,7 +74,8 @@ foreach ($arrayOpisPred as $course)
   $university_index  = $course['ustanova'] - 1;
   $course_university = $university_list[$university_index]['naziv_ustanove'];
 
-  echo '<div class="cell large-4 medium-4 small-6">';
+  echo '<div class="cell large-4 medium-4 small-6 tooltip-w3">';
+  echo "  <span class='tooltiptext'>$course_description</span>";
   echo "  <a href='$course_linkPlaylist' target='_blank' rel='noopener noreferrer'><img src='$course_image' title='$course_description'></a>";
   echo "  <p><b>$course_name</b> ({$course_totalLength}h)</p>";
   echo "  <p>$course_university</p>";
