@@ -50,8 +50,7 @@ INSERT INTO `kategorije` (`idKategorije`, `naziv_kategorije`, `slika_kategorije`
 (11, 'Filozofija', 'filozofija.jpg'),
 (12, 'Pedagogija', 'pedagogija.jpg'),
 (13, 'Politologija', 'politologija.jpg'),
-(14, NULL, NULL),
-(15, 'Nekategorizirano', NULL);
+(14, 'Nekategorizirano', 'uncategorized.jpeg');
 
 -- --------------------------------------------------------
 
