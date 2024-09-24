@@ -95,9 +95,7 @@ else:?>
 		class="cursor-pointer whitespace-nowrap rounded-md bg-primary opacity- px-4 py-2 text-base font-medium tracking-wide text-white transition hover:opacity-75 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 active:opacity-100 active:outline-offset-0 disabled:opacity-75 disabled:cursor-not-allowed">
 		Go Back</a>
 </div>
-
 <?php endif?>
-
 <?php
 $content = ob_get_clean();
 include __DIR__ . '/../partials/layout.php';

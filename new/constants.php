@@ -5,6 +5,7 @@
 define('SITE_URL',"http://localhost/op/new");
 //Set the site name
 define('SITE_NAME',"Open Lectures");
+
 /// DO NOT EDIT ///////////////////////
 //Set the site path
 define('SITE_PATH',__DIR__);
