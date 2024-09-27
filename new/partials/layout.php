@@ -38,6 +38,7 @@ tailwind.config = {
 		<?= $content ?? 'Default content goes here' ?>
 	</main>
 
+
 	<!-- Floating Action Button -->
 	<button id="fab" onclick="scrollToTop()"
 		class="fixed bottom-6 right-6 bg-primary text-white rounded-full p-4 shadow-lg hover:opacity-85 transition-opacity duration-300 hidden"
@@ -50,6 +51,7 @@ tailwind.config = {
 	<?php include_once 'footer.php'?>
 
 	<!-- Scripts -->
+
 	<script>
 	// Function to toggle the visibility of the floating action button
 	function toggleFab() {
