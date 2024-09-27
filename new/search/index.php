@@ -4,9 +4,9 @@ require_once dirname(__DIR__).'/constants.php';
 $title = 'Categories';
 // Repo Functions here
 require_once REPO_PATH;
-if(!isset($_GET['id'])){
+if(!isset($_GET['q'])){
 	//redirect to main categories page
-	header("Location: ".SITE_URL."/categories");
+	header("Location: ".SITE_URL."/");
 }
 $data = selectCoursesByCategory($_GET['id']);
 ob_start();
