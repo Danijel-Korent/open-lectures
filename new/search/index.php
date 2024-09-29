@@ -1,19 +1,20 @@
 <?php
 //Import constants file
 require_once dirname(__DIR__).'/constants.php';
-$title = 'Categories';
+$title = 'Search';
 // Repo Functions here
 require_once REPO_PATH;
 if(!isset($_GET['q'])){
 	//redirect to main categories page
 	header("Location: ".SITE_URL."/");
 }
-$data = selectCoursesByCategory($_GET['id']);
+
+$data = searchCourse($_GET['q']);
 ob_start();
 ?>
 <?php
 	//Check if category has courses
-if(count($data['courses']) > 1):?>
+if(count($data) > 1):?>
 <?php
 $all_total_length = 0;
 $all_courses = 0;
@@ -21,7 +22,7 @@ $all_courses = 0;
 $university_list = selectUstanove();
 $list =[];
 //Loop through the array and calculate the total length of all courses
-foreach ($data['courses'] as $course)
+foreach ($data as $course)
 {
   $course_totalLength  = $course['ukupno_trajanje'];
   $all_courses++;
@@ -42,7 +43,7 @@ foreach ($data['courses'] as $course)
 ?>
 <!-- CSS import -->
 <link rel="stylesheet" href="../assets/css/tooltip.css?l=" .<?=date("d m Y")?>>
-<h1 class="font-bold text-4xl my-5 text-center text-primary"> <?=$data['category']["naziv_kategorije"]?></h1>
+<h1 class="font-bold text-3xl my-5 text-center text-primary">Search results for <?=$_GET['q']?></h1>
 <!-- Stats Hero -->
 <div class="px-4 py-8 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
 	<div class="grid grid-cols-2 gap-8 md:grid-cols-2">
@@ -155,8 +156,8 @@ foreach ($data['courses'] as $course)
 // if there are courses in the category
 else:?>
 <div class="w-full flex flex-col justify-center items-center gap-2">
-	<h1 class="font-bold text-3xl mt-5 text-center text-primary">No courses in this category</h1>
-	<a href="<?=SITE_URL.'/categories'?>" role="button"
+	<h1 class="font-bold text-3xl mt-5 text-center text-primary">No search result found!</h1>
+	<a href="<?=SITE_URL.'/'?>" role="button"
 		class="cursor-pointer whitespace-nowrap rounded-md bg-primary opacity- px-4 py-2 text-base font-medium tracking-wide text-white transition hover:opacity-75 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 active:opacity-100 active:outline-offset-0 disabled:opacity-75 disabled:cursor-not-allowed">
 		Go Back</a>
 </div>

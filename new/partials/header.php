@@ -13,10 +13,11 @@
 			<path stroke-linecap="round" stroke-linejoin="round"
 				d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
 		</svg>
-		<form action="" method="get" class="flex items-center gap-1">
-			<input type="search" name="search" placeholder="Search" aria-label="search"
+		<form action="<?=SITE_URL.'/search'?>" method="get" class="flex items-center gap-1">
+			<input type="search" name="q" value="<?=isset($_GET['q'])?$_GET['q']:""?>"
+				placeholder="Search course, university..." aria-label="search"
 				class="w-[70%] lg:w-[35rem] rounded-md border border-neutral-300 bg-neutral-50 py-2.5 pl-10 pr-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75" />
-			<button type="button"
+			<button type="submit"
 				class="cursor-pointer inline-flex justify-center items-center gap-2 whitespace-nowrap rounded-md bg-primary px-4 py-2 text-base font-medium tracking-wide text-white transition hover:opacity-75 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-800 active:opacity-100 active:outline-offset-0 disabled:opacity-75 disabled:cursor-not-allowed">
 				<i class="md:hidden text-lg lni lni-search-alt"></i>
 				<span class="hidden md:inline">Search</span>
