@@ -10,8 +10,8 @@ class Database {
         self::$database = new \mysqli(
             'localhost',
             'root',
-            '',
-            'test2'
+            'root',
+            'op'
         );
 
         /* Debugging */
