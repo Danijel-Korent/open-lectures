@@ -21,6 +21,7 @@ tailwind.config = {
 	}
 }
 </script>
+<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <style>
 [x-cloak] {
@@ -33,10 +34,10 @@ tailwind.config = {
 	<main>
 		<!-- main content  -->
 		<div id="main-content" class="p-4">
-					<div class="overflow-y-auto">
-						<?= $content ?? 'Default content goes here' ?>
-					</div>
-				</div>
+			<div class="overflow-y-auto">
+				<?= $content ?? 'Default content goes here' ?>
+			</div>
+		</div>
 	</main>
 
 

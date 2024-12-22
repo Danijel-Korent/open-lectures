@@ -133,6 +133,34 @@ function searchCourse($query) {
     }
 }
 
+function countCategories(){
+	$res = db()->query('SELECT COUNT(*) as total FROM kategorije');
+	if (db()->error) {
+	    echo 'DB Error: ' . db()->error;
+		die();
+	} else {
+		$arr = [];
+		while ($row = $res->fetch_assoc()) {
+			$arr[] = $row;
+		}
+		return $arr;
+	}
+}
+
+function countCourses(){
+	$res = db()->query('SELECT COUNT(*) as total FROM predavanja');
+	if (db()->error) {
+	    echo 'DB Error: ' . db()->error;
+		die();
+	} else {
+		$arr = [];
+		while ($row = $res->fetch_assoc()) {
+			$arr[] = $row;
+		}
+		return $arr;
+	}	
+}
+
 
 
 function truncateString($string, $length = 100, $append = "...") {
@@ -141,4 +169,43 @@ function truncateString($string, $length = 100, $append = "...") {
     }
     $truncated = substr($string, 0, $length - strlen($append));
     return $truncated . $append;
+}
+
+///ADMIN FUNCTIONS
+
+//Insert Category
+function insertCategory($name,$imageName){
+	$query = db()->prepare('INSERT INTO kategorije (naziv_kategorije,slika_kategorije) VALUES (?,?)');
+	$query->bind_param('ss', $name, $imageName);
+	$query->execute();
+	if ($query->error) {
+		echo 'DB Error: ' . $query->error;
+		die();
+	} else {
+		return true;
+	}
+}
+
+function updateCategory($id,$name,$imageName){
+	$query = db()->prepare('UPDATE kategorije SET naziv_kategorije = ?, slika_kategorije = ? WHERE idKategorije = ?');
+	$query->bind_param('sss', $name, $imageName, $id);
+	$query->execute();
+	if ($query->error) {
+		echo 'DB Error: '. $query->error;
+		die();
+	} else {
+		return true;
+	}
+}
+
+function deleteCategory($id){
+	$query = db()->prepare('DELETE FROM kategorije WHERE idKategorije = ?');
+	$query->bind_param('s', $id);
+	$query->execute();
+	if ($query->error) {
+		echo 'DB Error: '. $query->error;
+		die();
+	} else {
+		return true;
+	}
 }

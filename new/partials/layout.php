@@ -21,6 +21,7 @@ tailwind.config = {
 	}
 }
 </script>
+<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <style>
 [x-cloak] {
@@ -29,7 +30,6 @@ tailwind.config = {
 </style>
 
 <body>
-
 	<!-- Header -->
 	<?php include_once 'header.php'?>
 
@@ -37,7 +37,6 @@ tailwind.config = {
 	<main>
 		<?= $content ?? 'Default content goes here' ?>
 	</main>
-
 
 	<!-- Floating Action Button -->
 	<button id="fab" onclick="scrollToTop()"
