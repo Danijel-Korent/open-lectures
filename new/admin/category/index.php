@@ -82,46 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateCategoryId'])) 
     }
 }
 
-
-// if ($_SERVER['REQUEST_METHOD']=='POST' && isset( $_POST['updateCategoryId'])) {
-// 	$id = $_POST['updateCategoryId'];
-// 	$name = $_POST['name'];
-// 	$image = $_FILES['image'];
-// 	$oldImage = $_POST['oldImage'];
-// 	echo '<script>console.log("'.'ID:'.$id.' NAME:'.$name.' IMAGE:'.$oldImage.'")</script>';
-// 	if(isset($image)){
-// 		$directory = dirname(__DIR__,2).'/assets/images/categories';
-// 		$res =deleteFile(dirname(__DIR__,2).'/assets/images/categories/'.$oldImage);
-// 	if($res){
-// 		$filePath = saveFile($image,strtolower($name),$directory);
-// 		if($filePath){
-// 			$updateCategory = updateCategory($id,$name,$filePath);
-// 			if($updateCategory){
-// 					header('Location: '.SITE_URL.'/admin/category',true);
-// 					exit;
-// 			}else{
-// 				echo '<script>alert("Error updating category")</script>';
-// 			}
-// 		}else{
-// 			echo '<script>alert("Error updating image")</script>';
-// 		}
-// 	}else{
-// 		echo '<script>alert("Error deleting image")</script>';
-// 	}
-// 	}
-// 	else{
-// 		echo'wowo';
-// 		$updateCategory = updateCategory($id,$name,$oldImage);
-// 		if($updateCategory){
-// 					header('Location: '.SITE_URL.'/admin/category',true);
-// 					exit;
-// 				}else{
-// 					echo '<script>alert("Error updating category")</script>';
-// 				}
-// 	}
-
-// }
-
 //DELETE CATEGORY
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteCategoryId'])) {
 	$id = $_POST['deleteCategoryId'];
