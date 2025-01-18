@@ -34,8 +34,21 @@ foreach (selectAllCategories() as $category) {
     array_push($categories, $data);
 }
 //FETCHING DATA
+$courseArray = [];
+if(isset($_GET['keyword'])){
+//SEARCH Fn
+$search = $_GET['keyword'];
+$d = searchCourse($search);
+$courseArray['data'] = $d;
+$courseArray['total'] = count($d);
+$courseArray['currentPage'] = 1;
+$courseArray['perPage'] = 10;
+$courseArray['totalPages'] = ceil($courseArray['total'] / $courseArray['perPage']);
+$title = 'Search Result for '.$search;
+}else{
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $courseArray = selectPaginatedCourse($page,10);
+}
 // var_dump($courseArray);
 //Get University list
 $university_list = selectUstanove();
@@ -59,30 +72,6 @@ foreach ($courseArray['data'] as $course)
 	array_push($list, $data);
 }
 
-//SEARCH Fn
-if(isset($_GET['keyword'])){
-	$search = $_GET['keyword'];
-	$courseArray = searchCourse($search);
-	//Loop through the array and calculate the total length of all courses
-	foreach ($courseArray as $course)
-	{
-	  $course_totalLength  = $course['ukupno_trajanje'];
-	  $university_index  = $course['ustanova'] - 1;
-	  $course_university = $university_list[$university_index]['naziv_ustanove'];
-	  $data=[
-		'course_name' => $course['naziv_predavanja'],
-		'course_description' => $course['opis_kolegija'],
-		'course_totalLength' => $course['ukupno_trajanje'],
-		'course_linkPlaylist' => $course['link_1'],
-		'course_image' => $course['image'],
-		'course_university' =>$course_university,
-		'university_index' => $university_index 
-	  ];
-	  
-		array_push($list, $data);
-	}	
-	
-}
 ob_start();
 ?>
 <div x-data="{modalIsOpen: false}">
@@ -108,7 +97,7 @@ ob_start();
 				<path stroke-linecap="round" stroke-linejoin="round"
 					d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
 			</svg>
-			<input type="search"
+			<input type="search" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : '' ?>"
 				class="w-full rounded-md border border-neutral-300 bg-neutral-50 py-2 pl-10 pr-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:opacity-75"
 				name="keyword" placeholder="Search" aria-label="search" />
 		</div>
@@ -710,6 +699,8 @@ ob_start();
 		</tbody>
 	</table>
 </div>
+<?php 
+if (empty($_GET['keyword'])){?>
 <div class="flex justify-between mt-4 px-2">
 	<p class="text-sm md:text-lg font-normal">
 		Showing
@@ -777,8 +768,7 @@ ob_start();
 		</ul>
 	</nav>
 </div>
-
-
+<?php } ?>
 
 <?php
 $content = ob_get_clean();
