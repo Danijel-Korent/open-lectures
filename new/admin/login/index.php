@@ -33,7 +33,8 @@ ob_start();
 ?>
 <section class="w-full h-screen h-full flex flex-col justify-center items-center">
 	<form class=" md:w-1/3" action="" method="post">
-		<h2 class="text-xl font-bold text-center mb-2">Login into your account</h2>
+		<h1 class="text-3xl font-bold text-center mb-3"><?=SITE_NAME?></h1>
+		<h2 class="text-xl font-semibold text-center mb-2">Login into your account</h2>
 		<!-- Email Address -->
 		<div class="flex flex-col gap-1 text-neutral-600 ">
 			<label for="email" class="w-fit pl-0.5 text-sm">Email Address</label>
@@ -69,6 +70,11 @@ ob_start();
 		<button type="submit"
 			class="mt-2 w-full cursor-pointer whitespace-nowrap rounded-md bg-primary px-4 py-2 text-sm font-medium tracking-wide text-white transition hover:opacity-75 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 active:opacity-100 active:outline-offset-0 disabled:opacity-75 disabled:cursor-not-allowed">Login</button>
 	</form>
+	<div>
+		<p class="text-sm text-neutral-600 mt-2 hover:underline hover:cursor-pointer"><a onclick="window.history.back()"
+				class="text-primary">Go Back</a>
+		</p>
+	</div>
 
 </section>
 <?php

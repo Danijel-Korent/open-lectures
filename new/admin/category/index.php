@@ -32,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['createCategory'])) {
 }
 
 //UPDATE CATEGORY
-// UPDATE CATEGORY
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateCategoryId'])) {
     $id = $_POST['updateCategoryId'];
     $name = trim($_POST['name']);

@@ -60,6 +60,7 @@ function selectOpisPred (){
 	}
 };
 
+
 //Select all courses by category
 function selectCoursesByCategory($id){
 	$cat_data = db()->query("SELECT * FROM kategorije WHERE idKategorije=" . $id);
@@ -162,7 +163,6 @@ function countCourses(){
 }
 
 
-
 function truncateString($string, $length = 100, $append = "...") {
     if (strlen($string) <= $length) {
         return $string;
@@ -208,4 +208,122 @@ function deleteCategory($id){
 	} else {
 		return true;
 	}
+}
+
+//Paginated courses
+function selectPaginatedCourse($page = 1, $perPage = 10) {
+    // Calculate offset for pagination
+    $offset = ($page - 1) * $perPage;
+
+    // Query to get total number of elements
+    $totalQuery = "SELECT COUNT(*) as total
+                   FROM ustanove u
+                   INNER JOIN zaposlenje z ON u.idUstanove = z.ustanova
+                   INNER JOIN predavaci p ON p.idPredavac = z.predavac
+                   INNER JOIN lekcije l ON l.predavac = p.idPredavac
+                   INNER JOIN predavanja pred ON pred.idPredavanja = l.predavanja
+                   INNER JOIN pripadnost_kategoriji prip ON pred.idPredavanja = prip.predavanje
+                   INNER JOIN kategorije k ON k.idKategorije = prip.kategorije";
+
+    $totalRes = db()->query($totalQuery);
+    if (db()->error) {
+        echo 'DB Error: ' . db()->error;
+        die();
+    }
+    $total = $totalRes->fetch_assoc()['total'];
+
+    // Query to get paginated results
+    $dataQuery = "SELECT pred.naziv_predavanja, u.naziv_ustanove,
+                         p.ime, p.prezime, pred.jezik, pred.broj_predavanja, 
+                         pred.ukupno_trajanje, pred.oznaka, pred.opis_kolegija, 
+                         pred.link_1, pred.link_2, pred.image, prip.kategorije, z.ustanova
+                  FROM ustanove u
+                  INNER JOIN zaposlenje z ON u.idUstanove = z.ustanova
+                  INNER JOIN predavaci p ON p.idPredavac = z.predavac
+                  INNER JOIN lekcije l ON l.predavac = p.idPredavac
+                  INNER JOIN predavanja pred ON pred.idPredavanja = l.predavanja
+                  INNER JOIN pripadnost_kategoriji prip ON pred.idPredavanja = prip.predavanje
+                  INNER JOIN kategorije k ON k.idKategorije = prip.kategorije
+				  ORDER BY pred.naziv_predavanja asc
+                  LIMIT $perPage OFFSET $offset ";
+
+    $dataRes = db()->query($dataQuery);
+    if (db()->error) {
+        echo 'DB Error: ' . db()->error;
+        die();
+    }
+
+    // Fetch paginated results
+    $data = [];
+    while ($row = $dataRes->fetch_assoc()) {
+        $data[] = $row;
+    }
+
+    // Return paginated data and total count
+    return [
+        'data' => $data,
+        'total' => $total,
+        'currentPage' => $page,
+        'perPage' => $perPage,
+        'totalPages' => ceil($total / $perPage),
+    ];
+}
+
+//Select all lecturers
+function selectAllLecturers(){
+	$res = db()->query("SELECT * FROM predavaci;");
+	// Check if the query was successful
+	if (db()->error) {
+	    echo 'DB Error: ' . db()->error;
+		die();
+	} else {
+	//return the result
+	$arr =[];
+	while($row = $res->fetch_assoc()){
+		$arr[] = $row;
+	}
+	    return $arr;
+	}
+}
+
+//select all universities
+function selectAllUniversity(){
+	$res = db()->query('SELECT * FROM `ustanove`');
+// Check if the query was successful
+	if (db()->error) {
+	    echo 'DB Error: ' . db()->error;
+		die();
+	} else {
+	//return the result
+	$arr =[];
+	while($row = $res->fetch_assoc()){
+		$arr[] = $row;
+	}
+	    return $arr;
+	}
+}
+
+//select all categories
+function selectAllCategories(){
+	$res = db()->query('SELECT * FROM `kategorije`');
+// Check if the query was successful
+	if (db()->error) {
+	    echo 'DB Error: ' . db()->error;
+		die();
+	} else {
+	//return the result
+	$arr =[];
+	while($row = $res->fetch_assoc()){
+		$arr[] = $row;
+	}
+	    return $arr;
+	}
+}
+
+//Insert course
+function insertCourse(){
+	//insert course
+	//insert course <-> category
+	//insert course <-> lecturer
+	//insert course <-> university
 }
