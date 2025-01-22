@@ -1,28 +1,27 @@
 <?php
 //Import constants file
 require_once dirname(__DIR__,2).'/constants.php';
-require_once REPO_PATH;
-require_once STORAGE_REPO_PATH;
-
 session_start();
 if (empty($_SESSION['logged'])){
 	header('Location: '.SITE_URL.'/admin/login',true);
 	exit;
 }
-$title = 'Category';
-$data = selectKategorije();
+$title = 'University';
+require_once REPO_PATH;
 
-//CREATE CATEGORY
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['createCategory'])) {
-	$name = $_POST['name'];
+
+//CREATE UNI
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['createLecturer'])) {
+	$firstName = $_POST['firstName'];
+	$lastName= $_POST['lastName'];
 	$image = $_FILES['image'];
 	//add file extension .png, .jpg, .jpeg
-	$directory = dirname(__DIR__,2).'/assets/images/categories';
-	$filePath = saveFile($image,strtolower($name),$directory);
+	$directory = dirname(__DIR__,2).'/assets/images/UNI';
+	$filePath = saveFile($image,strtolower($firstName.$lastName),$directory);
 	if($filePath){
-		$createCategory = insertCategory($name,$filePath);
-		if($createCategory){
-			header('Location: '.SITE_URL.'/admin/category',true);
+		$created = insertLecturer($firstName,$lastName,$filePath);
+		if($created){
+			header('Location: '.SITE_URL.'/admin/lecturer',true);
 			exit;
 		}
 	}else{
@@ -31,13 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['createCategory'])) {
 
 }
 
-//UPDATE CATEGORY
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateCategoryId'])) {
-    $id = $_POST['updateCategoryId'];
-    $name = trim($_POST['name']);
+//UPDATE UNI
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateLecturerId'])) {
+    $id = $_POST['updateLecturerId'];
+	$firstName = trim($_POST['firstName']);
+	$lastName = trim($_POST['lastName']);
     $image = isset($_FILES['image']) ? $_FILES['image'] : null;
     $oldImage = $_POST['oldImage'];
-    $directory = dirname(__DIR__, 2) . '/assets/images/categories';
+    $directory = dirname(__DIR__, 2) . '/assets/images/lecturer';
 
     // Directory for saving images
 
@@ -46,21 +46,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateCategoryId'])) 
 
     try {
         // Validate ID and Name
-        if (empty($id) || empty($name)) {
-            throw new Exception('Category ID and Name are required.');
+        if (empty($id) || empty($firstName)||empty($lastName)) {
+            throw new Exception('Lecturer ID and Name are required.');
         }
 
         // Check if a new image is uploaded
         if (!empty($image) && $image['error'] === UPLOAD_ERR_OK) {
             // Delete the old image file if it exists
             $oldImagePath = $directory . '/' . $oldImage;
-
             if (file_exists($oldImagePath) && is_file($oldImagePath)) {
                 unlink($oldImagePath);
             }
 
             // Save the new image
-            $filePath = saveFile($image, strtolower($name), $directory);
+            $filePath = saveFile($image, strtolower($firstName.$lastName), $directory);
 
             // If saving fails, show an error message
             if (!$filePath) {
@@ -69,41 +68,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateCategoryId'])) 
         }
 
         // Update the category in the database
-        $updateCategory = updateCategory($id, $name, $filePath);
+        $updateCategory = updateLecturer($id, $firstName,$lastName, $filePath);
         if ($updateCategory) {
-            header('Location: ' . SITE_URL . '/admin/category');
+            header('Location: ' . SITE_URL . '/admin/lecturer');
             exit;
         } else {
-            throw new Exception('Error updating category in the database.');
+            throw new Exception('Error updating lecturer in the database.');
         }
     } catch (Exception $e) {
         echo '<script>alert("' . $e->getMessage() . '");</script>';
     }
 }
 
-//DELETE CATEGORY
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteCategoryId'])) {
-	$id = $_POST['deleteCategoryId'];
+//DELETE UNI
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteUniId'])) {
+	$id = $_POST['deleteUniId'];
 	$imageName = $_POST['oldImage'];
 	$res = true;
 	if (!empty($imageName)){
-		$res =deleteFile(dirname(__DIR__,2).'/assets/images/categories/'.$imageName);
+		$res =deleteFile(dirname(__DIR__,2).'/assets/images/lecturer/'.$imageName);
 	}
 if($res){
-	$deleteCategory = deleteCategory($id);
+	$deleteCategory = deleteLecturer($id);
 	if($deleteCategory){
-		header('Location: '.SITE_URL.'/admin/category',true);
+		header('Location: '.SITE_URL.'/admin/lecturer',true);
 		exit;
 	}
 }else{
 	echo '<script>alert("Error deleting image")</script>';
 }
 }
+
 ob_start();
 ?>
 <div x-data="{modalIsOpen: false}">
 	<div class="flex w-full justify-between mb-5">
-		<h2 class="text-2xl font-semibold">Categories</h2>
+		<h2 class="text-2xl font-semibold">Universities</h2>
 		<button @click="modalIsOpen = true" type="button"
 			class="cursor-pointer inline-flex justify-center items-center gap-2 whitespace-nowrap rounded-md bg-primary px-4 py-2 text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 disabled:opacity-75 disabled:cursor-not-allowed">
 			<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -112,9 +112,27 @@ ob_start();
 					d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z"
 					clip-rule="evenodd" />
 			</svg>
-			Add Category
+			Add University
 		</button>
 	</div>
+	<!-- Search -->
+	<form action="" method="get" class="flex gap-2 ml-2">
+		<div class="relative flex w-full mb-4 min-w-sm md:max-w-md flex-col gap-1 text-neutral-600">
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+				stroke="currentColor" aria-hidden="true"
+				class="absolute left-2.5 top-1/2 size-5 -translate-y-1/2 text-neutral-600/50">
+				<path stroke-linecap="round" stroke-linejoin="round"
+					d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+			</svg>
+			<input type="search" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : '' ?>"
+				class="w-full rounded-md border border-neutral-300 bg-neutral-50 py-2 pl-10 pr-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:opacity-75"
+				name="keyword" placeholder="Search" aria-label="search" />
+		</div>
+		<button type="submit"
+			class="cursor-pointer h-10 inline-flex justify-center items-center gap-2 whitespace-nowrap rounded-md bg-primary px-4 py-2 text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 disabled:opacity-75 disabled:cursor-not-allowed">
+			Search
+		</button>
+	</form>
 	<!-- Create Modal -->
 	<div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen"
 		@keydown.esc.window="modalIsOpen = false" @click.self="modalIsOpen = false"
@@ -127,7 +145,7 @@ ob_start();
 			class="flex md:w-[40%] w-[90%] flex-col gap-4 overflow-hidden rounded-md border border-neutral-300 bg-white text-neutral-600">
 			<!-- Dialog Header -->
 			<div class="flex items-center justify-between border-b border-neutral-300 bg-neutral-50/60 p-4">
-				<h3 id="defaultModalTitle" class="font-semibold tracking-wide text-neutral-900">Add New Category</h3>
+				<h3 id="defaultModalTitle" class="font-semibold tracking-wide text-neutral-900">Add New University</h3>
 				<button @click="modalIsOpen = false" aria-label="close modal">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor"
 						fill="none" stroke-width="1.4" class="w-5 h-5">
@@ -137,7 +155,7 @@ ob_start();
 			</div>
 			<!-- Dialog Body -->
 			<form action="" method="post" enctype="multipart/form-data">
-				<input type="hidden" name="createCategory" value="1">
+				<input type="hidden" name="createLecturer" value="1">
 				<div class="px-4 pb-4">
 					<!-- Photo -->
 					<div
@@ -149,11 +167,23 @@ ob_start();
 					</div>
 
 					<!-- Name -->
-					<div class="flex w-full flex-col gap-1 text-neutral-600 ">
-						<label for="textInputDefault" class="w-fit pl-0.5 text-sm">Category Name</label>
-						<input required id="textInputDefault" type="text"
+					<div class="flex w-full flex-col gap-1 text-neutral-600 mb-2">
+						<label for="name" class="w-fit pl-0.5 text-sm">Name</label>
+						<input required id="name" type="text"
 							class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
-							name="name" placeholder="Category Name" />
+							name="name" placeholder="Name" />
+					</div>
+					<div class="flex w-full flex-col gap-1 text-neutral-600 mb-2">
+						<label for="city" class="w-fit pl-0.5 text-sm">City</label>
+						<input required id="city" type="text"
+							class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
+							name="city" placeholder="City" />
+					</div>
+					<div class="flex w-full flex-col gap-1 text-neutral-600 ">
+						<label for="country" class="w-fit pl-0.5 text-sm">Country</label>
+						<input required id="country" type="text"
+							class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
+							name="country" placeholder="Country" />
 					</div>
 
 				</div>
@@ -162,7 +192,7 @@ ob_start();
 					class="border-t border-neutral-300 bg-neutral-50/60 p-4 sm:flex-row sm:items-center md:justify-end">
 					<button type="submit"
 						class="w-full cursor-pointer whitespace-nowrap rounded-md bg-primary px-4 py-2 text-center text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0">
-						Add Category</button>
+						Add University</button>
 				</div>
 			</form>
 		</div>
@@ -178,25 +208,46 @@ ob_start();
 			</tr>
 		</thead>
 		<tbody class="divide-y divide-neutral-300">
-			<?php foreach($data as $c){ ?>
-			<?php $index=$c["idKategorije"];?>
+			<?php foreach($dataArray['data'] as $c){ ?>
+			<?php $index=$c["idPredavac"];?>
 			<tr>
 				<td class="p-4">
 					<div class="flex w-max items-center gap-3">
+
+						<?php if(empty($c["slika_ustanove"])|| !isset($c["slika_ustanove"])){?>
+						<div class="size-14 bg-gray-200 rounded-full flex items-center justify-center">
+							<svg class="size-8 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"
+								xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
+								<path
+									d="M12.75 14.6667C12.75 14.2524 13.0858 13.9167 13.5 13.9167H16.5C16.9142 13.9167 17.25 14.2524 17.25 14.6667C17.25 15.0809 16.9142 15.4167 16.5 15.4167H13.5C13.0858 15.4167 12.75 15.0809 12.75 14.6667Z"
+									fill="#343C54" />
+								<path
+									d="M13.5 8.58334C13.0858 8.58334 12.75 8.91913 12.75 9.33334C12.75 9.74756 13.0858 10.0833 13.5 10.0833H16.5C16.9142 10.0833 17.25 9.74756 17.25 9.33334C17.25 8.91913 16.9142 8.58334 16.5 8.58334H13.5Z"
+									fill="#343C54" />
+								<path fill-rule="evenodd" clip-rule="evenodd"
+									d="M11.5 3.25C10.2574 3.25 9.25 4.25736 9.25 5.5V7.75H5.5C4.25736 7.75 3.25 8.75736 3.25 10V20C3.25 20.4142 3.58579 20.75 4 20.75H20C20.4142 20.75 20.75 20.4142 20.75 20V5.5C20.75 4.25736 19.7426 3.25 18.5 3.25H11.5ZM9.25 19.25V17H7.75586C7.34165 17 7.00586 16.6642 7.00586 16.25C7.00586 15.8358 7.34165 15.5 7.75586 15.5H9.25V13H7.75586C7.34165 13 7.00586 12.6642 7.00586 12.25C7.00586 11.8358 7.34165 11.5 7.75586 11.5H9.25V9.25H5.5C5.08579 9.25 4.75 9.58579 4.75 10V19.25H9.25ZM10.75 12.2773C10.7503 12.2683 10.7505 12.2591 10.7505 12.25C10.7505 12.2409 10.7503 12.2317 10.75 12.2227V5.5C10.75 5.08579 11.0858 4.75 11.5 4.75H18.5C18.9142 4.75 19.25 5.08579 19.25 5.5V19.25H10.75V16.2773C10.7503 16.2683 10.7505 16.2591 10.7505 16.25C10.7505 16.2409 10.7503 16.2317 10.75 16.2227V12.2773Z"
+									fill="#343C54" />
+							</svg>
+						</div>
+						<?php }else{?>
 						<img class="size-14 rounded-full object-cover"
-							src="<?=$c["slika_kategorije"] == "" ?ASSET_PATH."/images/categories/uncategorized.jpeg":ASSET_PATH."/images/categories/".$c['slika_kategorije'] ?>"
-							alt="user avatar" />
+							src="<?=ASSET_PATH."/images/lecturer/".$c['slika_ustanove'] ?>" alt="avatar" />
+						<?php } ?>
 						<div class="flex flex-col">
-							<span class="text-neutral-900 text-lg font-semibold"> <?=$c['naziv_kategorije']?></span>
+							<span class="text-neutral-900 text-lg font-semibold">
+								<?=$c['ime']?> <?=$c["prezime"]?>
+							</span>
 						</div>
 					</div>
 				</td>
 				<td class="p-4">
 					<div x-data="{deleteModal<?=$index?>: false, updateModal<?=$index?>: false }">
-						<button type="button" @click="updateModal<?=$index?> = true"
-							class="cursor-pointer whitespace-nowrap rounded-md bg-transparent p-0.5 font-semibold text-black outline-black hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 active:opacity-100 active:outline-offset-0">Edit</button>
+						<button @click="updateModal<?=$index?> = true" type="button"
+							class="cursor-pointer whitespace-nowrap rounded-md bg-sky-500 px-4 py-2 text-xs font-medium tracking-wide text-white transition hover:opacity-75 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 active:opacity-100 active:outline-offset-0 disabled:opacity-75 disabled:cursor-not-allowed">Edit</button>
+
 						<button type="button" @click="deleteModal<?=$index?> = true"
-							class="cursor-pointer whitespace-nowrap rounded-md bg-transparent p-0.5 font-semibold text-red-500 outline-black hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 active:opacity-100 active:outline-offset-0">Delete</button>
+							class="cursor-pointer whitespace-nowrap rounded-md bg-red-500 px-4 py-2 text-xs font-medium tracking-wide text-white transition hover:opacity-75 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 active:opacity-100 active:outline-offset-0 disabled:opacity-75 disabled:cursor-not-allowed">Delete</button>
+
 						<!-- Update Modal -->
 						<div x-cloak x-show="updateModal<?=$index?>" x-transition.opacity.duration.200ms
 							x-trap.inert.noscroll="updateModal<?=$index?>"
@@ -214,7 +265,7 @@ ob_start();
 								<div
 									class="flex items-center justify-between border-b border-neutral-300 bg-neutral-50/60 p-4">
 									<h3 id="defaultModalTitle" class="font-semibold tracking-wide text-neutral-900">
-										Update Category</h3>
+										Update Lecturer</h3>
 									<button @click="updateModal<?=$index?> = false" aria-label="close modal">
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"
 											stroke="currentColor" fill="none" stroke-width="1.4" class="w-5 h-5">
@@ -225,8 +276,8 @@ ob_start();
 								</div>
 								<!-- Dialog Body -->
 								<form action="" method="post" enctype="multipart/form-data">
-									<input type="hidden" name="updateCategoryId" value="<?=$c['idKategorije']?>">
-									<input type="hidden" name="oldImage" value="<?=$c["slika_kategorije"]?>">
+									<input type="hidden" name="updateLecturerId" value="<?=$index?>">
+									<input type="hidden" name="oldImage" value="<?=$c["slika_ustanove"]?>">
 									<div class="px-4 pb-4">
 										<!-- Photo -->
 										<div
@@ -238,22 +289,34 @@ ob_start();
 										</div>
 
 										<!-- Name -->
-										<div class="flex w-full flex-col gap-1 text-neutral-600 ">
-											<label for="textInputDefault" class="w-fit pl-0.5 text-sm">Category
-												Name</label>
-											<input id="textInputDefault" type="text"
+										<div class="flex w-full flex-col gap-1 text-neutral-600 mb-2">
+											<label for="name" class="w-fit pl-0.5 text-sm">Name</label>
+											<input required id="name" type="text" value="<?=$c['naziv_ustanove']?>"
 												class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
-												name="name" value="<?=$c['naziv_kategorije']?>"
-												placeholder="Category Name" />
+												name="name" placeholder="Name" />
+										</div>
+										<div class="flex w-full flex-col gap-1 text-neutral-600 mb-2">
+											<label for="city" class="w-fit pl-0.5 text-sm">City</label>
+											<input required id="city" type="text" value="<?=$c['mjesto']?>"
+												class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
+												name="city" placeholder="City" />
+										</div>
+										<div class="flex w-full flex-col gap-1 text-neutral-600 ">
+											<label for="country" class="w-fit pl-0.5 text-sm">Country</label>
+											<input required id="country" type="text" value="<?=$c['drzava']?>"
+												class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
+												name="country" placeholder="Country" />
 										</div>
 
+
 									</div>
+
 									<!-- Dialog Footer -->
 									<div
 										class="border-t border-neutral-300 bg-neutral-50/60 p-4 sm:flex-row sm:items-center md:justify-end">
 										<button type="submit"
 											class="w-full cursor-pointer whitespace-nowrap rounded-md bg-primary px-4 py-2 text-center text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0">
-											Update Category</button>
+											Update University</button>
 									</div>
 								</form>
 							</div>
@@ -296,14 +359,14 @@ ob_start();
 								<div class="px-4 text-center">
 									<h3 id="dangerModalTitle"
 										class="mb-2 font-semibold tracking-wide text-lg text-neutral-900">
-										Delete <?=$c['naziv_kategorije']?> Category</h3>
-									<p class="text-md">Are you sure you want to delete this category?</p>
+										Delete <?=$c['naziv_ustanove']?>?></h3>
+									<p class="text-md">Are you sure you want to delete this university?</p>
 								</div>
 								<!-- Dialog Footer -->
 								<div class="flex items-center justify-center border-neutral-300 p-4">
 									<form action="" method="post">
-										<input type="hidden" name="oldImage" value="<?=$c["slika_kategorije"]?>">
-										<input type="hidden" name="deleteCategoryId" value="<?=$c['idKategorije']?>">
+										<input type="hidden" name="oldImage" value="<?=$c["slika_ustanove"]?>">
+										<input type="hidden" name="deleteUniId" value="<?=$index?>">
 										<button type="submit"
 											class="w-full cursor-pointer whitespace-nowrap rounded-md bg-red-500 px-4 py-2 text-center text-sm font-semibold tracking-wide text-white transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 active:opacity-100 active:outline-offset-0">
 											Delete Now</button>
@@ -320,18 +383,6 @@ ob_start();
 			<?php } ?>
 		</tbody>
 	</table>
-</div>
-<div class="flex w-full justify-end mt-5">
-	<button @click="modalIsOpen = true" type="button"
-		class="cursor-pointer inline-flex justify-center items-center gap-2 whitespace-nowrap rounded-md bg-primary px-4 py-2 text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 disabled:opacity-75 disabled:cursor-not-allowed">
-		<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-5 fill-neutral-100"
-			fill="currentColor">
-			<path fill-rule="evenodd"
-				d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z"
-				clip-rule="evenodd" />
-		</svg>
-		Add Category
-	</button>
 </div>
 <?php
 $content = ob_get_clean();

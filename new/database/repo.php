@@ -97,6 +97,8 @@ function selectCoursesByCategory($id){
 	}
 }
 
+
+
 //Search for courses
 function searchCourse($query) {
     // Escape the query to prevent SQL injection
@@ -210,6 +212,44 @@ function deleteCategory($id){
 	}
 }
 
+//LECTURER FUNCTIONS
+function insertLecturer($firstName,$lastName,$imageName){
+	$query = db()->prepare('INSERT INTO predavaci (ime,prezime,slika_predavaca) VALUES (?,?,?)');
+	$query->bind_param('sss', $firstName, $lastName, $imageName);
+	$query->execute();
+	if ($query->error) {
+		echo 'DB Error: ' . $query->error;
+		die();
+	} else {
+		return true;
+	}
+	
+}
+
+function updateLecturer($id,$firstName,$lastName,$imageName){
+	$query = db()->prepare('UPDATE predavaci SET ime = ?, prezime = ?, slika_predavaca = ? WHERE idPredavac = ?');
+	$query->bind_param('ssss', $firstName, $lastName, $imageName, $id);
+	$query->execute();
+	if ($query->error) {
+		echo 'DB Error: '. $query->error;
+		die();
+	} else {
+		return true;
+	}
+}
+
+function deleteLecturer($id){
+	$query = db()->prepare('DELETE FROM predavaci WHERE idPredavac = ?');
+	$query->bind_param('s', $id);
+	$query->execute();
+	if ($query->error) {
+		echo 'DB Error: '. $query->error;
+		die();
+	} else {
+		return true;
+	}
+}
+
 //Paginated courses
 function selectPaginatedCourse($page = 1, $perPage = 10) {
     // Calculate offset for pagination
@@ -269,37 +309,73 @@ function selectPaginatedCourse($page = 1, $perPage = 10) {
     ];
 }
 
-//Select all lecturers
-function selectAllLecturers(){
-	$res = db()->query("SELECT * FROM predavaci;");
-	// Check if the query was successful
+function selectPaginatedLecturers($page = 1, $perPage = 10){
+	$offset = ($page - 1) * $perPage;
+	$totalQuery = "SELECT COUNT(*) as total FROM predavaci";
+	$totalRes = db()->query($totalQuery);
 	if (db()->error) {
-	    echo 'DB Error: ' . db()->error;
+		echo 'DB Error: ' . db()->error;
+		die();
+	}
+	$total = $totalRes->fetch_assoc()['total'];
+	$dataQuery = "SELECT * FROM predavaci ORDER BY ime asc LIMIT $perPage OFFSET $offset";
+	$dataRes = db()->query($dataQuery);
+	if (db()->error) {
+		echo 'DB Error: ' . db()->error;
+		die();
+	}
+	$data = [];
+	while ($row = $dataRes->fetch_assoc()) {
+		$data[] = $row;
+	}
+	return [
+		'data' => $data,
+		'total' => $total,
+		'currentPage' => $page,
+		'perPage' => $perPage,
+		'totalPages' => ceil($total / $perPage),
+	];
+}
+
+//Select all lecturers
+function selectAllLecturers($search =""){
+	$query = "SELECT * FROM predavaci ";
+	if($search){
+		$query .= "WHERE ime LIKE '%$search%' OR prezime LIKE '%$search%' order by ime asc";
+	}else{
+		$query .= "order by ime asc";
+	}
+	$res = db()->query($query);
+	if (db()->error) {
+		echo 'DB Error: ' . db()->error;
 		die();
 	} else {
-	//return the result
-	$arr =[];
-	while($row = $res->fetch_assoc()){
-		$arr[] = $row;
-	}
-	    return $arr;
+		$arr = [];
+		while ($row = $res->fetch_assoc()) {
+			$arr[] = $row;
+		}
+		return $arr;
 	}
 }
 
 //select all universities
-function selectAllUniversity(){
-	$res = db()->query('SELECT * FROM `ustanove`');
-// Check if the query was successful
+function selectAllUniversity($search=""){
+$query = "SELECT * FROM ustanove ";
+	if($search){
+		$query .= "WHERE naziv_ustanove LIKE '%$search%' OR drzava LIKE '%$search%' OR mjesto LIKE %$search% order by ime asc";
+	}else{
+		$query .= "order by ime asc";
+	}
+	$res = db()->query($query);
 	if (db()->error) {
-	    echo 'DB Error: ' . db()->error;
+		echo 'DB Error: ' . db()->error;
 		die();
 	} else {
-	//return the result
-	$arr =[];
-	while($row = $res->fetch_assoc()){
-		$arr[] = $row;
-	}
-	    return $arr;
+		$arr = [];
+		while ($row = $res->fetch_assoc()) {
+			$arr[] = $row;
+		}
+		return $arr;
 	}
 }
 

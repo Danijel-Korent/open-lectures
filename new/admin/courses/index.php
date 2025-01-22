@@ -35,7 +35,7 @@ foreach (selectAllCategories() as $category) {
 }
 //FETCHING DATA
 $courseArray = [];
-if(isset($_GET['keyword'])){
+if(isset($_GET['keyword'])&& !empty($_GET['keyword'])){
 //SEARCH Fn
 $search = $_GET['keyword'];
 $d = searchCourse($search);
