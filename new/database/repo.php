@@ -212,6 +212,43 @@ function deleteCategory($id){
 	}
 }
 
+//UNIVERSITY FUNCTIONS
+function insertUniversity($name,$country,$city,$imageName){
+	$query = db()->prepare('INSERT INTO ustanove (naziv_ustanove,drzava,mjesto,slika_ustanove) VALUES (?,?,?,?)');
+	$query->bind_param('ssss', $name, $country, $city, $imageName);
+	$query->execute();
+	if ($query->error) {
+		echo 'DB Error: ' . $query->error;
+		die();
+	} else {
+		return true;
+	}
+}
+
+function updateUniversity($id,$name,$country,$city,$imageName){
+	$query = db()->prepare('UPDATE ustanove SET naziv_ustanove = ?, drzava = ?, mjesto = ?, slika_ustanove = ? WHERE idUstanove = ?');
+	$query->bind_param('sssss', $name, $country, $city, $imageName, $id);
+	$query->execute();
+	if ($query->error) {
+		echo 'DB Error: '. $query->error;
+		die();
+	} else {
+		return true;
+	}
+}
+
+function deleteUniversity($id){
+	$query = db()->prepare('DELETE FROM ustanove WHERE idUstanove = ?');
+	$query->bind_param('s', $id);
+	$query->execute();
+	if ($query->error) {
+		echo 'DB Error: '. $query->error;
+		die();
+	} else {
+		return true;
+	}
+}
+
 //LECTURER FUNCTIONS
 function insertLecturer($firstName,$lastName,$imageName){
 	$query = db()->prepare('INSERT INTO predavaci (ime,prezime,slika_predavaca) VALUES (?,?,?)');
@@ -362,9 +399,9 @@ function selectAllLecturers($search =""){
 function selectAllUniversity($search=""){
 $query = "SELECT * FROM ustanove ";
 	if($search){
-		$query .= "WHERE naziv_ustanove LIKE '%$search%' OR drzava LIKE '%$search%' OR mjesto LIKE %$search% order by ime asc";
+		$query .= "WHERE naziv_ustanove LIKE '%$search%' OR drzava LIKE '%$search%' OR mjesto LIKE '%$search%' order by naziv_ustanove asc";
 	}else{
-		$query .= "order by ime asc";
+		$query .= "order by naziv_ustanove asc";
 	}
 	$res = db()->query($query);
 	if (db()->error) {
@@ -377,6 +414,34 @@ $query = "SELECT * FROM ustanove ";
 		}
 		return $arr;
 	}
+}
+
+function selectPaginatedUniversity($page = 1, $perPage = 10){
+	$offset = ($page - 1) * $perPage;
+	$totalQuery = "SELECT COUNT(*) as total FROM ustanove";
+	$totalRes = db()->query($totalQuery);
+	if (db()->error) {
+		echo 'DB Error: ' . db()->error;
+		die();
+	}
+	$total = $totalRes->fetch_assoc()['total'];
+	$dataQuery = "SELECT * FROM ustanove ORDER BY naziv_ustanove asc LIMIT $perPage OFFSET $offset";
+	$dataRes = db()->query($dataQuery);
+	if (db()->error) {
+		echo 'DB Error: ' . db()->error;
+		die();
+	}
+	$data = [];
+	while ($row = $dataRes->fetch_assoc()) {
+		$data[] = $row;
+	}
+	return [
+		'data' => $data,
+		'total' => $total,
+		'currentPage' => $page,
+		'perPage' => $perPage,
+		'totalPages' => ceil($total / $perPage),
+	];
 }
 
 //select all categories

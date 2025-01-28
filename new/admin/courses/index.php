@@ -600,10 +600,12 @@ ob_start();
 				</td>
 				<td class="p-4">
 					<div x-data="{deleteModal<?=$index?>: false, updateModal<?=$index?>: false }">
-						<button type="button" @click="updateModal<?=$index?> = true"
-							class="cursor-pointer whitespace-nowrap rounded-md bg-transparent p-0.5 font-semibold text-black outline-black hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 active:opacity-100 active:outline-offset-0">Edit</button>
+						<button @click="updateModal<?=$index?> = true" type="button"
+							class="cursor-pointer whitespace-nowrap rounded-md bg-sky-500 px-4 py-2 text-xs font-medium tracking-wide text-white transition hover:opacity-75 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 active:opacity-100 active:outline-offset-0 disabled:opacity-75 disabled:cursor-not-allowed">Edit</button>
+
 						<button type="button" @click="deleteModal<?=$index?> = true"
-							class="cursor-pointer whitespace-nowrap rounded-md bg-transparent p-0.5 font-semibold text-red-500 outline-black hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 active:opacity-100 active:outline-offset-0">Delete</button>
+							class="cursor-pointer whitespace-nowrap rounded-md bg-red-500 px-4 py-2 text-xs font-medium tracking-wide text-white transition hover:opacity-75 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 active:opacity-100 active:outline-offset-0 disabled:opacity-75 disabled:cursor-not-allowed">Delete</button>
+
 						<!-- Update Modal -->
 						<div x-cloak x-show="updateModal<?=$index?>" x-transition.opacity.duration.200ms
 							x-trap.inert.noscroll="updateModal<?=$index?>"

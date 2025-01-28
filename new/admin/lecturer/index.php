@@ -175,7 +175,7 @@ ob_start();
 					<div
 						class="border-b border-neutral-300 pb-4 mb-3 relative flex w-full flex-col gap-1 text-neutral-600">
 						<label for="image" class="w-fit pl-0.5 text-sm">Upload Image</label>
-						<input required id="image" name="image" type="file"
+						<input id="image" name="image" type="file"
 							class="w-full max-w-md overflow-clip rounded-md border border-neutral-300 bg-neutral-50/50 text-sm file:mr-4 file:cursor-pointer file:border-none file:bg-neutral-50 file:px-4 file:py-2 file:font-medium file:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75" />
 						<small class="pl-0.5">.png, .jpg, .jpeg</small>
 					</div>

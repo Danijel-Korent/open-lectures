@@ -62,6 +62,5 @@ function deleteFile(string $filePath)
     if (file_exists($filePath)) {
         return unlink(filename: $filePath); // Delete the file
     }
-
     return false; // File does not exist
 }

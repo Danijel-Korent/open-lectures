@@ -8,20 +8,36 @@ if (empty($_SESSION['logged'])){
 }
 $title = 'University';
 require_once REPO_PATH;
+require_once STORAGE_REPO_PATH;
 
+if(isset($_GET['keyword'])&& !empty($_GET['keyword'])){
+//SEARCH Fn
+$search = $_GET['keyword'];
+$d = selectAllUniversity($search);
+$dataArray['data'] = $d;
+$dataArray['total'] = count($d);
+$dataArray['currentPage'] = 1;
+$dataArray['perPage'] = 10;
+$dataArray['totalPages'] = ceil($dataArray['total'] / $dataArray['perPage']);
+$title = 'Search Result for '.$search;
+}else{
+$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+$dataArray = selectPaginatedUniversity($page,10);
+}
 
 //CREATE UNI
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['createLecturer'])) {
-	$firstName = $_POST['firstName'];
-	$lastName= $_POST['lastName'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['createUni'])) {
+	$name = $_POST['name'];
+	$country= $_POST['country'];
+	$city = $_POST['city'];
 	$image = $_FILES['image'];
 	//add file extension .png, .jpg, .jpeg
-	$directory = dirname(__DIR__,2).'/assets/images/UNI';
-	$filePath = saveFile($image,strtolower($firstName.$lastName),$directory);
+	$directory = dirname(__DIR__,2).'/assets/images/uni';
+	$filePath = saveFile($image,strtolower($name),$directory);
 	if($filePath){
-		$created = insertLecturer($firstName,$lastName,$filePath);
+		$created = insertUniversity($name,$country,$city,$filePath);
 		if($created){
-			header('Location: '.SITE_URL.'/admin/lecturer',true);
+			header('Location: '.SITE_URL.'/admin/university',true);
 			exit;
 		}
 	}else{
@@ -31,13 +47,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['createLecturer'])) {
 }
 
 //UPDATE UNI
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateLecturerId'])) {
-    $id = $_POST['updateLecturerId'];
-	$firstName = trim($_POST['firstName']);
-	$lastName = trim($_POST['lastName']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateUniId'])) {
+    $id = $_POST['updateUniId'];
+	$name = trim($_POST['name']);
+	$country= $_POST['country'];
+	$city = $_POST['city'];
     $image = isset($_FILES['image']) ? $_FILES['image'] : null;
     $oldImage = $_POST['oldImage'];
-    $directory = dirname(__DIR__, 2) . '/assets/images/lecturer';
+    $directory = dirname(__DIR__, 2) . '/assets/images/uni';
 
     // Directory for saving images
 
@@ -46,8 +63,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateLecturerId'])) 
 
     try {
         // Validate ID and Name
-        if (empty($id) || empty($firstName)||empty($lastName)) {
-            throw new Exception('Lecturer ID and Name are required.');
+        if (empty($id) || empty($name)) {
+            throw new Exception('University ID and Name are required.');
         }
 
         // Check if a new image is uploaded
@@ -59,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateLecturerId'])) 
             }
 
             // Save the new image
-            $filePath = saveFile($image, strtolower($firstName.$lastName), $directory);
+            $filePath = saveFile($image, strtolower($name), $directory);
 
             // If saving fails, show an error message
             if (!$filePath) {
@@ -68,9 +85,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateLecturerId'])) 
         }
 
         // Update the category in the database
-        $updateCategory = updateLecturer($id, $firstName,$lastName, $filePath);
+        $updateCategory = updateUniversity($id, $name,$country,$city ,$filePath);
         if ($updateCategory) {
-            header('Location: ' . SITE_URL . '/admin/lecturer');
+            header('Location: ' . SITE_URL . '/admin/university');
             exit;
         } else {
             throw new Exception('Error updating lecturer in the database.');
@@ -84,14 +101,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateLecturerId'])) 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteUniId'])) {
 	$id = $_POST['deleteUniId'];
 	$imageName = $_POST['oldImage'];
+	var_dump($imageName);
 	$res = true;
-	if (!empty($imageName)){
-		$res =deleteFile(dirname(__DIR__,2).'/assets/images/lecturer/'.$imageName);
+	if (isset($imageName)&&!empty($imageName)){
+		$res =deleteFile(dirname(__DIR__,2).'/assets/images/uni/'.$imageName);
 	}
 if($res){
-	$deleteCategory = deleteLecturer($id);
+	$deleteCategory = deleteUniversity($id);
 	if($deleteCategory){
-		header('Location: '.SITE_URL.'/admin/lecturer',true);
+		header('Location: '.SITE_URL.'/admin/university',true);
 		exit;
 	}
 }else{
@@ -155,13 +173,13 @@ ob_start();
 			</div>
 			<!-- Dialog Body -->
 			<form action="" method="post" enctype="multipart/form-data">
-				<input type="hidden" name="createLecturer" value="1">
+				<input type="hidden" name="createUni" value="1">
 				<div class="px-4 pb-4">
 					<!-- Photo -->
 					<div
 						class="border-b border-neutral-300 pb-4 mb-3 relative flex w-full flex-col gap-1 text-neutral-600">
 						<label for="image" class="w-fit pl-0.5 text-sm">Upload Image</label>
-						<input required id="image" name="image" type="file"
+						<input id="image" name="image" type="file"
 							class="w-full max-w-md overflow-clip rounded-md border border-neutral-300 bg-neutral-50/50 text-sm file:mr-4 file:cursor-pointer file:border-none file:bg-neutral-50 file:px-4 file:py-2 file:font-medium file:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75" />
 						<small class="pl-0.5">.png, .jpg, .jpeg</small>
 					</div>
@@ -175,13 +193,13 @@ ob_start();
 					</div>
 					<div class="flex w-full flex-col gap-1 text-neutral-600 mb-2">
 						<label for="city" class="w-fit pl-0.5 text-sm">City</label>
-						<input required id="city" type="text"
+						<input id="city" type="text"
 							class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
 							name="city" placeholder="City" />
 					</div>
 					<div class="flex w-full flex-col gap-1 text-neutral-600 ">
 						<label for="country" class="w-fit pl-0.5 text-sm">Country</label>
-						<input required id="country" type="text"
+						<input id="country" type="text"
 							class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
 							name="country" placeholder="Country" />
 					</div>
@@ -204,19 +222,20 @@ ob_start();
 		<thead class="border-b border-neutral-300 bg-neutral-50 text-sm text-neutral-900">
 			<tr>
 				<th scope="col" class="p-4">Name</th>
+				<th scope="col" class="p-4">City</th>
+				<th scope="col" class="p-4">Country</th>
 				<th scope="col" class="p-4">Action</th>
 			</tr>
 		</thead>
 		<tbody class="divide-y divide-neutral-300">
 			<?php foreach($dataArray['data'] as $c){ ?>
-			<?php $index=$c["idPredavac"];?>
+			<?php $index=$c["idUstanove"];?>
 			<tr>
 				<td class="p-4">
 					<div class="flex w-max items-center gap-3">
-
 						<?php if(empty($c["slika_ustanove"])|| !isset($c["slika_ustanove"])){?>
 						<div class="size-14 bg-gray-200 rounded-full flex items-center justify-center">
-							<svg class="size-8 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"
+							<svg class="size-5 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"
 								xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
 								<path
 									d="M12.75 14.6667C12.75 14.2524 13.0858 13.9167 13.5 13.9167H16.5C16.9142 13.9167 17.25 14.2524 17.25 14.6667C17.25 15.0809 16.9142 15.4167 16.5 15.4167H13.5C13.0858 15.4167 12.75 15.0809 12.75 14.6667Z"
@@ -231,14 +250,20 @@ ob_start();
 						</div>
 						<?php }else{?>
 						<img class="size-14 rounded-full object-cover"
-							src="<?=ASSET_PATH."/images/lecturer/".$c['slika_ustanove'] ?>" alt="avatar" />
+							src="<?=ASSET_PATH."/images/uni/".$c['slika_ustanove'] ?>" alt="avatar" />
 						<?php } ?>
 						<div class="flex flex-col">
 							<span class="text-neutral-900 text-lg font-semibold">
-								<?=$c['ime']?> <?=$c["prezime"]?>
+								<?=$c["naziv_ustanove"]?>
 							</span>
 						</div>
 					</div>
+				</td>
+				<td>
+					<span class="p-4"><?=$c["mjesto"]?></span>
+				</td>
+				<td>
+					<span class="p-4"><?=$c["drzava"]?></span>
 				</td>
 				<td class="p-4">
 					<div x-data="{deleteModal<?=$index?>: false, updateModal<?=$index?>: false }">
@@ -276,7 +301,7 @@ ob_start();
 								</div>
 								<!-- Dialog Body -->
 								<form action="" method="post" enctype="multipart/form-data">
-									<input type="hidden" name="updateLecturerId" value="<?=$index?>">
+									<input type="hidden" name="updateUniId" value="<?=$index?>">
 									<input type="hidden" name="oldImage" value="<?=$c["slika_ustanove"]?>">
 									<div class="px-4 pb-4">
 										<!-- Photo -->
@@ -297,13 +322,13 @@ ob_start();
 										</div>
 										<div class="flex w-full flex-col gap-1 text-neutral-600 mb-2">
 											<label for="city" class="w-fit pl-0.5 text-sm">City</label>
-											<input required id="city" type="text" value="<?=$c['mjesto']?>"
+											<input id="city" type="text" value="<?=$c['mjesto']?>"
 												class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
 												name="city" placeholder="City" />
 										</div>
 										<div class="flex w-full flex-col gap-1 text-neutral-600 ">
 											<label for="country" class="w-fit pl-0.5 text-sm">Country</label>
-											<input required id="country" type="text" value="<?=$c['drzava']?>"
+											<input id="country" type="text" value="<?=$c['drzava']?>"
 												class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
 												name="country" placeholder="Country" />
 										</div>
@@ -359,7 +384,7 @@ ob_start();
 								<div class="px-4 text-center">
 									<h3 id="dangerModalTitle"
 										class="mb-2 font-semibold tracking-wide text-lg text-neutral-900">
-										Delete <?=$c['naziv_ustanove']?>?></h3>
+										Delete <?=$c['naziv_ustanove']?></h3>
 									<p class="text-md">Are you sure you want to delete this university?</p>
 								</div>
 								<!-- Dialog Footer -->
@@ -384,6 +409,76 @@ ob_start();
 		</tbody>
 	</table>
 </div>
+<?php 
+if (empty($_GET['keyword'])){?>
+<div class="flex justify-between mt-4 px-2">
+	<p class="text-sm md:text-lg font-normal">
+		Showing
+		<span class="font-bold">
+			<?= min(($dataArray['currentPage'] - 1) * $dataArray['perPage'] + count($dataArray['data']), $dataArray['total']) ?>
+		</span>
+		of <span class="font-bold"><?= $dataArray['total'] ?></span> entries
+	</p>
+	<nav aria-label="pagination">
+		<ul class="flex flex-shrink-0 items-center gap-2 text-sm md:text-md font-normal">
+			<!-- Previous Page -->
+			<li>
+				<?php if ($dataArray['currentPage'] > 1): ?>
+				<a href="?page=<?= $dataArray['currentPage'] - 1 ?>"
+					class="flex items-center justify-center rounded-md p-1 text-white hover:bg-blue-600 bg-primary"
+					aria-label="previous page">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
+						class="size-6">
+						<path fill-rule="evenodd"
+							d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
+							clip-rule="evenodd" />
+					</svg>
+					Previous
+				</a>
+				<?php else: ?>
+				<span class="flex items-center rounded-md p-1 text-neutral-400">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
+						class="size-6">
+						<path fill-rule="evenodd"
+							d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
+							clip-rule="evenodd" />
+					</svg>
+					Previous
+				</span>
+				<?php endif; ?>
+			</li>
+			<!-- Current Page -->
+			<li class="font-semibold text-lg mx-2"><?= $dataArray['currentPage'] ?></li>
+			<!-- Next Page -->
+			<li>
+				<?php if ($dataArray['currentPage'] < ceil($dataArray['total'] / $dataArray['perPage'])): ?>
+				<a href="?page=<?= $dataArray['currentPage'] + 1 ?>"
+					class="flex items-center justify-center rounded-md p-1 pr-2 text-white hover:bg-blue-600 bg-primary"
+					aria-label="next page">
+					Next
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
+						class="size-6">
+						<path fill-rule="evenodd"
+							d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
+							clip-rule="evenodd" />
+					</svg>
+				</a>
+				<?php else: ?>
+				<span class="flex items-center rounded-md p-1 text-neutral-400 ">
+					Next
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
+						class="size-6">
+						<path fill-rule="evenodd"
+							d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
+							clip-rule="evenodd" />
+					</svg>
+				</span>
+				<?php endif; ?>
+			</li>
+		</ul>
+	</nav>
+</div>
+<?php } ?>
 <?php
 $content = ob_get_clean();
 include __DIR__ . '/../../partials/admin_layout.php';
