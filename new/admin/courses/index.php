@@ -49,7 +49,6 @@ $title = 'Search Result for '.$search;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $courseArray = selectPaginatedCourse($page,10);
 }
-// var_dump($courseArray);
 //Get University list
 $university_list = selectUstanove();
 $list =[];
@@ -60,9 +59,11 @@ foreach ($courseArray['data'] as $course)
   $university_index  = $course['ustanova'] - 1;
   $course_university = $university_list[$university_index]['naziv_ustanove'];
   $data=[
+	...$course,
 	'course_name' => $course['naziv_predavanja'],
 	'course_description' => $course['opis_kolegija'],
 	'course_totalLength' => $course['ukupno_trajanje'],
+	'category_index' => $course['idKategorije'],
 	'course_linkPlaylist' => $course['link_1'],
 	'course_image' => $course['image'],
 	'course_university' =>$course_university,
@@ -70,6 +71,87 @@ foreach ($courseArray['data'] as $course)
   ];
   
 	array_push($list, $data);
+}
+
+//ADD COURSE
+if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['createCourse'])) {
+try{
+		$res =insertCourse(
+			trim($_POST['name']),
+			$_POST['category'],
+			$_POST['lecturer'],
+			$_POST['university'],
+			$_POST['year'],
+			$_POST['language'],
+			$_POST['lectures'],
+			$_POST['duration'],
+			trim($_POST['description']),
+			$_POST['vidLink'],
+			$_POST['link'],
+			$_POST['imgLink'],
+			$_POST['code']
+		);
+		if($res){
+			header('Location: '.SITE_URL.'/admin/courses',true);
+			exit;
+		}else{
+		throw new Exception('Error updating category in the database.');
+		}
+ } catch (Exception $e) {
+        echo '<script>alert("' . $e->getMessage() . '");</script>';
+    }
+
+}
+
+//UPDATE COURSE
+if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateCourse'])){
+	try {
+		echo "called";
+	$uniLecId=$_POST['universityLecturerId'];
+	$id = $_POST['updateCourse'];
+	$res = updateCourse(
+		$id,
+		$uniLecId,
+		trim($_POST['name']),
+		$_POST['category'],
+		$_POST['lecturer'],
+		$_POST['university'],
+		$_POST['year'],
+		$_POST['language'],
+		$_POST['lectures'],
+		$_POST['duration'],
+		trim($_POST['description']),
+		$_POST['vidLink'],
+		$_POST['link'],
+		$_POST['imgLink'],
+		$_POST['code']
+	);
+	if($res){
+		header('Location: '.SITE_URL.'/admin/courses',true);
+		exit;
+	}else{
+		throw new Exception('Error updating category in the database.');
+	}
+	} catch (Exception $e) {
+        echo '<script>alert("' . $e->getMessage() . '");</script>';
+    }
+	
+}
+
+//DELETE COURSE
+if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteCourse'])){
+	try {
+		$id = $_POST['deleteCourse'];
+		$res = deleteCourse($id);
+		if($res){
+			header('Location: '.SITE_URL.'/admin/courses',true);
+			exit;
+		}else{
+			throw new Exception('Error updating category in the database.');
+		}
+	} catch (Exception $e) {
+		echo '<script>alert("' . $e->getMessage() . '");</script>';
+	}
 }
 
 ob_start();
@@ -492,13 +574,13 @@ ob_start();
 						<!-- Year -->
 						<div class="flex w-full flex-col gap-1 text-neutral-600">
 							<label for="year" class="w-fit pl-0.5 text-sm">Year*</label>
-							<input required id="year" type="number"
+							<input required id="year" type="text"
 								class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
 								name="year" placeholder="Year" />
 						</div>
 						<!-- No. of lectures -->
 						<div class="flex w-full flex-col gap-1 text-neutral-600">
-							<label for="year" class="w-fit pl-0.5 text-sm">No. of lectures</label>
+							<label for="lectures" class="w-fit pl-0.5 text-sm">No. of lectures</label>
 							<input id="lectures" type="number"
 								class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
 								name="lectures" placeholder="No. of lectures" />
@@ -533,7 +615,7 @@ ob_start();
 							<label for="imgLink" class="w-fit pl-0.5 text-sm">Image URL*</label>
 							<input required id="imgLink" type="url"
 								class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
-								name="imgLink" placeholder="Video URL" />
+								name="imgLink" placeholder="Image URL" />
 						</div>
 						<!-- Link 2 -->
 						<div class="flex w-full flex-col gap-1 text-neutral-600">
@@ -560,18 +642,22 @@ ob_start();
 
 <!-- Table -->
 <div class="overflow-hidden w-full overflow-x-auto rounded-md border border-neutral-300 ">
+	<?php if (empty($list)) { ?>
+	<div class="p-10 w-full text-center">
+		<td class="p-4 font-bold text-[2rem]" colspan="3">No courses found</td>
+	</div>
+	<?php }else{ ?>
 	<table class="w-full text-left text-sm text-neutral-600">
 		<thead class="border-b border-neutral-300 bg-neutral-50 text-sm text-neutral-900">
 			<tr>
 				<th scope="col" class="p-4">Name</th>
 				<th scope="col" class="p-4">University</th>
-				<!-- <th scope="col" class="p-4">Lecturer</th> -->
 				<th scope="col" class="p-4">Action</th>
 			</tr>
 		</thead>
 		<tbody class="divide-y divide-neutral-300">
-			<?php foreach ($list as $index => $course) { ?>
 
+			<?php foreach ($list as $index => $course) { ?>
 			<tr>
 				<td class="p-4">
 					<div class="flex items-center gap-3">
@@ -581,20 +667,36 @@ ob_start();
 							<span class="text-neutral-900 text-sm md:text-lg font-semibold">
 								<?=$course['course_name']?>
 							</span>
+							<span class="flex gap-1 items-center text-neutral-900 ext-sm md:text-lg font-normal">
+								<svg class="size-5 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd"
+										d="M7.33301 5.5C7.33301 4.25736 8.34037 3.25 9.58301 3.25H11.1663C12.3908 3.25 13.3868 4.22809 13.4157 5.44559C13.6431 5.27137 13.9077 5.13795 14.2016 5.0592L16.4554 4.45529C17.6557 4.13367 18.8894 4.84598 19.2111 6.04628L21.9287 16.1885C22.2503 17.3888 21.538 18.6226 20.3377 18.9442L18.0838 19.5481C16.8835 19.8697 15.6498 19.1574 15.3282 17.9571L13.4163 10.8221V17.25C13.4163 18.4926 12.409 19.5 11.1663 19.5H9.58301C9.00682 19.5 8.48122 19.2834 8.08317 18.9272C7.68512 19.2834 7.15952 19.5 6.58333 19.5H4.25C3.00736 19.5 2 18.4926 2 17.25V7.75C2 6.50736 3.00736 5.5 4.25 5.5H6.58333C6.84619 5.5 7.09852 5.54507 7.33301 5.62791V5.5ZM7.33301 17.25V7.72768C7.3212 7.32379 6.99008 7 6.58333 7H4.25C3.83579 7 3.5 7.33579 3.5 7.75V17.25C3.5 17.6642 3.83579 18 4.25 18H6.58333C6.99108 18 7.32283 17.6746 7.33309 17.2693L7.33301 17.25ZM9.58301 18C9.17526 18 8.84351 17.6746 8.83325 17.2693L8.83333 17.25V7.75C8.83333 7.73708 8.83322 7.72419 8.83301 7.71133V5.5C8.83301 5.08579 9.16879 4.75 9.58301 4.75H11.1663C11.5806 4.75 11.9163 5.08579 11.9163 5.5V17.25C11.9163 17.6642 11.5806 18 11.1663 18H9.58301ZM14.0595 7.42665C13.9522 7.02655 14.1897 6.6153 14.5898 6.50809L16.8436 5.90418C17.2437 5.79697 17.655 6.03441 17.7622 6.43451L20.4798 16.5767C20.587 16.9768 20.3495 17.3881 19.9494 17.4953L17.6956 18.0992C17.2955 18.2064 16.8843 17.969 16.7771 17.5689L14.0595 7.42665Z"
+										fill="#323544" />
+								</svg>
+								<?=$course['naziv_kategorije']?></span>
 							<span class="hidden md:block text-neutral-600 text-xs md:text-sm font-normal">
 								<span>Course Length: </span><?=$course['course_totalLength']?> h
 							</span>
 						</div>
 					</div>
 				</td>
-				<!-- <td class="p-4">
-					<div class="flex flex-col">
-						<span class="text-neutral-900 text-lg font-semibold"> <?=$course['course_university']?></span>
-					</div>
-				</td> -->
+
 				<td class="p-4">
-					<div class="flex flex-col">
-						<span class="text-neutral-900 ext-sm md:text-lg font-normal">
+					<div class="flex flex-col gap-1">
+						<span class="flex gap-1 items-center text-neutral-900 ext-sm md:text-lg font-normal">
+							<svg class="size-5 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"
+								xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
+								<path
+									d="M12.75 14.6667C12.75 14.2524 13.0858 13.9167 13.5 13.9167H16.5C16.9142 13.9167 17.25 14.2524 17.25 14.6667C17.25 15.0809 16.9142 15.4167 16.5 15.4167H13.5C13.0858 15.4167 12.75 15.0809 12.75 14.6667Z"
+									fill="#343C54" />
+								<path
+									d="M13.5 8.58334C13.0858 8.58334 12.75 8.91913 12.75 9.33334C12.75 9.74756 13.0858 10.0833 13.5 10.0833H16.5C16.9142 10.0833 17.25 9.74756 17.25 9.33334C17.25 8.91913 16.9142 8.58334 16.5 8.58334H13.5Z"
+									fill="#343C54" />
+								<path fill-rule="evenodd" clip-rule="evenodd"
+									d="M11.5 3.25C10.2574 3.25 9.25 4.25736 9.25 5.5V7.75H5.5C4.25736 7.75 3.25 8.75736 3.25 10V20C3.25 20.4142 3.58579 20.75 4 20.75H20C20.4142 20.75 20.75 20.4142 20.75 20V5.5C20.75 4.25736 19.7426 3.25 18.5 3.25H11.5ZM9.25 19.25V17H7.75586C7.34165 17 7.00586 16.6642 7.00586 16.25C7.00586 15.8358 7.34165 15.5 7.75586 15.5H9.25V13H7.75586C7.34165 13 7.00586 12.6642 7.00586 12.25C7.00586 11.8358 7.34165 11.5 7.75586 11.5H9.25V9.25H5.5C5.08579 9.25 4.75 9.58579 4.75 10V19.25H9.25ZM10.75 12.2773C10.7503 12.2683 10.7505 12.2591 10.7505 12.25C10.7505 12.2409 10.7503 12.2317 10.75 12.2227V5.5C10.75 5.08579 11.0858 4.75 11.5 4.75H18.5C18.9142 4.75 19.25 5.08579 19.25 5.5V19.25H10.75V16.2773C10.7503 16.2683 10.7505 16.2591 10.7505 16.25C10.7505 16.2409 10.7503 16.2317 10.75 16.2227V12.2773Z"
+									fill="#343C54" />
+							</svg>
 							<?=$course['course_university']?></span>
 					</div>
 				</td>
@@ -633,8 +735,477 @@ ob_start();
 									</button>
 								</div>
 								<!-- Dialog Body -->
-								<form action="" method="post" enctype="multipart/form-data">
-									<!-- Update Content -->
+								<form action="" method="post" enctype="multipart/form-data"
+									class="overflow-y-auto max-h-[80vh] md:max-h-[100vh]">
+									<input type="hidden" name="updateCourse" value="<?=$index?>">
+									<input type="hidden" name="universityLecturerId"
+										value="<?=$course['idZaposlenje']?>">
+									<div class="px-4 pb-4">
+										<!-- Name -->
+										<div class="flex w-full flex-col gap-1 text-neutral-600 mb-2">
+											<label for="textInputDefault" class="w-fit pl-0.5 text-sm">Course
+												Name*</label>
+											<input required id="textInputDefault" type="text"
+												value="<?=$course['course_name']?>"
+												class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
+												name="name" placeholder="Course Name" />
+										</div>
+
+										<!-- Select Category -->
+										<div x-data="{
+							catOptions: <?= str_replace('"', "'", json_encode($categories)) ?>,
+							catTemp: [],
+							isCatOpen: false,
+							openedWithKeyboard: false,
+							selectedCat: <?=str_replace('"', "'",json_encode(
+								[
+									'value' => $course['idKategorije'],
+									'label' => $course['naziv_kategorije']
+								]
+							))?>,
+							setSelectedOption(option) {
+								this.selectedCat = option;
+								this.isCatOpen = false;
+								this.openedWithKeyboard = false;
+								this.$refs.hiddenTextField.value = option.value;
+							},
+							getFilteredOptions(query) {
+								this.catTemp = this.catOptions.filter((option) =>
+									option.label.toLowerCase().includes(query.toLowerCase())
+								);
+								if (this.catTemp.length === 0) {
+									this.$refs.noResultsMessage.classList.remove('hidden');
+								} else {
+									this.$refs.noResultsMessage.classList.add('hidden');
+								}
+							},
+							handleKeydownOnOptions(event) {
+								if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 48 && event.keyCode <= 57) || event.keyCode === 8) {
+									this.$refs.searchField.focus();
+								}
+							},
+						}" x-on:keydown="handleKeydownOnOptions($event)"
+											x-on:keydown.esc.window="isCatOpen = false, openedWithKeyboard = false"
+											x-init="catTemp = catOptions" class="flex w-full flex-col gap-1 mb-2">
+
+											<label for="category"
+												class="w-fit pl-0.5 text-sm text-neutral-600">Category*</label>
+											<div class="relative">
+
+												<!-- trigger button  -->
+												<button type="button"
+													class="inline-flex w-full items-center justify-between gap-2 border border-neutral-300 rounded-md bg-neutral-50 px-4 py-2 text-sm font-medium tracking-wide text-neutral-600 transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+													role="combobox" aria-controls="makesList" aria-haspopup="listbox"
+													x-on:click="isCatOpen = ! isCatOpen"
+													x-on:keydown.down.prevent="openedWithKeyboard = true"
+													x-on:keydown.enter.prevent="openedWithKeyboard = true"
+													x-on:keydown.space.prevent="openedWithKeyboard = true"
+													x-bind:aria-expanded="isCatOpen || openedWithKeyboard"
+													x-bind:aria-label="selectedCat ? selectedCat.label : 'Select category'">
+													<span class="text-sm font-normal"
+														x-text="selectedCat ? selectedCat.label : 'Select category'"></span>
+													<!-- Chevron  -->
+													<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+														fill="currentColor" class="size-5" aria-hidden="true">
+														<path fill-rule="evenodd"
+															d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+															clip-rule="evenodd" />
+													</svg>
+												</button>
+
+												<!-- Hidden Input To Grab The Selected Value  -->
+												<input value="<?=$course['idKategorije']?>" id="category" required
+													name="category" x-ref="hiddenTextField" hidden="" />
+												<div x-show="isCatOpen || openedWithKeyboard" id="makesList"
+													class="absolute left-0 top-11 z-10 w-full overflow-hidden rounded-md border border-neutral-300 bg-neutral-50"
+													role="listbox" aria-label="industries list"
+													x-on:click.outside="isCatOpen = false, openedWithKeyboard = false"
+													x-on:keydown.down.prevent="$focus.wrap().next()"
+													x-on:keydown.up.prevent="$focus.wrap().previous()" x-transition
+													x-trap="openedWithKeyboard">
+
+													<!-- Search  -->
+													<div class="relative">
+														<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+															stroke="currentColor" fill="none" stroke-width="1.5"
+															class="absolute left-4 top-1/2 size-5 -translate-y-1/2 text-neutral-600/50"
+															aria-hidden="true">
+															<path stroke-linecap="round" stroke-linejoin="round"
+																d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+														</svg>
+														<input type="text"
+															class="w-full border-b borderneutral-300 bg-neutral-50 py-2.5 pl-11 pr-4 text-sm text-neutral-600 focus:outline-none focus-visible:border-blue-600 disabled:cursor-not-allowed disabled:opacity-75"
+															name="searchField" aria-label="Search"
+															x-on:input="getFilteredOptions($el.value)"
+															x-ref="searchField" placeholder="Search" />
+													</div>
+
+													<!-- Options  -->
+													<ul class="flex max-h-44 flex-col overflow-y-auto z-10">
+														<li class="hidden px-4 py-2 text-sm text-neutral-600"
+															x-ref="noResultsMessage">
+															<span>No matches found</span>
+														</li>
+														<template x-for="(item, index) in catTemp"
+															x-bind:key="item.value">
+															<li class="combobox-option inline-flex cursor-pointer justify-between gap-6 bg-neutral-50 px-4 py-2 text-sm text-neutral-600 hover:bg-neutral-900/5 hover:text-neutral-900 focus-visible:bg-neutral-900/5 focus-visible:text-neutral-900 focus-visible:outline-none"
+																role="option" x-on:click="setSelectedOption(item)"
+																x-on:keydown.enter="setSelectedOption(item)"
+																x-bind:id="'option-' + index" tabindex="0">
+																<!-- Label  -->
+																<span
+																	x-bind:class="selectedCat == item ? 'font-bold' : null"
+																	x-text="item.label"></span>
+																<!-- Screen reader 'selected' indicator  -->
+																<span class="sr-only"
+																	x-text="selectedCat == item ? 'selected' : null"></span>
+																<!-- Checkmark  -->
+																<svg x-cloak x-show="selectedCat == item"
+																	xmlns="http://www.w3.org/2000/svg"
+																	viewBox="0 0 24 24" stroke="currentColor"
+																	fill="none" stroke-width="2" class="size-4"
+																	aria-hidden="true">
+																	<path stroke-linecap="round" stroke-linejoin="round"
+																		d="m4.5 12.75 6 6 9-13.5">
+																</svg>
+															</li>
+														</template>
+													</ul>
+												</div>
+											</div>
+										</div>
+
+										<!-- Select Lecturer -->
+										<div x-data="{
+							catOptions: <?= str_replace('"', "'", subject: json_encode($lecturers)) ?>,
+							catTemp: [],
+							isCatOpen: false,
+							openedWithKeyboard: false,
+							selectedCat: <?=str_replace('"', "'",json_encode(
+								[
+									'value' => (string)$course['idPredavac'],
+									'label' => $course['ime'].' '.$course['prezime']
+								]
+							))?>,
+							setSelectedOption(option) {
+								this.selectedCat = option;
+								this.isCatOpen = false;
+								this.openedWithKeyboard = false;
+								this.$refs.hiddenTextField.value = option.value;
+							},
+							getFilteredOptions(query) {
+								this.catTemp = this.catOptions.filter((option) =>
+									option.label.toLowerCase().includes(query.toLowerCase())
+								);
+								if (this.catTemp.length === 0) {
+									this.$refs.noResultsMessage.classList.remove('hidden');
+								} else {
+									this.$refs.noResultsMessage.classList.add('hidden');
+								}
+							},
+							handleKeydownOnOptions(event) {
+								if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 48 && event.keyCode <= 57) || event.keyCode === 8) {
+									this.$refs.searchField.focus();
+								}
+							},
+						}" x-on:keydown="handleKeydownOnOptions($event)"
+											x-on:keydown.esc.window="isCatOpen = false, openedWithKeyboard = false"
+											x-init="catTemp = catOptions" class="flex w-full flex-col gap-1 mb-2">
+
+											<label for="lecturer"
+												class="w-fit pl-0.5 text-sm text-neutral-600">Lecturer*</label>
+											<div class="relative">
+
+												<!-- trigger button  -->
+												<button type="button"
+													class="inline-flex w-full items-center justify-between gap-2 border border-neutral-300 rounded-md bg-neutral-50 px-4 py-2 text-sm font-medium tracking-wide text-neutral-600 transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+													role="combobox" aria-controls="makesList" aria-haspopup="listbox"
+													x-on:click="isCatOpen = ! isCatOpen"
+													x-on:keydown.down.prevent="openedWithKeyboard = true"
+													x-on:keydown.enter.prevent="openedWithKeyboard = true"
+													x-on:keydown.space.prevent="openedWithKeyboard = true"
+													x-bind:aria-expanded="isCatOpen || openedWithKeyboard"
+													x-bind:aria-label="selectedCat ? selectedCat.label : 'Select lecturer'">
+													<span class="text-sm font-normal"
+														x-text="selectedCat ? selectedCat.label : 'Select lecturer'"></span>
+													<!-- Chevron  -->
+													<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+														fill="currentColor" class="size-5" aria-hidden="true">
+														<path fill-rule="evenodd"
+															d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+															clip-rule="evenodd" />
+													</svg>
+												</button>
+
+												<!-- Hidden Input To Grab The Selected Value  -->
+												<input id="lecturer" value="<?=$course['idPredavac']?>" required
+													name="lecturer" x-ref="hiddenTextField" hidden="" />
+												<div x-show="isCatOpen || openedWithKeyboard" id="makesList"
+													class="absolute left-0 top-11 z-10 w-full overflow-hidden rounded-md border border-neutral-300 bg-neutral-50"
+													role="listbox" aria-label="industries list"
+													x-on:click.outside="isCatOpen = false, openedWithKeyboard = false"
+													x-on:keydown.down.prevent="$focus.wrap().next()"
+													x-on:keydown.up.prevent="$focus.wrap().previous()" x-transition
+													x-trap="openedWithKeyboard">
+
+													<!-- Search  -->
+													<div class="relative">
+														<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+															stroke="currentColor" fill="none" stroke-width="1.5"
+															class="absolute left-4 top-1/2 size-5 -translate-y-1/2 text-neutral-600/50"
+															aria-hidden="true">
+															<path stroke-linecap="round" stroke-linejoin="round"
+																d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+														</svg>
+														<input type="text"
+															class="w-full border-b borderneutral-300 bg-neutral-50 py-2.5 pl-11 pr-4 text-sm text-neutral-600 focus:outline-none focus-visible:border-blue-600 disabled:cursor-not-allowed disabled:opacity-75"
+															name="searchField" aria-label="Search"
+															x-on:input="getFilteredOptions($el.value)"
+															x-ref="searchField" placeholder="Search" />
+													</div>
+
+													<!-- Options  -->
+													<ul class="flex max-h-44 flex-col overflow-y-auto z-10">
+														<li class="hidden px-4 py-2 text-sm text-neutral-600"
+															x-ref="noResultsMessage">
+															<span>No matches found</span>
+														</li>
+														<template x-for="(item, index) in catTemp"
+															x-bind:key="item.value">
+															<li class="combobox-option inline-flex cursor-pointer justify-between gap-6 bg-neutral-50 px-4 py-2 text-sm text-neutral-600 hover:bg-neutral-900/5 hover:text-neutral-900 focus-visible:bg-neutral-900/5 focus-visible:text-neutral-900 focus-visible:outline-none"
+																role="option" x-on:click="setSelectedOption(item)"
+																x-on:keydown.enter="setSelectedOption(item)"
+																x-bind:id="'option-' + index" tabindex="0">
+																<!-- Label  -->
+																<span
+																	x-bind:class="selectedCat == item ? 'font-bold' : null"
+																	x-text="item.label"></span>
+																<!-- Screen reader 'selected' indicator  -->
+																<span class="sr-only"
+																	x-text="selectedCat == item ? 'selected' : null"></span>
+																<!-- Checkmark  -->
+																<svg x-cloak x-show="selectedCat == item"
+																	xmlns="http://www.w3.org/2000/svg"
+																	viewBox="0 0 24 24" stroke="currentColor"
+																	fill="none" stroke-width="2" class="size-4"
+																	aria-hidden="true">
+																	<path stroke-linecap="round" stroke-linejoin="round"
+																		d="m4.5 12.75 6 6 9-13.5">
+																</svg>
+															</li>
+														</template>
+													</ul>
+												</div>
+											</div>
+										</div>
+
+										<!-- Select University -->
+										<div x-data="{
+							catOptions: <?= str_replace('"', "'", subject: json_encode($universities)) ?>,
+							catTemp: [],
+							isCatOpen: false,
+							openedWithKeyboard: false,
+							selectedCat: <?=str_replace('"', "'",json_encode(
+								[
+									'value' => (string)$course['university_index'],
+									'label' => $course['course_university']
+								]
+							))?>,
+							setSelectedOption(option) {
+								this.selectedCat = option;
+								this.isCatOpen = false;
+								this.openedWithKeyboard = false;
+								this.$refs.hiddenTextField.value = option.value;
+							},
+							getFilteredOptions(query) {
+								this.catTemp = this.catOptions.filter((option) =>
+									option.label.toLowerCase().includes(query.toLowerCase())
+								);
+								if (this.catTemp.length === 0) {
+									this.$refs.noResultsMessage.classList.remove('hidden');
+								} else {
+									this.$refs.noResultsMessage.classList.add('hidden');
+								}
+							},
+							handleKeydownOnOptions(event) {
+								if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 48 && event.keyCode <= 57) || event.keyCode === 8) {
+									this.$refs.searchField.focus();
+								}
+							},
+						}" x-on:keydown="handleKeydownOnOptions($event)"
+											x-on:keydown.esc.window="isCatOpen = false, openedWithKeyboard = false"
+											x-init="catTemp = catOptions" class="flex w-full flex-col gap-1 mb-2">
+
+											<label for="university"
+												class="w-fit pl-0.5 text-sm text-neutral-600">University*</label>
+											<div class="relative">
+
+												<!-- trigger button  -->
+												<button type="button"
+													class="inline-flex w-full items-center justify-between gap-2 border border-neutral-300 rounded-md bg-neutral-50 px-4 py-2 text-sm font-medium tracking-wide text-neutral-600 transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+													role="combobox" aria-controls="makesList" aria-haspopup="listbox"
+													x-on:click="isCatOpen = ! isCatOpen"
+													x-on:keydown.down.prevent="openedWithKeyboard = true"
+													x-on:keydown.enter.prevent="openedWithKeyboard = true"
+													x-on:keydown.space.prevent="openedWithKeyboard = true"
+													x-bind:aria-expanded="isCatOpen || openedWithKeyboard"
+													x-bind:aria-label="selectedCat ? selectedCat.label : 'Select university'">
+													<span class="text-sm font-normal"
+														x-text="selectedCat ? selectedCat.label : 'Select university'"></span>
+													<!-- Chevron  -->
+													<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+														fill="currentColor" class="size-5" aria-hidden="true">
+														<path fill-rule="evenodd"
+															d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+															clip-rule="evenodd" />
+													</svg>
+												</button>
+
+												<!-- Hidden Input To Grab The Selected Value  -->
+												<input id="university" value="<?=$course['university_index']?>" required
+													name="university" x-ref="hiddenTextField" hidden="" />
+												<div x-show="isCatOpen || openedWithKeyboard" id="makesList"
+													class="absolute left-0 top-11 z-10 w-full overflow-hidden rounded-md border border-neutral-300 bg-neutral-50"
+													role="listbox" aria-label="industries list"
+													x-on:click.outside="isCatOpen = false, openedWithKeyboard = false"
+													x-on:keydown.down.prevent="$focus.wrap().next()"
+													x-on:keydown.up.prevent="$focus.wrap().previous()" x-transition
+													x-trap="openedWithKeyboard">
+
+													<!-- Search  -->
+													<div class="relative">
+														<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+															stroke="currentColor" fill="none" stroke-width="1.5"
+															class="absolute left-4 top-1/2 size-5 -translate-y-1/2 text-neutral-600/50"
+															aria-hidden="true">
+															<path stroke-linecap="round" stroke-linejoin="round"
+																d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+														</svg>
+														<input type="text"
+															class="w-full border-b borderneutral-300 bg-neutral-50 py-2.5 pl-11 pr-4 text-sm text-neutral-600 focus:outline-none focus-visible:border-blue-600 disabled:cursor-not-allowed disabled:opacity-75"
+															name="searchField" aria-label="Search"
+															x-on:input="getFilteredOptions($el.value)"
+															x-ref="searchField" placeholder="Search" />
+													</div>
+
+													<!-- Options  -->
+													<ul class="flex  max-h-44 flex-col overflow-y-auto z-10">
+														<li class="hidden px-4 py-2 text-sm text-neutral-600"
+															x-ref="noResultsMessage">
+															<span>No matches found</span>
+														</li>
+														<template x-for="(item, index) in catTemp"
+															x-bind:key="item.value">
+															<li class="combobox-option inline-flex cursor-pointer justify-between gap-6 bg-neutral-50 px-4 py-2 text-sm text-neutral-600 hover:bg-neutral-900/5 hover:text-neutral-900 focus-visible:bg-neutral-900/5 focus-visible:text-neutral-900 focus-visible:outline-none"
+																role="option" x-on:click="setSelectedOption(item)"
+																x-on:keydown.enter="setSelectedOption(item)"
+																x-bind:id="'option-' + index" tabindex="0">
+																<!-- Label  -->
+																<span
+																	x-bind:class="selectedCat == item ? 'font-bold' : null"
+																	x-text="item.label"></span>
+																<!-- Screen reader 'selected' indicator  -->
+																<span class="sr-only"
+																	x-text="selectedCat == item ? 'selected' : null"></span>
+																<!-- Checkmark  -->
+																<svg x-cloak x-show="selectedCat == item"
+																	xmlns="http://www.w3.org/2000/svg"
+																	viewBox="0 0 24 24" stroke="currentColor"
+																	fill="none" stroke-width="2" class="size-4"
+																	aria-hidden="true">
+																	<path stroke-linecap="round" stroke-linejoin="round"
+																		d="m4.5 12.75 6 6 9-13.5">
+																</svg>
+															</li>
+														</template>
+													</ul>
+												</div>
+											</div>
+										</div>
+										<!-- Description -->
+										<div class="flex w-full mb-2 flex-col gap-1 text-neutral-600">
+											<label for="textArea" class="w-fit pl-0.5 text-sm">Description*</label>
+											<textarea required id="description" name="description"
+												class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2.5 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:opacity-75"
+												rows="3"
+												placeholder="What is this course about..."><?=$course['opis_kolegija']?></textarea>
+										</div>
+										<div class="flex items-center gap-2 mb-2">
+											<!-- Language -->
+											<div class="flex w-full flex-col gap-1 text-neutral-600 ">
+												<label for="code" class="w-fit pl-0.5 text-sm">Language*</label>
+												<input required id="language" type="text" value="<?=$course['jezik']?>"
+													class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
+													name="language" placeholder="Course Language" />
+											</div>
+											<!-- Year -->
+											<div class="flex w-full flex-col gap-1 text-neutral-600">
+												<label for="year" class="w-fit pl-0.5 text-sm">Year*</label>
+												<input required id="year" type="text" value="<?=$course['godina']?>"
+													class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
+													name="year" placeholder="Year" />
+											</div>
+											<!-- No. of lectures -->
+											<div class="flex w-full flex-col gap-1 text-neutral-600">
+												<label for="lectures" class="w-fit pl-0.5 text-sm">No. of
+													lectures</label>
+												<input id="lectures" type="number"
+													value="<?=$course['broj_predavanja']?>"
+													class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
+													name="lectures" placeholder="No. of lectures" />
+											</div>
+										</div>
+										<div class="items-center flex gap-2 mb-2">
+											<!-- Course Code -->
+											<div class="flex w-full flex-col gap-1 text-neutral-600">
+												<label for="code" class="w-fit pl-0.5 text-sm">Course Code*</label>
+												<input required id="code" type="text" value="<?=$course['oznaka']?>"
+													class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
+													name="code" placeholder="Course Code" />
+											</div>
+											<!-- Course Duration -->
+											<div class="flex w-full flex-col gap-1 text-neutral-600">
+												<label for="textInputDefault"
+													class="w-fit pl-0.5 text-sm">Duration*</label>
+												<input required id="duration" type="number" min="0"
+													value="<?=$course['ukupno_trajanje']?>"
+													class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
+													name="duration" placeholder="Course Duration" />
+											</div>
+										</div>
+										<!-- Video Link -->
+										<div class="flex w-full flex-col gap-1 text-neutral-600 mb-2">
+											<label for="vidLink" class="w-fit pl-0.5 text-sm">Video URL*</label>
+											<input required id="vidLink" type="url" value="<?=$course['link_1']?>"
+												class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
+												name="vidLink" placeholder="Video URL" />
+										</div>
+										<div class="flex items-center gap-2 mb-2">
+											<!-- Image Link -->
+											<div class="flex w-full flex-col gap-1 text-neutral-600">
+												<label for="imgLink" class="w-fit pl-0.5 text-sm">Image URL*</label>
+												<input required id="imgLink" type="url" value="<?=$course['image']?>"
+													class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
+													name="imgLink" placeholder="Image URL" />
+											</div>
+											<!-- Link 2 -->
+											<div class="flex w-full flex-col gap-1 text-neutral-600">
+												<label for="link" class="w-fit pl-0.5 text-sm">Link</label>
+												<input id="link" type="url" value="<?=$course['link_2']?>"
+													class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
+													name="link" placeholder="Link" />
+											</div>
+										</div>
+
+
+									</div>
+									<!-- Dialog Footer -->
+									<div
+										class="border-t border-neutral-300 bg-neutral-50/60 p-4 sm:flex-row sm:items-center md:justify-end">
+										<button type="submit"
+											class="w-full cursor-pointer whitespace-nowrap rounded-md bg-primary px-4 py-2 text-center text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0">
+											Update Course</button>
+									</div>
 								</form>
 							</div>
 						</div>
@@ -682,8 +1253,7 @@ ob_start();
 								<!-- Dialog Footer -->
 								<div class="flex items-center justify-center border-neutral-300 p-4">
 									<form action="" method="post">
-										<input type="hidden" name="oldImage" value="<?=$c["slika_kategorije"]?>">
-										<input type="hidden" name="deleteCategoryId" value="<?=$c['idKategorije']?>">
+										<input type="hidden" name="deleteCourse" value="<?=$course['idPredavanja']?>">
 										<button type="submit"
 											class="w-full cursor-pointer whitespace-nowrap rounded-md bg-red-500 px-4 py-2 text-center text-sm font-semibold tracking-wide text-white transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 active:opacity-100 active:outline-offset-0">
 											Delete Now</button>
@@ -771,6 +1341,7 @@ if (empty($_GET['keyword'])){?>
 	</nav>
 </div>
 <?php } ?>
+<?php }?>
 
 <?php
 $content = ob_get_clean();

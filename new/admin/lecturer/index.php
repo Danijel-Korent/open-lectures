@@ -208,6 +208,11 @@ ob_start();
 </div>
 <!-- End Create Modal -->
 <div class="overflow-hidden w-full overflow-x-auto rounded-md border border-neutral-300 ">
+	<?php if (empty($dataArray['data'])) { ?>
+	<div class="p-10 w-full text-center">
+		<td class="p-4 font-bold text-[2rem]" colspan="3">No lecturers found</td>
+	</div>
+	<?php }else{ ?>
 	<table class="w-full text-left text-sm text-neutral-600">
 		<thead class="border-b border-neutral-300 bg-neutral-50 text-sm text-neutral-900">
 			<tr>
@@ -459,6 +464,7 @@ if (empty($_GET['keyword'])){?>
 	</nav>
 </div>
 <?php } ?>
+<?php }?>
 <?php
 $content = ob_get_clean();
 include __DIR__ . '/../../partials/admin_layout.php';

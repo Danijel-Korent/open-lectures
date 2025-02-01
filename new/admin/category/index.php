@@ -170,6 +170,11 @@ ob_start();
 </div>
 <!-- End Create Modal -->
 <div class="overflow-hidden w-full overflow-x-auto rounded-md border border-neutral-300 ">
+	<?php if (empty($data)) { ?>
+	<div class="p-10 w-full text-center">
+		<td class="p-4 font-bold text-[2rem]" colspan="3">No categories found</td>
+	</div>
+	<?php }else{ ?>
 	<table class="w-full text-left text-sm text-neutral-600">
 		<thead class="border-b border-neutral-300 bg-neutral-50 text-sm text-neutral-900">
 			<tr>
@@ -320,6 +325,7 @@ ob_start();
 			<?php } ?>
 		</tbody>
 	</table>
+	<?php } ?>
 </div>
 <div class="flex w-full justify-end mt-5">
 	<button @click="modalIsOpen = true" type="button"

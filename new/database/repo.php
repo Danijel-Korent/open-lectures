@@ -105,9 +105,9 @@ function searchCourse($query) {
     $query = db()->real_escape_string($query);
 	$query = strtolower($query);
     // Perform the search, using LOWER() to make case-insensitive comparisons
-    $res = db()->query("SELECT pred.naziv_predavanja, u.naziv_ustanove,
-        p.ime, p.prezime, pred.jezik, pred.broj_predavanja, 
-        pred.ukupno_trajanje, pred.oznaka, pred.opis_kolegija, pred.link_1, pred.link_2, pred.image, prip.kategorije, z.ustanova
+    $res = db()->query("SELECT pred.*, u.naziv_ustanove,
+        p.ime, p.prezime,p.idPredavac, k.naziv_kategorije, k.idKategorije,
+        prip.kategorije, z.ustanova, z.idZaposlenje
         FROM ustanove u 
         INNER JOIN zaposlenje z ON u.idUstanove = z.ustanova
         INNER JOIN predavaci p ON p.idPredavac = z.predavac
@@ -310,19 +310,22 @@ function selectPaginatedCourse($page = 1, $perPage = 10) {
     $total = $totalRes->fetch_assoc()['total'];
 
     // Query to get paginated results
-    $dataQuery = "SELECT pred.naziv_predavanja, u.naziv_ustanove,
-                         p.ime, p.prezime, pred.jezik, pred.broj_predavanja, 
-                         pred.ukupno_trajanje, pred.oznaka, pred.opis_kolegija, 
-                         pred.link_1, pred.link_2, pred.image, prip.kategorije, z.ustanova
-                  FROM ustanove u
-                  INNER JOIN zaposlenje z ON u.idUstanove = z.ustanova
-                  INNER JOIN predavaci p ON p.idPredavac = z.predavac
-                  INNER JOIN lekcije l ON l.predavac = p.idPredavac
-                  INNER JOIN predavanja pred ON pred.idPredavanja = l.predavanja
-                  INNER JOIN pripadnost_kategoriji prip ON pred.idPredavanja = prip.predavanje
-                  INNER JOIN kategorije k ON k.idKategorije = prip.kategorije
-				  ORDER BY pred.naziv_predavanja asc
-                  LIMIT $perPage OFFSET $offset ";
+    $dataQuery = "SELECT pred.*, k.naziv_kategorije, k.idKategorije,
+       u.naziv_ustanove, 
+       p.ime, 
+       p.prezime, p.idPredavac,
+       prip.kategorije, 
+       z.ustanova,z.idZaposlenje
+FROM ustanove u
+INNER JOIN zaposlenje z ON u.idUstanove = z.ustanova
+INNER JOIN predavaci p ON p.idPredavac = z.predavac
+INNER JOIN lekcije l ON l.predavac = p.idPredavac
+INNER JOIN predavanja pred ON pred.idPredavanja = l.predavanja
+INNER JOIN pripadnost_kategoriji prip ON pred.idPredavanja = prip.predavanje
+INNER JOIN kategorije k ON k.idKategorije = prip.kategorije
+ORDER BY pred.naziv_predavanja ASC
+LIMIT $perPage OFFSET $offset;
+";
 
     $dataRes = db()->query($dataQuery);
     if (db()->error) {
@@ -462,9 +465,99 @@ function selectAllCategories(){
 }
 
 //Insert course
-function insertCourse(){
+function insertCourse($name,$categoryId,$lecturerId,$universityId,$year,$language,$totalLectures,$totalDuration,$description,$vidLink,$link2,$imgLink,$code){
 	//insert course
-	//insert course <-> category
-	//insert course <-> lecturer
-	//insert course <-> university
+	$query = db()->prepare('INSERT INTO predavanja (naziv_predavanja, jezik, broj_predavanja, ukupno_trajanje, opis_kolegija,link_1,link_2,image,godina,oznaka) VALUES (?,?,?,?,?,?,?,?,?,?)');
+	$query->bind_param('ssssssssss', $name, $language, $totalLectures, $totalDuration, $description, $vidLink, $link2, $imgLink,$year,$code);
+	$query->execute();
+	if ($query->error) {
+		echo 'DB Error: ' . $query->error;
+		die();
+	} else {
+		$courseId = $query->insert_id;
+		//insert course <-> category
+		$query = db()->prepare('INSERT INTO pripadnost_kategoriji (predavanje,kategorije) VALUES (?,?)');
+		$query->bind_param('ss', $courseId, $categoryId);
+		$query->execute();
+		if ($query->error) {
+			echo 'DB Error: ' . $query->error;
+			die();
+		}
+		//insert course <-> lecturer
+		$query = db()->prepare('INSERT INTO lekcije (predavanja,predavac) VALUES (?,?)');
+		$query->bind_param('ss', $courseId, $lecturerId);
+		$query->execute();
+		if ($query->error) {
+			echo 'DB Error: ' . $query->error;
+			die();
+		}
+		//insert course <-> university
+		$query = db()->prepare('INSERT INTO zaposlenje (predavac,ustanova) VALUES (?,?)');
+		$query->bind_param('ss', $lecturerId, $universityId);
+		$query->execute();
+		if ($query->error) {
+			echo 'DB Error: ' . $query->error;
+			die();
+		}
+		return true;
+	}
+}
+
+//Update course
+function updateCourse($id,$universityLecturerId,$name,$categoryId,$lecturerId,$universityId,$year,$language,$totalLectures,$totalDuration,$description,$vidLink,$link2,$imgLink,$code){
+	//update course
+	$query = db()->prepare('UPDATE predavanja SET naziv_predavanja = ?, jezik = ?, broj_predavanja = ?, ukupno_trajanje = ?, opis_kolegija = ?, link_1 = ?, link_2 = ?, image = ?, godina = ?, oznaka = ? WHERE idPredavanja = ?');
+	$query->bind_param('sssssssssss', $name, $language, $totalLectures, $totalDuration, $description, $vidLink, $link2, $imgLink,$year,$code,$id);
+	$query->execute();
+	if ($query->error) {
+		echo 'DB Error: ' . $query->error;
+		die();
+	} else {
+		//update course <-> category
+		$query = db()->prepare('UPDATE pripadnost_kategoriji SET kategorije = ? WHERE predavanje = ?');
+		$query->bind_param('ss', $categoryId, $id);
+		$query->execute();
+		if ($query->error) {
+			echo 'DB Error: ' . $query->error;
+			die();
+		}
+		//update course <-> lecturer
+		$query = db()->prepare('UPDATE lekcije SET predavac = ? WHERE predavanja = ?');
+		$query->bind_param('ss', $lecturerId, $id);
+		$query->execute();
+		if ($query->error) {
+			echo 'DB Error: ' . $query->error;
+			die();
+		}
+		//update course <-> university
+		$query = db()->prepare('UPDATE zaposlenje SET ustanova = ?, predavac = ? WHERE idZaposlenje =?');
+		$query->bind_param('sss', $universityId, $lecturerId,$universityLecturerId);
+		$query->execute();
+		if ($query->error) {
+			echo 'DB Error: ' . $query->error;
+			die();
+		}
+		return true;
+	}
+}
+
+//Delete course
+function deleteCourse($id){
+	$query = db()->prepare('DELETE FROM predavanja WHERE idPredavanja = ?');
+	$query->bind_param('s', $id);
+	$query->execute();
+	if ($query->error) {
+		echo 'DB Error: '. $query->error;
+		die();
+	} else {
+		//delete course <-> category
+		$query = db()->prepare('DELETE FROM pripadnost_kategoriji WHERE predavanje = ?');
+		$query->bind_param('s', $id);
+		$query->execute();
+		//delete course <-> lecturer
+		$query = db()->prepare('DELETE FROM lekcije WHERE predavanja = ?');
+		$query->bind_param('s', $id);
+		$query->execute();
+		return true;
+	}
 }
