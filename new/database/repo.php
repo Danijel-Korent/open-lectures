@@ -36,16 +36,13 @@ function selectKategorije(){
 
 // Select all courses
 function selectOpisPred (){
-    $res = db()->query("SELECT pred.naziv_predavanja, u.naziv_ustanove,
-    p.ime, p.prezime,  pred.jezik, pred.broj_predavanja, 
-    pred.ukupno_trajanje, pred.oznaka, pred.oznaka, pred.opis_kolegija, pred.link_1, pred.link_2, pred.image, prip.kategorije, z.ustanova
-    FROM ustanove u 
-    INNER JOIN zaposlenje z ON u.idUstanove = z.ustanova
-    INNER JOIN predavaci p ON p.idPredavac = z.predavac
-    INNER JOIN lekcije l on l.predavac = p.idPredavac
-    INNER JOIN predavanja pred ON pred.idPredavanja = l.predavanja
-    INNER JOIN pripadnost_kategoriji prip ON pred.idPredavanja = prip.predavanje
-    INNER JOIN kategorije k ON k.idKategorije = prip.kategorije;
+    $res = db()->query("SELECT pred.*, pred.naziv_predavanja, u.naziv_ustanove,
+    p.ime, p.prezime, k.naziv_kategorije as kategorije,
+	pred.ustanoveId as ustanova
+    FROM predavanja pred 
+    INNER JOIN predavaci p ON p.idPredavac = pred.predavaciId
+    INNER JOIN ustanove u on u.idUstanove = pred.ustanoveId
+    INNER JOIN kategorije k ON k.idKategorije = pred.kategorijeId;
     ");
    if (db()->error) {
 		echo 'DB Error: ' . db()->error;
@@ -64,18 +61,15 @@ function selectOpisPred (){
 //Select all courses by category
 function selectCoursesByCategory($id){
 	$cat_data = db()->query("SELECT * FROM kategorije WHERE idKategorije=" . $id);
-	$course_res = db()->query("
-	SELECT pred.naziv_predavanja, u.naziv_ustanove,
-    p.ime, p.prezime,  pred.jezik, pred.broj_predavanja, 
-    pred.ukupno_trajanje, pred.oznaka, pred.oznaka, pred.opis_kolegija, pred.link_1, pred.link_2, pred.image, prip.kategorije, z.ustanova
-    FROM ustanove u 
-    INNER JOIN zaposlenje z ON u.idUstanove = z.ustanova
-    INNER JOIN predavaci p ON p.idPredavac = z.predavac
-    INNER JOIN lekcije l on l.predavac = p.idPredavac
-    INNER JOIN predavanja pred ON pred.idPredavanja = l.predavanja
-    INNER JOIN pripadnost_kategoriji prip ON pred.idPredavanja = prip.predavanje
-    INNER JOIN kategorije k ON k.idKategorije = prip.kategorije
-    WHERE k.idKategorije = $id;");
+	$course_res = db()->query("SELECT pred.*, pred.naziv_predavanja, u.naziv_ustanove,
+    p.ime, p.prezime, k.naziv_kategorije as kategorije,
+	pred.ustanoveId as ustanova
+    FROM predavanja pred 
+    INNER JOIN predavaci p ON p.idPredavac = pred.predavaciId
+    INNER JOIN ustanove u on u.idUstanove = pred.ustanoveId
+    INNER JOIN kategorije k ON k.idKategorije = pred.kategorijeId
+	 WHERE k.idKategorije = $id;
+	");
 	// Check if the query was successful
 	if (db()->error) {
 	    echo 'DB Error: ' . db()->error;
@@ -105,16 +99,13 @@ function searchCourse($query) {
     $query = db()->real_escape_string($query);
 	$query = strtolower($query);
     // Perform the search, using LOWER() to make case-insensitive comparisons
-    $res = db()->query("SELECT pred.*, u.naziv_ustanove,
-        p.ime, p.prezime,p.idPredavac, k.naziv_kategorije, k.idKategorije,
-        prip.kategorije, z.ustanova, z.idZaposlenje
-        FROM ustanove u 
-        INNER JOIN zaposlenje z ON u.idUstanove = z.ustanova
-        INNER JOIN predavaci p ON p.idPredavac = z.predavac
-        INNER JOIN lekcije l on l.predavac = p.idPredavac
-        INNER JOIN predavanja pred ON pred.idPredavanja = l.predavanja
-        INNER JOIN pripadnost_kategoriji prip ON pred.idPredavanja = prip.predavanje
-        INNER JOIN kategorije k ON k.idKategorije = prip.kategorije
+    $res = db()->query("SELECT pred.*, pred.naziv_predavanja, u.naziv_ustanove,
+    p.ime, p.prezime, k.naziv_kategorije as kategorije,
+	pred.ustanoveId as ustanova
+    FROM predavanja pred 
+    INNER JOIN predavaci p ON p.idPredavac = pred.predavaciId
+    INNER JOIN ustanove u on u.idUstanove = pred.ustanoveId
+    INNER JOIN kategorije k ON k.idKategorije = pred.kategorijeId
         WHERE LOWER(pred.naziv_predavanja) LIKE '%$query%'
         OR LOWER(pred.opis_kolegija) LIKE '%$query%'
         OR LOWER(p.ime) LIKE '%$query%'
@@ -294,13 +285,10 @@ function selectPaginatedCourse($page = 1, $perPage = 10) {
 
     // Query to get total number of elements
     $totalQuery = "SELECT COUNT(*) as total
-                   FROM ustanove u
-                   INNER JOIN zaposlenje z ON u.idUstanove = z.ustanova
-                   INNER JOIN predavaci p ON p.idPredavac = z.predavac
-                   INNER JOIN lekcije l ON l.predavac = p.idPredavac
-                   INNER JOIN predavanja pred ON pred.idPredavanja = l.predavanja
-                   INNER JOIN pripadnost_kategoriji prip ON pred.idPredavanja = prip.predavanje
-                   INNER JOIN kategorije k ON k.idKategorije = prip.kategorije";
+    FROM predavanja pred 
+    INNER JOIN predavaci p ON p.idPredavac = pred.predavaciId
+    INNER JOIN ustanove u on u.idUstanove = pred.ustanoveId
+    INNER JOIN kategorije k ON k.idKategorije = pred.kategorijeId";
 
     $totalRes = db()->query($totalQuery);
     if (db()->error) {
@@ -310,22 +298,16 @@ function selectPaginatedCourse($page = 1, $perPage = 10) {
     $total = $totalRes->fetch_assoc()['total'];
 
     // Query to get paginated results
-    $dataQuery = "SELECT pred.*, k.naziv_kategorije, k.idKategorije,
-       u.naziv_ustanove, 
-       p.ime, 
-       p.prezime, p.idPredavac,
-       prip.kategorije, 
-       z.ustanova,z.idZaposlenje
-FROM ustanove u
-INNER JOIN zaposlenje z ON u.idUstanove = z.ustanova
-INNER JOIN predavaci p ON p.idPredavac = z.predavac
-INNER JOIN lekcije l ON l.predavac = p.idPredavac
-INNER JOIN predavanja pred ON pred.idPredavanja = l.predavanja
-INNER JOIN pripadnost_kategoriji prip ON pred.idPredavanja = prip.predavanje
-INNER JOIN kategorije k ON k.idKategorije = prip.kategorije
-ORDER BY pred.naziv_predavanja ASC
-LIMIT $perPage OFFSET $offset;
-";
+    $dataQuery = "SELECT pred.*, pred.naziv_predavanja, u.naziv_ustanove,
+    p.ime, p.prezime, k.naziv_kategorije as kategorije,
+	pred.ustanoveId as ustanova
+    FROM predavanja pred 
+    INNER JOIN predavaci p ON p.idPredavac = pred.predavaciId
+    INNER JOIN ustanove u on u.idUstanove = pred.ustanoveId
+    INNER JOIN kategorije k ON k.idKategorije = pred.kategorijeId
+	ORDER BY pred.naziv_predavanja ASC
+	LIMIT $perPage OFFSET $offset;
+	";
 
     $dataRes = db()->query($dataQuery);
     if (db()->error) {
