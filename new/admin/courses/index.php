@@ -12,24 +12,24 @@ require_once REPO_PATH;
 $lecturers = [];
 foreach (selectAllLecturers() as $d){
 	$data = [
-		'label' => $d['ime'].' '.$d['prezime'],
-        'value' => $d['idPredavac']
+		'label' => $d['firstName'].' '.$d['lastName'],
+        'value' => $d['id']
     ];
     array_push($lecturers, $data);
 };
 $universities = [];
 foreach(selectAllUniversity() as $d){
 	$data = [
-		'label'=> $d['naziv_ustanove'],
-		'value'=> $d['idUstanove']
+		'label'=> $d['name'],
+		'value'=> $d['id']
 	];
 	array_push($universities, $data);
 }
 $categories = [];
 foreach (selectAllCategories() as $category) {
 	$data = [
-		'label' => $category['naziv_kategorije'],
-        'value' => $category['idKategorije']
+		'label' => $category['name'],
+        'value' => $category['id']
     ];
     array_push($categories, $data);
 }
@@ -55,15 +55,15 @@ $list =[];
 //Loop through the array and calculate the total length of all courses
 foreach ($courseArray['data'] as $course)
 {
-  $course_totalLength  = $course['ukupno_trajanje'];
+  $course_totalLength  = $course['t_duration'];
   $university_index  = $course['ustanova'] - 1;
-  $course_university = $university_list[$university_index]['naziv_ustanove'];
+  $course_university = $university_list[$university_index]['name'];
   $data=[
 	...$course,
-	'course_name' => $course['naziv_predavanja'],
-	'course_description' => $course['opis_kolegija'],
-	'course_totalLength' => $course['ukupno_trajanje'],
-	'category_index' => $course['kategorijeId'],
+	'course_name' => $course['name'],
+	'course_description' => $course['description'],
+	'course_totalLength' => $course['t_duration'],
+	'category_index' => $course['categoryId'],
 	'course_linkPlaylist' => $course['link_1'],
 	'course_image' => $course['image'],
 	'course_university' =>$course_university,
@@ -656,9 +656,7 @@ ob_start();
 			</tr>
 		</thead>
 		<tbody class="divide-y divide-neutral-300">
-			<?php var_dump($list[0]);?>
 			<?php foreach ($list as $index => $course) { ?>
-
 			<tr>
 				<td class="p-4">
 					<div class="flex items-center gap-3">
@@ -738,7 +736,7 @@ ob_start();
 								<!-- Dialog Body -->
 								<form action="" method="post" enctype="multipart/form-data"
 									class="overflow-y-auto max-h-[80vh] md:max-h-[100vh]">
-									<input type="hidden" name="updateCourse" value="<?=$index?>">
+									<input type="hidden" name="updateCourse" value="<?=$course['id']?>">
 
 									<div class="px-4 pb-4">
 										<!-- Name -->
@@ -759,7 +757,7 @@ ob_start();
 							openedWithKeyboard: false,
 							selectedCat: <?=str_replace('"', "'",json_encode(
 								[
-									'value' => $course['kategorijeId'],
+									'value' => $course['categoryId'],
 									'label' => $course['kategorije']
 								]
 							))?>,
@@ -814,7 +812,7 @@ ob_start();
 												</button>
 
 												<!-- Hidden Input To Grab The Selected Value  -->
-												<input value="<?=$course['kategorijeId']?>" id="category" required
+												<input value="<?=$course['categoryId']?>" id="category" required
 													name="category" x-ref="hiddenTextField" hidden="" />
 												<div x-show="isCatOpen || openedWithKeyboard" id="makesList"
 													class="absolute left-0 top-11 z-10 w-full overflow-hidden rounded-md border border-neutral-300 bg-neutral-50"
@@ -883,8 +881,8 @@ ob_start();
 							openedWithKeyboard: false,
 							selectedCat: <?=str_replace('"', "'",json_encode(
 								[
-									'value' => (string)$course['predavaciId'],
-									'label' => $course['ime'].' '.$course['prezime']
+									'value' => (string)$course['lecturerId'],
+									'label' => $course['firstName'].' '.$course['lastName']
 								]
 							))?>,
 							setSelectedOption(option) {
@@ -938,7 +936,7 @@ ob_start();
 												</button>
 
 												<!-- Hidden Input To Grab The Selected Value  -->
-												<input id="lecturer" value="<?=$course['predavaciId']?>" required
+												<input id="lecturer" value="<?=$course['lecturerId']?>" required
 													name="lecturer" x-ref="hiddenTextField" hidden="" />
 												<div x-show="isCatOpen || openedWithKeyboard" id="makesList"
 													class="absolute left-0 top-11 z-10 w-full overflow-hidden rounded-md border border-neutral-300 bg-neutral-50"
@@ -1062,7 +1060,7 @@ ob_start();
 												</button>
 
 												<!-- Hidden Input To Grab The Selected Value  -->
-												<input id="university" value="<?=$course['university_index']?>" required
+												<input id="university" value="<?=$course['universityId']?>" required
 													name="university" x-ref="hiddenTextField" hidden="" />
 												<div x-show="isCatOpen || openedWithKeyboard" id="makesList"
 													class="absolute left-0 top-11 z-10 w-full overflow-hidden rounded-md border border-neutral-300 bg-neutral-50"
@@ -1128,20 +1126,21 @@ ob_start();
 											<textarea required id="description" name="description"
 												class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2.5 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:opacity-75"
 												rows="3"
-												placeholder="What is this course about..."><?=$course['opis_kolegija']?></textarea>
+												placeholder="What is this course about..."><?=$course['description']?></textarea>
 										</div>
 										<div class="flex items-center gap-2 mb-2">
 											<!-- Language -->
 											<div class="flex w-full flex-col gap-1 text-neutral-600 ">
 												<label for="code" class="w-fit pl-0.5 text-sm">Language*</label>
-												<input required id="language" type="text" value="<?=$course['jezik']?>"
+												<input required id="language" type="text"
+													value="<?=$course['language']?>"
 													class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
 													name="language" placeholder="Course Language" />
 											</div>
 											<!-- Year -->
 											<div class="flex w-full flex-col gap-1 text-neutral-600">
 												<label for="year" class="w-fit pl-0.5 text-sm">Year*</label>
-												<input required id="year" type="text" value="<?=$course['godina']?>"
+												<input required id="year" type="text" value="<?=$course['year']?>"
 													class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
 													name="year" placeholder="Year" />
 											</div>
@@ -1149,8 +1148,7 @@ ob_start();
 											<div class="flex w-full flex-col gap-1 text-neutral-600">
 												<label for="lectures" class="w-fit pl-0.5 text-sm">No. of
 													lectures</label>
-												<input id="lectures" type="number"
-													value="<?=$course['broj_predavanja']?>"
+												<input id="lectures" type="number" value="<?=$course['n_lectures']?>"
 													class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
 													name="lectures" placeholder="No. of lectures" />
 											</div>
@@ -1159,7 +1157,8 @@ ob_start();
 											<!-- Course Code -->
 											<div class="flex w-full flex-col gap-1 text-neutral-600">
 												<label for="code" class="w-fit pl-0.5 text-sm">Course Code*</label>
-												<input required id="code" type="text" value="<?=$course['oznaka']?>"
+												<input required id="code" type="text"
+													value="<?=$course['course_code']?>"
 													class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
 													name="code" placeholder="Course Code" />
 											</div>
@@ -1168,7 +1167,7 @@ ob_start();
 												<label for="textInputDefault"
 													class="w-fit pl-0.5 text-sm">Duration*</label>
 												<input required id="duration" type="number" min="0"
-													value="<?=$course['ukupno_trajanje']?>"
+													value="<?=$course['t_duration']?>"
 													class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
 													name="duration" placeholder="Course Duration" />
 											</div>
@@ -1253,7 +1252,7 @@ ob_start();
 								<!-- Dialog Footer -->
 								<div class="flex items-center justify-center border-neutral-300 p-4">
 									<form action="" method="post">
-										<input type="hidden" name="deleteCourse" value="<?=$course['idPredavanja']?>">
+										<input type="hidden" name="deleteCourse" value="<?=$course['id']?>">
 										<button type="submit"
 											class="w-full cursor-pointer whitespace-nowrap rounded-md bg-red-500 px-4 py-2 text-center text-sm font-semibold tracking-wide text-white transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 active:opacity-100 active:outline-offset-0">
 											Delete Now</button>

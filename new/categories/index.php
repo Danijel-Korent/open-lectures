@@ -24,7 +24,7 @@ if(isset($_GET['id'])):?>
 <?php
 	//Check if category has courses
 	if(count($courses) > 1):?>
-<h1 class="font-bold text-3xl my-5 text-center text-primary"> <?=$courses[0]["naziv_kategorije"]?></h1>
+<h1 class="font-bold text-3xl my-5 text-center text-primary"> <?=$courses[0]["name"]?></h1>
 <?php foreach ($courses as $course) : ?>
 <a href="<?=$course['course_linkPlaylist']?>" target='_blank' rel='noopener noreferrer' class="tooltip-w3 no-underline">
 	<span class='tooltiptext p-1'><?=$course['course_description']?></span>
@@ -57,16 +57,16 @@ else:?>
 <div class="container relative z-40 mx-auto mt-6">
 	<div class="flex flex-wrap justify-center mx-auto lg:w-full md:5/6 xl:shadow-small-primary shadow-md">
 		<?php foreach($data as $c){ ?>
-		<a href="<?=SITE_URL."/category?id=". $c["idKategorije"]?>"
+		<a href="<?=SITE_URL."/category?id=". $c["id"]?>"
 			class="block w-1/2 py-10 text-center border lg:w-1/4">
 			<div>
 				<img class="img hover:scale-105 transition-transform duration-300 ease-in-out"
-					src="<?=$c["slika_kategorije"] == "" ?"../assets/images/categories/uncategorized.jpeg":"../assets/images/categories/".$c['slika_kategorije'] ?>"
+					src="<?=$c["image"] == "" ?"../assets/images/categories/uncategorized.jpeg":"../assets/images/categories/".$c['image'] ?>"
 					class="block mx-auto">
 
 				<p
 					class="pt-4 text-sm font-medium hover:text-primary transition-all text-md capitalize hover:underline lg:text-xl md:text-base md:pt-6">
-					<?=$c['naziv_kategorije']?>
+					<?=$c['name']?>
 				</p>
 			</div>
 		</a>

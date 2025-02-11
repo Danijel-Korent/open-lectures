@@ -1,15 +1,15 @@
 <?php require "../Components/header.html";
 require "../../backend/index.php"; 
 
-$query = $db->query("SELECT * FROM kategorije WHERE idKategorije=" . $_GET["id"]);
+$query = $db->query("SELECT * FROM kategorije WHERE id=" . $_GET["id"]);
 $results = $query->fetchAll();
 ?>
 
 <div class="grid-x grid-margin-x">
-  <div class="cell large-12 medium-12 small-12">
-    <h3><?php echo $results[0]["naziv_kategorije"] ?></h3>
+	<div class="cell large-12 medium-12 small-12">
+		<h3><?php echo $results[0]["name"] ?></h3>
 
-    <?php
+		<?php
     $all_total_length = 0;
     $all_courses = 0;
 
@@ -17,7 +17,7 @@ $results = $query->fetchAll();
     {
       if ($course['kategorije'] == $_GET["id"])
       {
-        $course_totalLength  = $course['ukupno_trajanje'];
+        $course_totalLength  = $course['t_duration'];
 
         $all_courses++;
         $all_total_length += $course_totalLength;
@@ -28,12 +28,12 @@ $results = $query->fetchAll();
     echo "<p><b>Ukupno sati: {$all_total_length}h</b></p>";
 
   ?>
-  </div>
+	</div>
 </div>
 
 <div class="grid-x grid-margin-x">
 
-  <?php
+	<?php
   //echo "<pre>"; print_r($arrayOpisPred); echo " </pre>";
 
   $university_list = selectUstanove();
@@ -41,14 +41,14 @@ $results = $query->fetchAll();
   foreach ($arrayOpisPred as $course)
   {
     $course_category     = $course['kategorije'];
-    $course_name         = $course['naziv_predavanja'];
-    $course_description  = $course['opis_kolegija'];
-    $course_totalLength  = $course['ukupno_trajanje'];
+    $course_name         = $course['name'];
+    $course_description  = $course['description'];
+    $course_totalLength  = $course['t_duration'];
     $course_linkPlaylist = $course['link_1'];
     $course_image        = $course['image'];
 
     $university_index  = $course['ustanova'] - 1;
-    $course_university = $university_list[$university_index]['naziv_ustanove'];
+    $course_university = $university_list[$university_index]['name'];
 
     if ($course_category == $_GET["id"])
     {

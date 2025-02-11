@@ -15,14 +15,14 @@ foreach($arrayKategorije as $kategorija){
 
 <div class="grid-x grid-margin-x">
   <div class="cell large-4 medium-4 small-6">
-  <p><a href="certain_category.php?id=<?php echo $kategorija["idKategorije"] ?>">
+  <p><a href="certain_category.php?id=<?php echo $kategorija["id"] ?>">
   <img src="../Image/<?php 
-              if($kategorija["slika_kategorije"] == ""){
+              if($kategorija["image"] == ""){
                   echo "Nema slike";
                   }else{
-                      echo $kategorija["slika_kategorije"];
+                      echo $kategorija["image"];
                  } ?>">
-    <?php echo $kategorija["naziv_kategorije"] ?></a></p>
+    <?php echo $kategorija["name"] ?></a></p>
   </div>
 </div>
 

@@ -15,7 +15,7 @@
 // // 			$row;
 // // 			// var_dump($row['predavanja']); //course
 // // 			// var_dump($row['predavac']); //lecturer
-// // 		$query =db()->prepare("UPDATE `predavanja` SET `kategorijeId` = ? WHERE `predavanja`.`idPredavanja` = ?;");
+// // 		$query =db()->prepare("UPDATE `predavanja` SET `categoryId` = ? WHERE `predavanja`.`id` = ?;");
 // // 				$query->bind_param('ss', $row['kategorije'], $row['predavanje']);
 // // 	$query->execute();
 // // 		}
@@ -31,8 +31,8 @@
 // //Loop through the array and calculate the total length of all courses
 // foreach ($arrayOpisPred as $course)
 // { 
-//   $query =db()->prepare("UPDATE `predavanja` SET `ustanoveId` = ? WHERE `predavanja`.`idPredavanja` = ?;");
-// 				$query->bind_param('ss', $course['ustanova'], $course['idPredavanja']);
+//   $query =db()->prepare("UPDATE `predavanja` SET `universityId` = ? WHERE `predavanja`.`id` = ?;");
+// 				$query->bind_param('ss', $course['ustanova'], $course['id']);
 // 	$query->execute();
 // 	// array_push($list, $data);
 // }

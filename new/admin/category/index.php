@@ -184,15 +184,15 @@ ob_start();
 		</thead>
 		<tbody class="divide-y divide-neutral-300">
 			<?php foreach($data as $c){ ?>
-			<?php $index=$c["idKategorije"];?>
+			<?php $index=$c["id"];?>
 			<tr>
 				<td class="p-4">
 					<div class="flex w-max items-center gap-3">
 						<img class="size-14 rounded-full object-cover"
-							src="<?=$c["slika_kategorije"] == "" ?ASSET_PATH."/images/categories/uncategorized.jpeg":ASSET_PATH."/images/categories/".$c['slika_kategorije'] ?>"
+							src="<?=$c["image"] == "" ?ASSET_PATH."/images/categories/uncategorized.jpeg":ASSET_PATH."/images/categories/".$c['image'] ?>"
 							alt="user avatar" />
 						<div class="flex flex-col">
-							<span class="text-neutral-900 text-lg font-semibold"> <?=$c['naziv_kategorije']?></span>
+							<span class="text-neutral-900 text-lg font-semibold"> <?=$c['name']?></span>
 						</div>
 					</div>
 				</td>
@@ -230,8 +230,8 @@ ob_start();
 								</div>
 								<!-- Dialog Body -->
 								<form action="" method="post" enctype="multipart/form-data">
-									<input type="hidden" name="updateCategoryId" value="<?=$c['idKategorije']?>">
-									<input type="hidden" name="oldImage" value="<?=$c["slika_kategorije"]?>">
+									<input type="hidden" name="updateCategoryId" value="<?=$c['id']?>">
+									<input type="hidden" name="oldImage" value="<?=$c["image"]?>">
 									<div class="px-4 pb-4">
 										<!-- Photo -->
 										<div
@@ -248,7 +248,7 @@ ob_start();
 												Name</label>
 											<input id="textInputDefault" type="text"
 												class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
-												name="name" value="<?=$c['naziv_kategorije']?>"
+												name="name" value="<?=$c['name']?>"
 												placeholder="Category Name" />
 										</div>
 
@@ -301,14 +301,14 @@ ob_start();
 								<div class="px-4 text-center">
 									<h3 id="dangerModalTitle"
 										class="mb-2 font-semibold tracking-wide text-lg text-neutral-900">
-										Delete <?=$c['naziv_kategorije']?> Category</h3>
+										Delete <?=$c['name']?> Category</h3>
 									<p class="text-md">Are you sure you want to delete this category?</p>
 								</div>
 								<!-- Dialog Footer -->
 								<div class="flex items-center justify-center border-neutral-300 p-4">
 									<form action="" method="post">
-										<input type="hidden" name="oldImage" value="<?=$c["slika_kategorije"]?>">
-										<input type="hidden" name="deleteCategoryId" value="<?=$c['idKategorije']?>">
+										<input type="hidden" name="oldImage" value="<?=$c["image"]?>">
+										<input type="hidden" name="deleteCategoryId" value="<?=$c['id']?>">
 										<button type="submit"
 											class="w-full cursor-pointer whitespace-nowrap rounded-md bg-red-500 px-4 py-2 text-center text-sm font-semibold tracking-wide text-white transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 active:opacity-100 active:outline-offset-0">
 											Delete Now</button>

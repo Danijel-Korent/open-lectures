@@ -222,12 +222,12 @@ ob_start();
 		</thead>
 		<tbody class="divide-y divide-neutral-300">
 			<?php foreach($dataArray['data'] as $c){ ?>
-			<?php $index=$c["idPredavac"];?>
+			<?php $index=$c["id"];?>
 			<tr>
 				<td class="p-4">
 					<div class="flex w-max items-center gap-3">
 
-						<?php if(empty($c["slika_predavaca"])|| !isset($c["slika_predavaca"])){?>
+						<?php if(empty($c["l_image"])|| !isset($c["l_image"])){?>
 						<div class="size-14 bg-gray-200 rounded-full flex items-center justify-center">
 							<svg class="size-8 shrink-0" aria-hidden="true" viewBox="0 0 25 24" fill="currentColor"
 								xmlns="http://www.w3.org/2000/svg">
@@ -247,11 +247,11 @@ ob_start();
 						</div>
 						<?php }else{?>
 						<img class="size-14 rounded-full object-cover"
-							src="<?=ASSET_PATH."/images/lecturer/".$c['slika_predavaca'] ?>" alt="avatar" />
+							src="<?=ASSET_PATH."/images/lecturer/".$c['l_image'] ?>" alt="avatar" />
 						<?php } ?>
 						<div class="flex flex-col">
 							<span class="text-neutral-900 text-lg font-semibold">
-								<?=$c['ime']?> <?=$c["prezime"]?>
+								<?=$c['firstName']?> <?=$c["lastName"]?>
 							</span>
 						</div>
 					</div>
@@ -293,7 +293,7 @@ ob_start();
 								<!-- Dialog Body -->
 								<form action="" method="post" enctype="multipart/form-data">
 									<input type="hidden" name="updateLecturerId" value="<?=$index?>">
-									<input type="hidden" name="oldImage" value="<?=$c["slika_predavaca"]?>">
+									<input type="hidden" name="oldImage" value="<?=$c["l_image"]?>">
 									<div class="px-4 pb-4">
 										<!-- Photo -->
 										<div
@@ -307,13 +307,13 @@ ob_start();
 										<!-- Name -->
 										<div class="flex w-full flex-col gap-1 text-neutral-600 mb-2">
 											<label for="firstName" class="w-fit pl-0.5 text-sm">First Name</label>
-											<input required id="firstName" type="text" value="<?=$c['ime']?>"
+											<input required id="firstName" type="text" value="<?=$c['firstName']?>"
 												class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
 												name="firstName" placeholder="First Name" />
 										</div>
 										<div class="flex w-full flex-col gap-1 text-neutral-600 ">
 											<label for="lastName" class="w-fit pl-0.5 text-sm">Last Name</label>
-											<input required id="lastName" type="text" value="<?=$c['prezime']?>"
+											<input required id="lastName" type="text" value="<?=$c['lastName']?>"
 												class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
 												name="lastName" placeholder="Last Name" />
 										</div>
@@ -368,13 +368,13 @@ ob_start();
 								<div class="px-4 text-center">
 									<h3 id="dangerModalTitle"
 										class="mb-2 font-semibold tracking-wide text-lg text-neutral-900">
-										Delete <?=$c['ime']?> <?=$c['prezime']?></h3>
+										Delete <?=$c['firstName']?> <?=$c['lastName']?></h3>
 									<p class="text-md">Are you sure you want to delete this lecturer?</p>
 								</div>
 								<!-- Dialog Footer -->
 								<div class="flex items-center justify-center border-neutral-300 p-4">
 									<form action="" method="post">
-										<input type="hidden" name="oldImage" value="<?=$c["slika_predavaca"]?>">
+										<input type="hidden" name="oldImage" value="<?=$c["l_image"]?>">
 										<input type="hidden" name="deleteLecturerId" value="<?=$index?>">
 										<button type="submit"
 											class="w-full cursor-pointer whitespace-nowrap rounded-md bg-red-500 px-4 py-2 text-center text-sm font-semibold tracking-wide text-white transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 active:opacity-100 active:outline-offset-0">

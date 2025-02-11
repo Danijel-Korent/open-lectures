@@ -101,7 +101,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateUniId'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteUniId'])) {
 	$id = $_POST['deleteUniId'];
 	$imageName = $_POST['oldImage'];
-	var_dump($imageName);
 	$res = true;
 	if (isset($imageName)&&!empty($imageName)){
 		$res =deleteFile(dirname(__DIR__,2).'/assets/images/uni/'.$imageName);
@@ -234,11 +233,11 @@ ob_start();
 		</thead>
 		<tbody class="divide-y divide-neutral-300">
 			<?php foreach($dataArray['data'] as $c){ ?>
-			<?php $index=$c["idUstanove"];?>
+			<?php $index=$c["id"];?>
 			<tr>
 				<td class="p-4">
 					<div class="flex w-max items-center gap-3">
-						<?php if(empty($c["slika_ustanove"])|| !isset($c["slika_ustanove"])){?>
+						<?php if(empty($c["u_image"])|| !isset($c["u_image"])){?>
 						<div class="size-14 bg-gray-200 rounded-full flex items-center justify-center">
 							<svg class="size-5 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"
 								xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
@@ -255,20 +254,20 @@ ob_start();
 						</div>
 						<?php }else{?>
 						<img class="size-14 rounded-full object-cover"
-							src="<?=ASSET_PATH."/images/uni/".$c['slika_ustanove'] ?>" alt="avatar" />
+							src="<?=ASSET_PATH."/images/uni/".$c['u_image'] ?>" alt="avatar" />
 						<?php } ?>
 						<div class="flex flex-col">
 							<span class="text-neutral-900 text-lg font-semibold">
-								<?=$c["naziv_ustanove"]?>
+								<?=$c["name"]?>
 							</span>
 						</div>
 					</div>
 				</td>
 				<td>
-					<span class="p-4"><?=$c["mjesto"]?></span>
+					<span class="p-4"><?=$c["city"]?></span>
 				</td>
 				<td>
-					<span class="p-4"><?=$c["drzava"]?></span>
+					<span class="p-4"><?=$c["country"]?></span>
 				</td>
 				<td class="p-4">
 					<div x-data="{deleteModal<?=$index?>: false, updateModal<?=$index?>: false }">
@@ -307,7 +306,7 @@ ob_start();
 								<!-- Dialog Body -->
 								<form action="" method="post" enctype="multipart/form-data">
 									<input type="hidden" name="updateUniId" value="<?=$index?>">
-									<input type="hidden" name="oldImage" value="<?=$c["slika_ustanove"]?>">
+									<input type="hidden" name="oldImage" value="<?=$c["u_image"]?>">
 									<div class="px-4 pb-4">
 										<!-- Photo -->
 										<div
@@ -321,19 +320,19 @@ ob_start();
 										<!-- Name -->
 										<div class="flex w-full flex-col gap-1 text-neutral-600 mb-2">
 											<label for="name" class="w-fit pl-0.5 text-sm">Name</label>
-											<input required id="name" type="text" value="<?=$c['naziv_ustanove']?>"
+											<input required id="name" type="text" value="<?=$c['name']?>"
 												class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
 												name="name" placeholder="Name" />
 										</div>
 										<div class="flex w-full flex-col gap-1 text-neutral-600 mb-2">
 											<label for="city" class="w-fit pl-0.5 text-sm">City</label>
-											<input id="city" type="text" value="<?=$c['mjesto']?>"
+											<input id="city" type="text" value="<?=$c['city']?>"
 												class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
 												name="city" placeholder="City" />
 										</div>
 										<div class="flex w-full flex-col gap-1 text-neutral-600 ">
 											<label for="country" class="w-fit pl-0.5 text-sm">Country</label>
-											<input id="country" type="text" value="<?=$c['drzava']?>"
+											<input id="country" type="text" value="<?=$c['country']?>"
 												class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
 												name="country" placeholder="Country" />
 										</div>
@@ -389,13 +388,13 @@ ob_start();
 								<div class="px-4 text-center">
 									<h3 id="dangerModalTitle"
 										class="mb-2 font-semibold tracking-wide text-lg text-neutral-900">
-										Delete <?=$c['naziv_ustanove']?></h3>
+										Delete <?=$c['name']?></h3>
 									<p class="text-md">Are you sure you want to delete this university?</p>
 								</div>
 								<!-- Dialog Footer -->
 								<div class="flex items-center justify-center border-neutral-300 p-4">
 									<form action="" method="post">
-										<input type="hidden" name="oldImage" value="<?=$c["slika_ustanove"]?>">
+										<input type="hidden" name="oldImage" value="<?=$c["u_image"]?>">
 										<input type="hidden" name="deleteUniId" value="<?=$index?>">
 										<button type="submit"
 											class="w-full cursor-pointer whitespace-nowrap rounded-md bg-red-500 px-4 py-2 text-center text-sm font-semibold tracking-wide text-white transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 active:opacity-100 active:outline-offset-0">
