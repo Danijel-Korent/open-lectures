@@ -44,6 +44,9 @@ if(isset($_GET['logout'])) {
 		<li><a href="<?=SITE_URL."/categories"?>"
 				class="<?=$title=="Categories"?"font-bold hover:opacity-75":"" ?> hover:underline text-black underline-offset-2 hover:text-black focus:outline-none focus:underline">Categories</a>
 		</li>
+		<li><a href="<?=SITE_URL."/stats"?>"
+				class="<?=$title=="Stats"?"font-bold hover:opacity-75":"" ?> hover:underline text-black underline-offset-2 hover:text-black focus:outline-none focus:underline">Stats</a>
+		</li>
 		<?php if($logged): ?>
 		<!-- User Pic -->
 		<li x-data="{ userDropDownIsOpen: false, openWithKeyboard: false }"
@@ -126,6 +129,9 @@ if(isset($_GET['logout'])) {
 		<li class="p-2"><a href="<?=SITE_URL.'/categories'?>"
 				class="w-full text-lg <?=$title=="Categories"?"font-bold hover:opacity-75":"hover:font-semibold" ?> text-black focus:underline "
 				aria-current="page">Categories</a></li>
+		<li class="p-2"><a href="<?=SITE_URL.'/stats'?>"
+				class="w-full text-lg <?=$title=="Stats"?"font-bold hover:opacity-75":"hover:font-semibold" ?> text-black focus:underline "
+				aria-current="page">Stats</a></li>
 
 		<hr role="none" class="my-2 border-outline ">
 		<?php if($logged): ?>
