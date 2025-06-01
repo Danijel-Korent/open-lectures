@@ -4,7 +4,8 @@ require_once dirname(__DIR__).'/constants.php';
 $title = 'Stats';
 // Repo Functions here
 require_once REPO_PATH;
-$data = selectKategorije();
+$catData = countCoursesAndHoursByCategory();
+$uniData = countCoursesAndHoursByUniversity();
 ob_start();
 ?>
 <style>
@@ -27,26 +28,27 @@ ob_start();
 			<div class="container relative z-40 mx-auto mt-6">
 				<div
 					class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center mx-auto w-full xl:shadow-small-primary">
-					<?php foreach($data as $c){ ?>
+					<?php foreach($catData as $c){ ?>
 					<article
 						class="hover:scale-105 transition-all group m-1 flex rounded-md max-w-sm flex-col overflow-hidden border border-neutral-300 bg-neutral-50 text-neutral-600">
-						<div class="flex flex-col gap-4 p-6">
-							<h3 class="text-balance text-center text-xl lg:text-2xl font-bold text-neutral-900"
+						<div class="flex flex-col justify-between h-full items-center p-2 md:p-6">
+							<h3 class="text-balance text-center text-ellipsis text-md md:text-xl lg:text-2xl font-bold text-neutral-900"
 								aria-describedby="tripDescription">
-								<?= "category_name"//htmlspecialchars($c['category_name']) ?>
+								<?= $c['name']?>
 							</h3>
-
+							<!-- divider -->
+							<div class="w-full h-[0.8px] bg-neutral-300 my-2"></div>
 							<div class="mx-auto w-full">
 								<div class="grid grid-cols-2 gap-8">
 									<div class="text-center flex flex-col justify-center gap-2 pr-5 md:border-r">
-										<h6 class="text-xl font-bold"><?= $c['courses_count'] ?? 5 ?></h6>
+										<h6 class="text-xl font-bold"><?= $c['courses_count']?></h6>
 										<p
 											class="text-xs font-medium tracking-widest text-gray-800 uppercase lg:text-base">
 											Courses
 										</p>
 									</div>
 									<div class="text-center flex flex-col justify-center gap-2">
-										<h6 class="text-xl font-bold"><?= $c['hours'] ?? '143h' ?></h6>
+										<h6 class="text-xl font-bold"><?= $c['hours'] ?>h</h6>
 										<p
 											class="text-xs font-medium tracking-widest text-gray-800 uppercase lg:text-base">
 											Hours
@@ -63,7 +65,42 @@ ob_start();
 		</div>
 		<!-- Universities -->
 		<div x-cloak x-show="selectedTab === 'uni'" id="tabpanelLikes" role="tabpanel" aria-label="uni">
-
+			<div class="container relative z-40 mx-auto mt-6">
+				<div
+					class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center mx-auto w-full xl:shadow-small-primary">
+					<?php foreach($uniData as $c){ ?>
+					<article
+						class="hover:scale-105 transition-all group m-1 flex rounded-md max-w-sm flex-col overflow-hidden border border-neutral-300 bg-neutral-50 text-neutral-600">
+						<div class="flex flex-col justify-between h-full items-center p-2 md:p-6">
+							<h3 class="text-balance text-center text-ellipsis text-md md:text-xl lg:text-2xl font-bold text-neutral-900"
+								aria-describedby="tripDescription">
+								<?= $c['name']?>
+							</h3>
+							<!-- divider -->
+							<div class="w-full h-[0.8px] bg-neutral-300 my-2"></div>
+							<div class="mx-auto w-full">
+								<div class="grid grid-cols-2 gap-5">
+									<div class="text-center flex flex-col justify-center gap-2 pr-5 md:border-r">
+										<h6 class="text-xl font-bold"><?= $c['courses_count']?></h6>
+										<p
+											class="text-xs font-medium tracking-widest text-gray-800 uppercase lg:text-base">
+											Courses
+										</p>
+									</div>
+									<div class="text-center flex flex-col justify-center gap-2">
+										<h6 class="text-xl font-bold"><?= $c['hours'] ?>h</h6>
+										<p
+											class="text-xs font-medium tracking-widest text-gray-800 uppercase lg:text-base">
+											Hours
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</article>
+					<?php } ?>
+				</div>
+			</div>
 		</div>
 
 

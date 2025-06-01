@@ -91,7 +91,45 @@ function selectCoursesByCategory($id){
 	}
 }
 
+// count courses and total hours for each category
+function countCoursesAndHoursByCategory() {
+	$query = "SELECT cat.*, c.categoryId, COUNT(c.id) AS courses_count, SUM(c.t_duration) AS hours
+			  FROM courses c
+			  INNER JOIN categories cat ON c.categoryId = cat.id
+			  GROUP BY c.categoryId";
+	$res = db()->query($query);
+	
+	if (db()->error) {
+		echo 'DB Error: ' . db()->error;
+		die();
+	} else {
+		$arr = [];
+		while ($row = $res->fetch_assoc()) {
+			$arr[] = $row;
+		}
+		return $arr;
+	}
+}
 
+// count courses and total hours for each university
+function countCoursesAndHoursByUniversity() {
+	$query = "SELECT u.*, c.universityId, COUNT(c.id) AS courses_count, SUM(c.t_duration) AS hours
+			  FROM courses c
+			  INNER JOIN institutions u ON c.universityId = u.id
+			  GROUP BY c.universityId";
+	$res = db()->query($query);
+	
+	if (db()->error) {
+		echo 'DB Error: ' . db()->error;
+		die();
+	} else {
+		$arr = [];
+		while ($row = $res->fetch_assoc()) {
+			$arr[] = $row;
+		}
+		return $arr;
+	}
+}
 
 //Search for courses
 function searchCourse($query) {
