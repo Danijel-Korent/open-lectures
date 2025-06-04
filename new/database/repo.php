@@ -93,10 +93,12 @@ function selectCoursesByCategory($id){
 
 // count courses and total hours for each category
 function countCoursesAndHoursByCategory() {
-	$query = "SELECT cat.*, c.categoryId, COUNT(c.id) AS courses_count, SUM(c.t_duration) AS hours
+	// order by hours
+	$query = "SELECT c.*, COUNT(c.id) AS courses_count, SUM(c.t_duration) AS hours
 			  FROM courses c
-			  INNER JOIN categories cat ON c.categoryId = cat.id
-			  GROUP BY c.categoryId";
+			  INNER JOIN categories k ON c.categoryId = k.id
+			  GROUP BY c.categoryId
+			  ORDER BY hours DESC";
 	$res = db()->query($query);
 	
 	if (db()->error) {
@@ -116,7 +118,7 @@ function countCoursesAndHoursByUniversity() {
 	$query = "SELECT u.*, c.universityId, COUNT(c.id) AS courses_count, SUM(c.t_duration) AS hours
 			  FROM courses c
 			  INNER JOIN institutions u ON c.universityId = u.id
-			  GROUP BY c.universityId";
+			  GROUP BY c.universityId ORDER BY hours DESC";
 	$res = db()->query($query);
 	
 	if (db()->error) {
