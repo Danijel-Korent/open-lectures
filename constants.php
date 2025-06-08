@@ -2,7 +2,7 @@
 // var_dump(dirname(__DIR__));
 //Constants
 //Set the site url
-define('SITE_URL',"http://localhost/op/new");
+define('SITE_URL',"http://localhost/op/");
 //Set the site name
 define('SITE_NAME',"Open Lectures");
 
