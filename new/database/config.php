@@ -11,7 +11,7 @@ class Database {
             'localhost',
             'root',
             '',
-            'test2'
+            'op'
         );
 
         /* Debugging */

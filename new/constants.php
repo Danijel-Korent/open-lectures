@@ -13,3 +13,6 @@ define('SITE_PATH',__DIR__);
 define('DB_PATH',SITE_PATH.'/database/config.php');
 //Set Repo Path
 define('REPO_PATH',SITE_PATH.'/database/repo.php');
+define('STORAGE_REPO_PATH',SITE_PATH.'/database/storage.php');
+
+define("ASSET_PATH",SITE_URL."/assets");

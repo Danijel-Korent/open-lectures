@@ -23,15 +23,15 @@ $list =[];
 //Loop through the array and calculate the total length of all courses
 foreach ($data['courses'] as $course)
 {
-  $course_totalLength  = $course['ukupno_trajanje'];
+  $course_totalLength  = $course['t_duration'];
   $all_courses++;
   $all_total_length += $course_totalLength;
   $university_index  = $course['ustanova'] - 1;
-  $course_university = $university_list[$university_index]['naziv_ustanove'];
+  $course_university = $university_list[$university_index]['name'];
   $f_data=[
-	'course_name' => $course['naziv_predavanja'],
-	'course_description' => $course['opis_kolegija'],
-	'course_totalLength' => $course['ukupno_trajanje'],
+	'course_name' => $course['name'],
+	'course_description' => $course['description'],
+	'course_totalLength' => $course['t_duration'],
 	'course_linkPlaylist' => $course['link_1'],
 	'course_image' => $course['image'],
 	'course_university' =>$course_university,
@@ -42,7 +42,7 @@ foreach ($data['courses'] as $course)
 ?>
 <!-- CSS import -->
 <link rel="stylesheet" href="../assets/css/tooltip.css?l=" .<?=date("d m Y")?>>
-<h1 class="font-bold text-4xl my-5 text-center text-primary"> <?=$data['category']["naziv_kategorije"]?></h1>
+<h1 class="font-bold text-4xl my-5 text-center text-primary"> <?=$data['category']["name"]?></h1>
 <!-- Stats Hero -->
 <div class="px-4 py-8 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
 	<div class="grid grid-cols-2 gap-8 md:grid-cols-2">

@@ -13,15 +13,15 @@ $list =[];
 //Loop through the array and calculate the total length of all courses
 foreach ($arrayOpisPred as $course)
 {
-  $course_totalLength  = $course['ukupno_trajanje'];
+  $course_totalLength  = $course['t_duration'];
   $all_courses++;
   $all_total_length += $course_totalLength;
   $university_index  = $course['ustanova'] - 1;
-  $course_university = $university_list[$university_index]['naziv_ustanove'];
+  $course_university = $university_list[$university_index]['name'];
   $data=[
-	'course_name' => $course['naziv_predavanja'],
-	'course_description' => $course['opis_kolegija'],
-	'course_totalLength' => $course['ukupno_trajanje'],
+	'course_name' => $course['name'],
+	'course_description' => $course['description'],
+	'course_totalLength' => $course['t_duration'],
 	'course_linkPlaylist' => $course['link_1'],
 	'course_image' => $course['image'],
 	'course_university' =>$course_university,

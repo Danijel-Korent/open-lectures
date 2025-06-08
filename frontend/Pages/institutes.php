@@ -4,9 +4,9 @@ require "../../backend/index.php";
 ?>
 
 <div class="grid-x grid-margin-x">
-  <div class="cell large-12 medium-12 small-12">
-    <h3>INSTITUTES</h3>
-  </div>
+	<div class="cell large-12 medium-12 small-12">
+		<h3>INSTITUTES</h3>
+	</div>
 </div>
 
 <?php
@@ -14,17 +14,17 @@ foreach ($arrayUstanove as $ustanova){
 ?>
 
 <div class="grid-x grid-margin-x">
-  <div class="cell large-4 medium-4 small-6">
-  <p><a href="certain_institute.php?id=<?php echo $ustanova["idUstanove"] ?>">
-  <img src="../Image/<?php 
-              if($ustanova["slika_ustanove"] == ""){
+	<div class="cell large-4 medium-4 small-6">
+		<p><a href="certain_institute.php?id=<?php echo $ustanova["id"] ?>">
+				<img src="../Image/<?php 
+              if($ustanova["u_image"] == ""){
                   echo "Nema slike";
                   }else{
-                      echo $ustanova["slika_ustanove"];
+                      echo $ustanova["u_image"];
                  } ?>">
-    <?php echo $ustanova["naziv_ustanove"] ?>
-    </a></p>
-  </div>
+				<?php echo $ustanova["name"] ?>
+			</a></p>
+	</div>
 </div>
 
 <?php } ?>

@@ -1,3 +1,14 @@
+<?php
+session_start();
+$logged = isset($_SESSION['logged']);
+$user = $logged?$_SESSION['logged']:null;
+//Logic
+if(isset($_GET['logout'])) {
+	session_destroy();
+	header('Location: '.SITE_URL,true);
+	exit;
+}	
+?>
 <nav x-data="{ mobileMenuIsOpen: false }" @click.away="mobileMenuIsOpen = false"
 	class="flex items-center justify-between bg-neutral-50 border-b border-neutral-300 gap-4 px-6 py-4"
 	aria-label="penguin ui menu">
@@ -33,6 +44,10 @@
 		<li><a href="<?=SITE_URL."/categories"?>"
 				class="<?=$title=="Categories"?"font-bold hover:opacity-75":"" ?> hover:underline text-black underline-offset-2 hover:text-black focus:outline-none focus:underline">Categories</a>
 		</li>
+		<li><a href="<?=SITE_URL."/stats"?>"
+				class="<?=$title=="Stats"?"font-bold hover:opacity-75":"" ?> hover:underline text-black underline-offset-2 hover:text-black focus:outline-none focus:underline">Stats</a>
+		</li>
+		<?php if($logged): ?>
 		<!-- User Pic -->
 		<li x-data="{ userDropDownIsOpen: false, openWithKeyboard: false }"
 			@keydown.esc.window="userDropDownIsOpen = false, openWithKeyboard = false"
@@ -51,21 +66,32 @@
 				@click.outside="userDropDownIsOpen = false, openWithKeyboard = false"
 				@keydown.down.prevent="$focus.wrap().next()" @keydown.up.prevent="$focus.wrap().previous()"
 				id="userMenu"
-				class="absolute right-0 top-12 flex w-full min-w-[12rem] flex-col overflow-hidden rounded-md border border-neutral-300 bg-neutral-50 py-1.5">
+				class="absolute z-50 right-0 top-12 flex w-full min-w-[12rem] flex-col overflow-hidden rounded-md border border-neutral-300 bg-neutral-50 py-1.5">
 				<li class="border-b border-neutral-300 ">
 					<div class="flex flex-col px-4 py-2">
-						<span class="text-sm font-medium text-neutral-900 ">John Doe</span>
-						<p class="text-xs text-neutral-600 ">john.doe@gmail.com</p>
+						<span class="text-sm font-medium text-neutral-900 "><?= $user['name']?></span>
+						<p class="text-xs text-neutral-600 "><?=$user['email']?></p>
 					</div>
 				</li>
-				<li><a href="#"
+				<li><a href="<?=SITE_URL.'/admin/home'?>"
 						class="block bg-neutral-50 px-4 py-2 text-sm text-neutral-600 hover:bg-neutral-900/5 hover:text-neutral-900 focus-visible:bg-neutral-900/10 focus-visible:text-neutral-900 focus-visible:outline-none">Dashboard</a>
 				</li>
-				<li><a href="#"
-						class="block bg-neutral-50 px-4 py-2 text-sm text-neutral-600 hover:bg-neutral-900/5 hover:text-neutral-900 focus-visible:bg-neutral-900/10 focus-visible:text-neutral-900 focus-visible:outline-none ">
-						Sign Out</a></li>
+				<li>
+					<form action="" method="get">
+						<input type="hidden" name="logout" value="1">
+						<button type="submit"
+							class="block bg-neutral-50 px-4 py-2 text-sm text-neutral-600 hover:bg-neutral-900/5 hover:text-neutral-900 focus-visible:bg-neutral-900/10 focus-visible:text-neutral-900 focus-visible:outline-none">Sign
+							Out</button>
+					</form>
+				</li>
 			</ul>
 		</li>
+		<?php else: ?>
+		<!-- CTA Button -->
+		<a href="<?=SITE_URL.'/admin/login'?>"
+			class="rounded-md bg-primary px-4 py-2 block text-center font-medium tracking-wide text-neutral-100 hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 ">Login
+		</a>
+		<?php endif; ?>
 	</ul>
 	<!-- Mobile Menu Button -->
 	<button @click="mobileMenuIsOpen = !mobileMenuIsOpen" :aria-expanded="mobileMenuIsOpen"
@@ -86,27 +112,48 @@
 		x-transition:enter-start="-translate-y-full" x-transition:enter-end="translate-y-0"
 		x-transition:leave="transition motion-reduce:transition-none ease-out duration-300"
 		x-transition:leave-start="translate-y-0" x-transition:leave-end="-translate-y-full"
-		class="fixed max-h-svh overflow-y-auto inset-x-0 top-0 z-10 flex flex-col rounded-b-md border-b border-neutral-300 bg-neutral-50 px-8 pb-6 pt-10 ">
+		class="fixed z-50 max-h-svh overflow-y-auto inset-x-0 top-0 z-10 flex flex-col rounded-b-md border-b border-neutral-300 bg-neutral-50 px-8 pb-6 pt-10 ">
+		<?php if($logged): ?>
 		<li class="mb-4 border-none">
 			<div class="flex items-center gap-2 py-2">
 				<div>
-					<span class="font-medium text-neutral-900 ">John Doe</span>
-					<p class="text-sm text-neutral-600 ">john.doe@gmail.com</p>
+					<span class="font-medium text-neutral-900 "><?=$user['name']?></span>
+					<p class="text-sm text-neutral-600 "><?=$user['email']?></p>
 				</div>
 			</div>
 		</li>
+		<?php endif; ?>
 		<li class="p-2"><a href="<?=SITE_URL?>"
 				class="w-full text-lg <?=$title=="Home Page"?"font-bold hover:opacity-75":"hover:font-semibold" ?> text-black focus:underline "
 				aria-current="page">Home</a></li>
 		<li class="p-2"><a href="<?=SITE_URL.'/categories'?>"
 				class="w-full text-lg <?=$title=="Categories"?"font-bold hover:opacity-75":"hover:font-semibold" ?> text-black focus:underline "
 				aria-current="page">Categories</a></li>
+		<li class="p-2"><a href="<?=SITE_URL.'/stats'?>"
+				class="w-full text-lg <?=$title=="Stats"?"font-bold hover:opacity-75":"hover:font-semibold" ?> text-black focus:underline "
+				aria-current="page">Stats</a></li>
 
 		<hr role="none" class="my-2 border-outline ">
-		<li class="p-2"><a href="#" class="w-full text-neutral-600 focus:underline hover:underline ">Dashboard</a></li>
+		<?php if($logged): ?>
+		<li class="p-2"><a href="<?=SITE_URL.'/admin/home'?>"
+				class="w-full text-neutral-600 focus:underline hover:underline ">Dashboard</a></li>
+		<?php else:?>
+
+		<li class="mt-4 w-full border-none"><a href="<?=SITE_URL.'/admin/login'?>"
+				class="rounded-md bg-primary px-4 py-2 block text-center font-medium tracking-wide text-neutral-100 hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 ">Login
+			</a></li>
+
+		<?php endif; ?>
 		<!-- CTA Button -->
-		<li class="mt-4 w-full border-none"><a href="#"
-				class="rounded-md bg-primary px-4 py-2 block text-center font-medium tracking-wide text-neutral-100 hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 ">Sign
-				Out</a></li>
+		<?php if($logged): ?>
+		<form action="" method="get">
+			<input type="hidden" name="logout" value="1">
+			<li class="mt-4 w-full border-none">
+				<input type="submit"
+					class="block cursor-pointer w-full rounded-md bg-primary px-4 py-2 block text-center font-medium tracking-wide text-neutral-100 hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0"
+					value="Sign Out" />
+			</li>
+		</form>
+		<?php endif; ?>
 	</ul>
 </nav>
