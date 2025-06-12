@@ -28,6 +28,7 @@ foreach ($data['courses'] as $course)
   $all_total_length += $course_totalLength;
   $university_index  = $course['ustanova'] - 1;
   $course_university = $university_list[$university_index]['name'];
+
   $f_data=[
 	'course_name' => $course['name'],
 	'course_description' => $course['description'],
