@@ -61,7 +61,7 @@ function selectOpisPred (){
 //Select all courses by category
 function selectCoursesByCategory($id){
 	$cat_data = db()->query("SELECT * FROM categories WHERE id=" . $id);
-	$course_res = db()->query("SELECT pred.*, pred.name, u.name,
+	$course_res = db()->query("SELECT pred.*, u.name as course_university,
     p.firstName, p.lastName, k.name as kategorije,
 	pred.universityId as ustanova
     FROM courses pred 
