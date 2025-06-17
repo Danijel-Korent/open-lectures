@@ -6,6 +6,7 @@ $title = 'Stats';
 require_once REPO_PATH;
 $catData = countCoursesAndHoursByCategory();
 $uniData = countCoursesAndHoursByUniversity();
+
 ob_start();
 ?>
 <style>

@@ -94,7 +94,7 @@ function selectCoursesByCategory($id){
 // count courses and total hours for each category
 function countCoursesAndHoursByCategory() {
 	// order by hours
-	$query = "SELECT c.*, COUNT(c.id) AS courses_count, SUM(c.t_duration) AS hours
+	$query = "SELECT k.name, COUNT(c.id) AS courses_count, SUM(c.t_duration) AS hours
 			  FROM courses c
 			  INNER JOIN categories k ON c.categoryId = k.id
 			  GROUP BY c.categoryId
