@@ -30,20 +30,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['createUni'])) {
 	$name = $_POST['name'];
 	$country= $_POST['country'];
 	$city = $_POST['city'];
-	$image = $_FILES['image'];
-	//add file extension .png, .jpg, .jpeg
-	$directory = dirname(__DIR__,2).'/assets/images/uni';
-	$filePath = saveFile($image,strtolower($name),$directory);
-	if($filePath){
-		$created = insertUniversity($name,$country,$city,$filePath);
-		if($created){
-			header('Location: '.SITE_URL.'/admin/university',true);
+	$image = isset($_FILES['image']) ? $_FILES['image'] : null;
+	$filePath = '';
+	
+	// Only process image if one was uploaded
+	if (!empty($image) && $image['error'] === UPLOAD_ERR_OK) {
+		$directory = dirname(__DIR__,2).'/assets/images/uni';
+		$filePath = saveFile($image, strtolower($name), $directory);
+		if (!$filePath) {
+			echo '<script>alert("Error uploading image")</script>';
 			exit;
 		}
-	}else{
-		echo '<script>alert("Error uploading image")</script>';
 	}
-
+	
+	$created = insertUniversity($name, $country, $city, $filePath);
+	if($created){
+		header('Location: '.SITE_URL.'/admin/university',true);
+		exit;
+	}
 }
 
 //UPDATE UNI
@@ -254,7 +258,8 @@ ob_start();
 						</div>
 						<?php }else{?>
 						<img class="size-14 rounded-full object-cover"
-							src="<?=ASSET_PATH."/images/uni/".$c['u_image'] ?>" alt="avatar" />
+							src="<?=empty($c["u_image"]) ? ASSET_PATH . "/images/uni/default.jpeg" : ASSET_PATH . "/images/uni/" . $c['u_image'] ?>"
+							alt="avatar" />
 						<?php } ?>
 						<div class="flex flex-col">
 							<span class="text-neutral-900 text-lg font-semibold">

@@ -29,20 +29,24 @@ $dataArray = selectPaginatedLecturers($page,10);
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['createLecturer'])) {
 	$firstName = $_POST['firstName'];
 	$lastName= $_POST['lastName'];
-	$image = $_FILES['image'];
-	//add file extension .png, .jpg, .jpeg
-	$directory = dirname(__DIR__,2).'/assets/images/lecturer';
-	$filePath = saveFile($image,strtolower($firstName.$lastName),$directory);
-	if($filePath){
-		$created = insertLecturer($firstName,$lastName,$filePath);
-		if($created){
-			header('Location: '.SITE_URL.'/admin/lecturer',true);
+	$image = isset($_FILES['image']) ? $_FILES['image'] : null;
+	$filePath = '';
+	
+	// Only process image if one was uploaded
+	if (!empty($image) && $image['error'] === UPLOAD_ERR_OK) {
+		$directory = dirname(__DIR__,2).'/assets/images/lecturer';
+		$filePath = saveFile($image, strtolower($firstName.$lastName), $directory);
+		if (!$filePath) {
+			echo '<script>alert("Error uploading image")</script>';
 			exit;
 		}
-	}else{
-		echo '<script>alert("Error uploading image")</script>';
 	}
-
+	
+	$created = insertLecturer($firstName, $lastName, $filePath);
+	if($created){
+		header('Location: '.SITE_URL.'/admin/lecturer',true);
+		exit;
+	}
 }
 
 //UPDATE LECTURER
@@ -247,7 +251,8 @@ ob_start();
 						</div>
 						<?php }else{?>
 						<img class="size-14 rounded-full object-cover"
-							src="<?=ASSET_PATH."/images/lecturer/".$c['l_image'] ?>" alt="avatar" />
+							src="<?=empty($c["l_image"]) ? ASSET_PATH . "/images/lecturer/default.jpeg" : ASSET_PATH . "/images/lecturer/" . $c['l_image'] ?>"
+							alt="avatar" />
 						<?php } ?>
 						<div class="flex flex-col">
 							<span class="text-neutral-900 text-lg font-semibold">
