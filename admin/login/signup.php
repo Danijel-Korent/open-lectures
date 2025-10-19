@@ -4,10 +4,16 @@ require_once REPO_PATH;
 $title = 'Signup';
 //Logic
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
+	// SECURITY ISSUE: MISSING INPUT VALIDATION
+	// No validation or sanitization of user input
+	// FIX: Add proper input validation, length limits, and sanitization
 	$name = $_POST['name'];
 	$email = $_POST['email'];
 	$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 	//Database Connection
+	// SECURITY ISSUE: SQL INJECTION VULNERABILITY
+	// Direct string concatenation allows SQL injection attacks
+	// FIX: Use prepared statements instead
 	$res = db()->query("SELECT * FROM admin WHERE email = '$email'");
 	if($res->num_rows > 0){
 		echo 'User already exists';

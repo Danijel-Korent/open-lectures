@@ -111,6 +111,9 @@ function searchCourse($query) {
     // For SQLite, we'll use a simple approach without real_escape_string
     $query = strtolower($query);
     // Perform the search, using LOWER() to make case-insensitive comparisons
+    // SECURITY ISSUE: SQL INJECTION VULNERABILITY
+    // User input directly concatenated into SQL query without sanitization
+    // FIX: Use prepared statements with parameter binding
     $res = DBClass::query("SELECT pred.*, pred.name, u.name as u_name, 
     p.firstName, p.lastName, k.name as kategorije,
 	pred.universityId as ustanova

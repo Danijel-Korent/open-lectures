@@ -19,6 +19,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$user = $result->fetch_assoc();
 	if($user && password_verify($password, $user['password'])) {
 		//Login
+		// SECURITY ISSUE: SESSION SECURITY VULNERABILITIES
+		// 1. No session regeneration after login (session fixation)
+		// 2. No CSRF protection
+		// 3. Session data stored without encryption
+		// FIX: Regenerate session ID, add CSRF tokens, encrypt sensitive data
 		// fUser = db()->prepare('SELECT * FROM admin WHERE id = ?');
 		// $fUser->bind_param('i', $user['id']);
 		// $
@@ -26,6 +31,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		header('Location: '.SITE_URL.'/admin/home',true);
 		exit;
 	}else{
+		// SECURITY ISSUE: XSS VULNERABILITY
+		// Direct output of user-controlled data without escaping
+		// FIX: Use htmlspecialchars() or proper templating system
 		echo '<script>alert("Invalid login credentials")</script>';
 	}
 }

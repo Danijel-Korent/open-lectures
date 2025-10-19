@@ -6,6 +6,9 @@ class Database {
     public static function initialize() {
         mysqli_report(MYSQLI_REPORT_OFF);
 		// Database Connection
+        // SECURITY ISSUE: HARDCODED DATABASE CREDENTIALS
+        // Credentials are exposed in source code and version control
+        // FIX: Use environment variables or config files outside web root
         self::$database = new \mysqli(
             'localhost',
             'root',

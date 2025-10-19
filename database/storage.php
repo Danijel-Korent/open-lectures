@@ -17,6 +17,9 @@ function saveFile(array $file, string $fileName, string $directory)
     ];
 
     // Ensure the directory exists, create it if it doesn't
+    // SECURITY ISSUE: INSECURE FILE PERMISSIONS
+    // 0777 gives full read/write/execute permissions to everyone
+    // FIX: Use 0755 for directories (owner: rwx, group: rx, others: rx)
     if (!is_dir($directory)) {
         mkdir($directory, 0777, true);
     }
@@ -27,6 +30,9 @@ function saveFile(array $file, string $fileName, string $directory)
     }
 
     // Get the MIME type and validate it
+    // SECURITY ISSUE: INSUFFICIENT FILE UPLOAD VALIDATION
+    // Only checking MIME type, not file extension or content validation
+    // FIX: Add file extension validation, content scanning, and size limits
     $mimeType = mime_content_type($file['tmp_name']);
     if (!isset($allowedMimeTypes[$mimeType])) {
         return false; // Unsupported file type
