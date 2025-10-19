@@ -87,10 +87,11 @@ if(isset($_GET['logout'])) {
 			</ul>
 		</li>
 		<?php else: ?>
-		<!-- CTA Button -->
+		<!-- CTA Button 
 		<a href="<?=SITE_URL.'/admin/login'?>"
 			class="rounded-md bg-primary px-4 py-2 block text-center font-medium tracking-wide text-neutral-100 hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 ">Login
 		</a>
+		-->
 		<?php endif; ?>
 	</ul>
 	<!-- Mobile Menu Button -->
@@ -139,9 +140,11 @@ if(isset($_GET['logout'])) {
 				class="w-full text-neutral-600 focus:underline hover:underline ">Dashboard</a></li>
 		<?php else:?>
 
+		<!-- 
 		<li class="mt-4 w-full border-none"><a href="<?=SITE_URL.'/admin/login'?>"
 				class="rounded-md bg-primary px-4 py-2 block text-center font-medium tracking-wide text-neutral-100 hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 ">Login
 			</a></li>
+		-->
 
 		<?php endif; ?>
 		<!-- CTA Button -->
