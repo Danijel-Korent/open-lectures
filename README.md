@@ -9,17 +9,27 @@ https://hr.wikipedia.org/wiki/Suradnik:Danijel.Korent/Popis_besplatnih_i_javno_d
 The latest version is online here:
 https://otvorena-predavanja.hr
 
+English version URL: pending
+
+## Short-term todo
+
+- Translate everything to English
+- Buy an English domain and move the hosting there
+- Change the title from "KB" to something more descriptive
+- Add a report "dead link" button on each course
+- Add wiki and phpBB to supplement this app on the English domain
+
 ## Planned features
 
 ### Basic
 
-- List of categories
-- In each category: a list of courses with links to YouTube playlists
-- Counter of total hours for all lectures in the database
+- [DONE] List of categories
+- [DONE] In each category: a list of courses with links to YouTube playlists
+- [DONE] Counter of total hours for all lectures in the database
 
 ### Extended
 
-- Search option
+- [DONE] Search option
 - List all courses of a specific university/professor
 - Reporting dead links
 
