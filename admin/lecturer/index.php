@@ -3,7 +3,7 @@
 require_once dirname(__DIR__,2).'/constants.php';
 session_start();
 if (empty($_SESSION['logged'])){
-	header('Location: '.SITE_URL.'/admin/login',true);
+	header('Location: '.baseUrl('/admin/login'),true);
 	exit;
 }
 $title = 'Lecturer';
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['createLecturer'])) {
 	
 	$created = insertLecturer($firstName, $lastName, $filePath);
 	if($created){
-		header('Location: '.SITE_URL.'/admin/lecturer',true);
+		header('Location: '.baseUrl('/admin/lecturer'),true);
 		exit;
 	}
 }
@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateLecturerId'])) 
         // Update the category in the database
         $updateCategory = updateLecturer($id, $firstName,$lastName, $filePath);
         if ($updateCategory) {
-            header('Location: ' . SITE_URL . '/admin/lecturer');
+            header('Location: ' . baseUrl('/admin/lecturer'));
             exit;
         } else {
             throw new Exception('Error updating lecturer in the database.');
@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteLecturerId'])) 
 if($res){
 	$deleteCategory = deleteLecturer($id);
 	if($deleteCategory){
-		header('Location: '.SITE_URL.'/admin/lecturer',true);
+		header('Location: '.baseUrl('/admin/lecturer'),true);
 		exit;
 	}
 }else{

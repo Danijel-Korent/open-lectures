@@ -1,4 +1,4 @@
 <?php
 include_once dirname(__DIR__).'/config.php';
 //redirect to the home page
-header('Location:'.SITE_URL);
+header('Location:'.baseUrl('/'));

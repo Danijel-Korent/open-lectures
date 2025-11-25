@@ -4,7 +4,7 @@ $user = $_SESSION['logged'];
 if (isset($_GET['logout'])) {
 	session_start();
 	session_destroy();
-	header('Location:'.SITE_URL .'/admin/login');
+	header('Location:'.baseUrl('/admin/login'));
 	exit;
 }
 ?>
@@ -63,7 +63,7 @@ tailwind.config = {
 				<!-- sidebar links  -->
 				<div class="flex flex-col gap-2 overflow-y-auto pb-6 mt-4">
 
-					<a href="<?=SITE_URL."/admin/home"?>"
+					<a href="<?=baseUrl('/admin/home')?>"
 						class="flex items-center rounded-xl gap-2 px-2 py-1.5 text-sm font-medium text-slate-700 underline-offset-2 hover:bg-blue-700/5 hover:text-black focus-visible:underline focus:outline-none">
 						<svg class="size-5 shrink-0" aria-hidden="true" viewBox="0 0 25 24" fill="none"
 							xmlns="http://www.w3.org/2000/svg">
@@ -84,7 +84,7 @@ tailwind.config = {
 						<span>Dashboard</span>
 					</a>
 
-					<a href="<?=SITE_URL."/admin/category"?>"
+					<a href="<?=baseUrl('/admin/category')?>"
 						class="flex items-center rounded-xl gap-2 px-2 py-1.5 text-sm hover:bg-blue-700/5 font-medium text-slate-700 underline-offset-2 focus-visible:underline focus:outline-none">
 						<svg class="size-5 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="none"
 							xmlns="http://www.w3.org/2000/svg">
@@ -96,7 +96,7 @@ tailwind.config = {
 
 					</a>
 
-					<a href="<?=SITE_URL."/admin/courses"?>"
+					<a href="<?=baseUrl('/admin/courses')?>"
 						class="flex items-center rounded-xl gap-2 px-2 py-1.5 text-sm font-medium text-slate-700 underline-offset-2 hover:bg-blue-700/5 hover:text-black focus-visible:underline focus:outline-none ">
 
 						<svg class="size-5 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="none"
@@ -111,7 +111,7 @@ tailwind.config = {
 
 						<span>Courses</span>
 					</a>
-					<a href="<?=SITE_URL."/admin/university"?>"
+					<a href="<?=baseUrl('/admin/university')?>"
 						class="flex items-center rounded-xl gap-2 px-2 py-1.5 text-sm font-medium text-slate-700 underline-offset-2 hover:bg-blue-700/5 hover:text-black focus-visible:underline focus:outline-none ">
 						<svg class="size-5 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"
 							xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
@@ -128,7 +128,7 @@ tailwind.config = {
 
 						<span>Universities</span>
 					</a>
-					<a href="<?=SITE_URL."/admin/lecturer"?>"
+					<a href="<?=baseUrl('/admin/lecturer')?>"
 						class="flex items-center rounded-xl gap-2 px-2 py-1.5 text-sm font-medium text-slate-700 underline-offset-2 hover:bg-blue-700/5 hover:text-black focus-visible:underline focus:outline-none ">
 						<svg class="size-5 shrink-0" aria-hidden="true" viewBox="0 0 25 24" fill="none"
 							xmlns="http://www.w3.org/2000/svg">

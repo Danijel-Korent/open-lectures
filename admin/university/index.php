@@ -3,7 +3,7 @@
 require_once dirname(__DIR__,2).'/constants.php';
 session_start();
 if (empty($_SESSION['logged'])){
-	header('Location: '.SITE_URL.'/admin/login',true);
+	header('Location: '.baseUrl('/admin/login'),true);
 	exit;
 }
 $title = 'University';
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['createUni'])) {
 	
 	$created = insertUniversity($name, $country, $city, $filePath);
 	if($created){
-		header('Location: '.SITE_URL.'/admin/university',true);
+		header('Location: '.baseUrl('/admin/university'),true);
 		exit;
 	}
 }
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateUniId'])) {
         // Update the category in the database
         $updateCategory = updateUniversity($id, $name,$country,$city ,$filePath);
         if ($updateCategory) {
-            header('Location: ' . SITE_URL . '/admin/university');
+            header('Location: ' . baseUrl('/admin/university'));
             exit;
         } else {
             throw new Exception('Error updating lecturer in the database.');
@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteUniId'])) {
 if($res){
 	$deleteCategory = deleteUniversity($id);
 	if($deleteCategory){
-		header('Location: '.SITE_URL.'/admin/university',true);
+		header('Location: '.baseUrl('/admin/university'),true);
 		exit;
 	}
 }else{

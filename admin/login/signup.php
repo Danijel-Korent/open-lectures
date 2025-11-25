@@ -24,7 +24,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$query->bind_param('sss', $name, $email, $password);
 	$query->execute();
 	
-	header('Location: '.SITE_URL.'/admin/login',true);
+	header('Location: '.baseUrl('/admin/login'),true);
 	exit;
 }
 ?>

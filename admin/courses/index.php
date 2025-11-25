@@ -3,7 +3,7 @@
 require_once dirname(__DIR__,2).'/constants.php';
 session_start();
 if (empty($_SESSION['logged'])){
-	header('Location: '.SITE_URL.'/admin/login',true);
+	header('Location: '.baseUrl('/admin/login'),true);
 	exit;
 }
 $title = 'Course';
@@ -110,7 +110,7 @@ try{
 			$_POST['code']
 		);
 		if($res){
-			header('Location: '.SITE_URL.'/admin/courses',true);
+			header('Location: '.baseUrl('/admin/courses'),true);
 			exit;
 		}else{
 		throw new Exception('Error updating category in the database.');
@@ -145,7 +145,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateCourse'])){
 		$_POST['code']
 	);
 	if($res){
-		header('Location: '.SITE_URL.'/admin/courses',true);
+		header('Location: '.baseUrl('/admin/courses'),true);
 		exit;
 	}else{
 		throw new Exception('Error updating category in the database.');
@@ -162,7 +162,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteCourse'])){
 		$id = $_POST['deleteCourse'];
 		$res = deleteCourse($id);
 		if($res){
-			header('Location: '.SITE_URL.'/admin/courses',true);
+			header('Location: '.baseUrl('/admin/courses'),true);
 			exit;
 		}else{
 			throw new Exception('Error updating category in the database.');

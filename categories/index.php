@@ -57,7 +57,7 @@ else:?>
 <div class="container relative z-40 mx-auto mt-6">
 	<div class="flex flex-wrap justify-center mx-auto lg:w-full md:5/6 xl:shadow-small-primary shadow-md">
 		<?php foreach($data as $c){ ?>
-		<a href="<?=SITE_URL."/category?id=". $c["id"]?>"
+		<a href="<?=baseUrl('/category?id='. $c["id"])?>"
 			class="block w-1/2 py-10 text-center border lg:w-1/4">
 			<div>
 				<img class="img hover:scale-105 transition-transform duration-300 ease-in-out"

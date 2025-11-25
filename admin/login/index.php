@@ -3,7 +3,7 @@ require_once dirname(__DIR__,2).'/constants.php';
 require_once REPO_PATH;
 session_start();
 if (!empty($_SESSION['logged'])){
-	header('Location: '.SITE_URL.'/admin/home',true);
+	header('Location: '.baseUrl('/admin/home'),true);
 	exit;
 }
 $title = 'Login';
@@ -28,7 +28,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// $fUser->bind_param('i', $user['id']);
 		// $
 		$_SESSION['logged'] = $user;
-		header('Location: '.SITE_URL.'/admin/home',true);
+		header('Location: '.baseUrl('/admin/home'),true);
 		exit;
 	}else{
 		// SECURITY ISSUE: XSS VULNERABILITY

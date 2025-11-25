@@ -6,7 +6,7 @@ $catCount = countCategories();
 $couCount = countCourses();
 session_start();
 if (empty($_SESSION['logged'])){
-	header('Location: '.SITE_URL.'/admin/login',true);
+	header('Location: '.baseUrl('/admin/login'),true);
 	exit;
 }
 $title = 'Dashboard';

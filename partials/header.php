@@ -5,7 +5,7 @@ $user = $logged?$_SESSION['logged']:null;
 //Logic
 if(isset($_GET['logout'])) {
 	session_destroy();
-	header('Location: '.SITE_URL,true);
+	header('Location: '.baseUrl('/'),true);
 	exit;
 }	
 ?>
@@ -13,7 +13,7 @@ if(isset($_GET['logout'])) {
 	class="flex items-center justify-between bg-neutral-50 border-b border-neutral-300 gap-4 px-6 py-4"
 	aria-label="penguin ui menu">
 	<!-- Brand Logo -->
-	<a href="<?=SITE_URL?>" class="text-2xl font-bold text-neutral-900">
+	<a href="<?=baseUrl('/')?>" class="text-2xl font-bold text-neutral-900">
 		<span>KB</span>
 		<!-- <img src="./your-logo.svg" alt="brand logo" class="w-10" /> -->
 	</a>
@@ -24,7 +24,7 @@ if(isset($_GET['logout'])) {
 			<path stroke-linecap="round" stroke-linejoin="round"
 				d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
 		</svg>
-		<form action="<?=SITE_URL.'/search'?>" method="get" class="flex items-center gap-1">
+		<form action="<?=baseUrl('/search')?>" method="get" class="flex items-center gap-1">
 			<input type="search" name="q" value="<?=isset($_GET['q'])?$_GET['q']:""?>"
 				placeholder="Search course, university..." aria-label="search"
 				class="w-[70%] lg:w-[35rem] rounded-md border border-neutral-300 bg-neutral-50 py-2.5 pl-10 pr-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75" />
@@ -38,13 +38,13 @@ if(isset($_GET['logout'])) {
 
 	<!-- Desktop Menu -->
 	<ul class="hidden items-center gap-4 flex-shrink-0 sm:flex">
-		<li><a href="<?=SITE_URL?>"
+		<li><a href="<?=baseUrl('/')?>"
 				class="<?=$title=="Home Page"?"font-bold hover:opacity-75":"" ?> hover:underline text-black underline-offset-2 hover:text-black focus:outline-none focus:underline"
 				aria-current="page">Home</a></li>
-		<li><a href="<?=SITE_URL."/categories"?>"
+		<li><a href="<?=baseUrl('/categories')?>"
 				class="<?=$title=="Categories"?"font-bold hover:opacity-75":"" ?> hover:underline text-black underline-offset-2 hover:text-black focus:outline-none focus:underline">Categories</a>
 		</li>
-		<li><a href="<?=SITE_URL."/stats"?>"
+		<li><a href="<?=baseUrl('/stats')?>"
 				class="<?=$title=="Stats"?"font-bold hover:opacity-75":"" ?> hover:underline text-black underline-offset-2 hover:text-black focus:outline-none focus:underline">Stats</a>
 		</li>
 		<?php if($logged): ?>
@@ -73,7 +73,7 @@ if(isset($_GET['logout'])) {
 						<p class="text-xs text-neutral-600 "><?=$user['email']?></p>
 					</div>
 				</li>
-				<li><a href="<?=SITE_URL.'/admin/home'?>"
+				<li><a href="<?=baseUrl('/admin/home')?>"
 						class="block bg-neutral-50 px-4 py-2 text-sm text-neutral-600 hover:bg-neutral-900/5 hover:text-neutral-900 focus-visible:bg-neutral-900/10 focus-visible:text-neutral-900 focus-visible:outline-none">Dashboard</a>
 				</li>
 				<li>
@@ -88,7 +88,7 @@ if(isset($_GET['logout'])) {
 		</li>
 		<?php else: ?>
 		<!-- CTA Button 
-		<a href="<?=SITE_URL.'/admin/login'?>"
+		<a href="<?=baseUrl('/admin/login')?>"
 			class="rounded-md bg-primary px-4 py-2 block text-center font-medium tracking-wide text-neutral-100 hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 ">Login
 		</a>
 		-->
@@ -124,24 +124,24 @@ if(isset($_GET['logout'])) {
 			</div>
 		</li>
 		<?php endif; ?>
-		<li class="p-2"><a href="<?=SITE_URL?>"
+		<li class="p-2"><a href="<?=baseUrl('/')?>"
 				class="w-full text-lg <?=$title=="Home Page"?"font-bold hover:opacity-75":"hover:font-semibold" ?> text-black focus:underline "
 				aria-current="page">Home</a></li>
-		<li class="p-2"><a href="<?=SITE_URL.'/categories'?>"
+		<li class="p-2"><a href="<?=baseUrl('/categories')?>"
 				class="w-full text-lg <?=$title=="Categories"?"font-bold hover:opacity-75":"hover:font-semibold" ?> text-black focus:underline "
 				aria-current="page">Categories</a></li>
-		<li class="p-2"><a href="<?=SITE_URL.'/stats'?>"
+		<li class="p-2"><a href="<?=baseUrl('/stats')?>"
 				class="w-full text-lg <?=$title=="Stats"?"font-bold hover:opacity-75":"hover:font-semibold" ?> text-black focus:underline "
 				aria-current="page">Stats</a></li>
 
 		<hr role="none" class="my-2 border-outline ">
 		<?php if($logged): ?>
-		<li class="p-2"><a href="<?=SITE_URL.'/admin/home'?>"
+		<li class="p-2"><a href="<?=baseUrl('/admin/home')?>"
 				class="w-full text-neutral-600 focus:underline hover:underline ">Dashboard</a></li>
 		<?php else:?>
 
 		<!-- 
-		<li class="mt-4 w-full border-none"><a href="<?=SITE_URL.'/admin/login'?>"
+		<li class="mt-4 w-full border-none"><a href="<?=baseUrl('/admin/login')?>"
 				class="rounded-md bg-primary px-4 py-2 block text-center font-medium tracking-wide text-neutral-100 hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 ">Login
 			</a></li>
 		-->

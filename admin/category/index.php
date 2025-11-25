@@ -6,7 +6,7 @@ require_once STORAGE_REPO_PATH;
 
 session_start();
 if (empty($_SESSION['logged'])){
-	header('Location: '.SITE_URL.'/admin/login',true);
+	header('Location: '.baseUrl('/admin/login'),true);
 	exit;
 }
 $title = 'Category';
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['createCategory'])) {
 	
 	$createCategory = insertCategory($name, $filePath);
 	if($createCategory){
-		header('Location: '.SITE_URL.'/admin/category',true);
+		header('Location: '.baseUrl('/admin/category'),true);
 		exit;
 	}
 }
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateCategoryId'])) 
         // Update the category in the database
         $updateCategory = updateCategory($id, $name, $filePath);
         if ($updateCategory) {
-            header('Location: ' . SITE_URL . '/admin/category');
+            header('Location: ' . baseUrl('/admin/category'));
             exit;
         } else {
             throw new Exception('Error updating category in the database.');
@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteCategoryId'])) 
 if($res){
 	$deleteCategory = deleteCategory($id);
 	if($deleteCategory){
-		header('Location: '.SITE_URL.'/admin/category',true);
+		header('Location: '.baseUrl('/admin/category'),true);
 		exit;
 	}
 }else{

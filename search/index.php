@@ -6,7 +6,7 @@ $title = 'Search';
 require_once REPO_PATH;
 if(!isset($_GET['q'])){
 	//redirect to main categories page
-	header("Location: ".SITE_URL."/");
+	header("Location: ".baseUrl('/'));
 }
 
 $data = searchCourse($_GET['q']);
@@ -157,7 +157,7 @@ foreach ($data as $course)
 else:?>
 <div class="w-full flex flex-col justify-center items-center gap-2">
 	<h1 class="font-bold text-3xl mt-5 text-center text-primary">No search result found!</h1>
-	<a href="<?=SITE_URL.'/'?>" role="button"
+	<a href="<?=baseUrl('/')?>" role="button"
 		class="cursor-pointer whitespace-nowrap rounded-md bg-primary opacity- px-4 py-2 text-base font-medium tracking-wide text-white transition hover:opacity-75 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 active:opacity-100 active:outline-offset-0 disabled:opacity-75 disabled:cursor-not-allowed">
 		Go Back</a>
 </div>
