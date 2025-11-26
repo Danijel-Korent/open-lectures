@@ -10,7 +10,7 @@ if (!defined('SITE_PATH')) {
 
 /**
  * Get the base path of the application dynamically.
- * Detects subdirectory deployment by comparing constants.php location with document root.
+ * Detects subdirectory deployment by comparing config.php location with document root.
  * @return string Base path (e.g., '/git/open-lectures')
  */
 function getBasePath() {

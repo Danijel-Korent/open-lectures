@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__DIR__) . '/constants.php';
+require_once dirname(__DIR__) . '/config.php';
 $user = $_SESSION['logged'];
 if (isset($_GET['logout'])) {
 	session_start();

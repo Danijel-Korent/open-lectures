@@ -1,6 +1,6 @@
 <?php
 //Import constants file
-require_once dirname(__DIR__).'/constants.php';
+require_once dirname(__DIR__).'/config.php';
 $title = 'Stats';
 // Repo Functions here
 require_once REPO_PATH;

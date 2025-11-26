@@ -81,7 +81,7 @@ open-lectures/
 
 ## Configuration
 
-All runtime options now live in `constants.php` inside the `$appConfig` array. Use the global `config('section.key')` helper after including `constants.php` to read any value.
+All runtime options now live in `config.php` inside the `$appConfig` array. Use the global `config('section.key')` helper after including `config.php` to read any value.
 
 ### Core Keys
 - `app.*`: Site name plus error-reporting flags (e.g., disable `display_errors` in production).

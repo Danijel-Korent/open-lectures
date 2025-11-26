@@ -1,6 +1,6 @@
 <?php
 //Import constants file
-require_once __DIR__.'/constants.php';
+require_once __DIR__.'/config.php';
 $title = 'Home Page';
 // Database Repo Functions here
 require_once REPO_PATH;

@@ -1,7 +1,7 @@
 <?php
 // Ensure configuration helpers are available when this file is included directly.
 if (!function_exists('config')) {
-    require_once dirname(__DIR__) . '/constants.php';
+    require_once dirname(__DIR__) . '/config.php';
 }
 
 //Database Class

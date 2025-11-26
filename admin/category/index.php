@@ -1,6 +1,6 @@
 <?php
 //Import constants file
-require_once dirname(__DIR__,2).'/constants.php';
+require_once dirname(__DIR__,2).'/config.php';
 require_once REPO_PATH;
 require_once STORAGE_REPO_PATH;
 
