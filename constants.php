@@ -1,83 +1,95 @@
 <?php
-// var_dump(dirname(__DIR__));
-//Constants
-//Set the site name
-define('SITE_NAME',"Open Lectures");
-//Set DB type
-define('DB','sqlite'); // 'mysql' or 'sqlite'
+// Core path constant
+define('SITE_PATH', __DIR__);
 
-/// DO NOT EDIT ///////////////////////
-//Set the site path
-define('SITE_PATH',__DIR__);
-//Ser DB Config path
-define('DB_PATH',SITE_PATH.'/database/config.php');
-//Set Repo Path
-define('REPO_PATH',SITE_PATH.'/database/repo.php');
-define('STORAGE_REPO_PATH',SITE_PATH.'/database/storage.php');
+// Load helper functions
+require_once __DIR__ . '/helpers.php';
 
-/**
- * Get the base path of the application dynamically
- * Detects subdirectory deployment by comparing constants.php location with document root
- * @return string Base path (e.g., '/git/open-lectures')
- */
-function getBasePath() {
-    static $basePath = null;
-    
-    // Cache the result to avoid recalculating
-    if ($basePath !== null) {
-        return $basePath;
-    }
-    
-    // Get the directory where constants.php is located (application root)
-    $appRoot = str_replace('\\', '/', SITE_PATH);
-    
-    // Get document root
-    $docRoot = isset($_SERVER['DOCUMENT_ROOT']) ? str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']) : '';
-    
-    // Calculate relative path from document root to application root
-    if (!empty($docRoot) && strpos($appRoot, $docRoot) === 0) {
-        $basePath = substr($appRoot, strlen($docRoot));
-    } else {
-        // Fallback: empty string (assume root deployment)
-        $basePath = '';
-    }
-    
-    // Normalize: ensure leading slash, remove trailing slash
-    $basePath = trim($basePath, '/');
-    if (!empty($basePath) && substr($basePath, 0, 1) !== '/') {
-        $basePath = '/' . $basePath;
-    }
-    
-    return $basePath;
-}
+// Unified application configuration
+$appConfig = [
+    'app' => [
+        'name' => 'Open Lectures',
+        'display_errors' => true,
+        'display_startup_errors' => true,
+        'error_reporting_level' => E_ALL,
+    ],
+    'database' => [
+        'driver' => 'sqlite', // Supported: mysql, sqlite
+        'mysql' => [
+            'host' => 'localhost',
+            'username' => 'root',
+            'password' => '',
+            'database' => 'op',
+            'port' => 3306,
+            'charset' => 'utf8mb4',
+        ],
+        'sqlite' => [
+            'file' => SITE_PATH . '/database/op.sqlite',
+            'schema' => SITE_PATH . '/database/sqlite_schema.sql',
+            'permissions' => 0666,
+        ],
+    ],
+    'paths' => [
+        'db_config' => SITE_PATH . '/database/config.php',
+        'repo' => SITE_PATH . '/database/repo.php',
+        'storage_repo' => SITE_PATH . '/database/storage.php',
+        'assets_dir' => SITE_PATH . '/assets',
+        'uploads' => [
+            'categories' => SITE_PATH . '/assets/images/categories',
+            'lecturer' => SITE_PATH . '/assets/images/lecturer',
+            'university' => SITE_PATH . '/assets/images/uni',
+        ],
+    ],
+    'urls' => [
+        'assets' => getBasePath() . '/assets',
+    ],
+];
 
 /**
- * Generate a URL path relative to the base path
- * @param string $path Path to append (should start with /)
- * @return string Full path relative to base
+ * Retrieve configuration using dot-notation keys.
+ * @param string|null $key
+ * @param mixed $default
+ * @return mixed
  */
-function baseUrl($path = '') {
-    $base = getBasePath();
-    if (empty($path)) {
-        return $base . '/';
+function config($key = null, $default = null) {
+    global $appConfig;
+
+    if ($key === null || $key === '') {
+        return $appConfig;
     }
-    
-    // Ensure path starts with /
-    if (substr($path, 0, 1) !== '/') {
-        $path = '/' . $path;
+
+    $segments = explode('.', $key);
+    $value = $appConfig;
+
+    foreach ($segments as $segment) {
+        if (!is_array($value) || !array_key_exists($segment, $value)) {
+            return $default;
+        }
+        $value = $value[$segment];
     }
-    
-    return $base . $path;
+
+    return $value;
 }
 
-define("ASSET_PATH", getBasePath()."/assets");
+// Backwards compatibility constants
+define('SITE_NAME', config('app.name'));
+define('DB', config('database.driver')); // 'mysql' or 'sqlite'
+define('DB_PATH', config('paths.db_config'));
+define('REPO_PATH', config('paths.repo'));
+define('STORAGE_REPO_PATH', config('paths.storage_repo'));
+define('ASSET_PATH', config('urls.assets'));
 
-//show php errors
-// SECURITY ISSUE: ERROR INFORMATION DISCLOSURE
-// Displaying PHP errors in production exposes sensitive information
-// FIX: Set display_errors to 0 in production, use logging instead
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// PHP error reporting configuration
+if (config('app.display_errors', true)) {
+    ini_set('display_errors', 1);
+} else {
+    ini_set('display_errors', 0);
+}
 
-// echo 'Using '.DB.' database type.';
+if (config('app.display_startup_errors', true)) {
+    ini_set('display_startup_errors', 1);
+} else {
+    ini_set('display_startup_errors', 0);
+}
+
+error_reporting(config('app.error_reporting_level', E_ALL));

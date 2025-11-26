@@ -81,15 +81,21 @@ open-lectures/
 
 ## Configuration
 
-### Database Setup
-- SQLite database file: `database/op.sqlite`
-- MySQL configuration in `database/config.php`
-- Schema initialization via `database/sqlite_schema.sql`
+All runtime options now live in `constants.php` inside the `$appConfig` array. Use the global `config('section.key')` helper after including `constants.php` to read any value.
 
-### Environment Variables
-- Database connection settings
-- Site URL configuration
-- Admin credentials setup
+### Core Keys
+- `app.*`: Site name plus error-reporting flags (e.g., disable `display_errors` in production).
+- `database.driver`: Switch between `mysql` and `sqlite`.
+- `database.mysql.*`: Host, username, password, database, port, and charset for the MySQL connection.
+- `database.sqlite.*`: File path, schema file, and permission mask for the SQLite database.
+- `paths.uploads.*`: Filesystem destinations for category, lecturer, and university uploads.
+- `urls.assets`: Base URL used when rendering static assets.
+
+### Database Setup
+1. Choose the engine by setting `database.driver` to either `mysql` or `sqlite`.
+2. For MySQL, fill in the `database.mysql` credentials.
+3. For SQLite, adjust `database.sqlite.file` and `database.sqlite.schema` if you store the DB elsewhere.
+4. The schema helper (`database/sqlite_schema.sql`) is applied automatically when a new SQLite file is created.
 
 ## Database Structure
 

@@ -1,19 +1,29 @@
 <?php
+// Ensure configuration helpers are available when this file is included directly.
+if (!function_exists('config')) {
+    require_once dirname(__DIR__) . '/constants.php';
+}
+
 //Database Class
 class Database {
     public static $database = null;
 
     public static function initialize() {
         mysqli_report(MYSQLI_REPORT_OFF);
-		// Database Connection
-        // SECURITY ISSUE: HARDCODED DATABASE CREDENTIALS
-        // Credentials are exposed in source code and version control
-        // FIX: Use environment variables or config files outside web root
+		// Database Connection via centralized config
+        $mysqlConfig = config('database.mysql', []);
+        $host = $mysqlConfig['host'] ?? 'localhost';
+        $username = $mysqlConfig['username'] ?? 'root';
+        $password = $mysqlConfig['password'] ?? '';
+        $database = $mysqlConfig['database'] ?? '';
+        $port = $mysqlConfig['port'] ?? 3306;
+
         self::$database = new \mysqli(
-            'localhost',
-            'root',
-            '',
-            'op'
+            $host,
+            $username,
+            $password,
+            $database,
+            $port
         );
 
         /* Debugging */
@@ -21,7 +31,8 @@ class Database {
             die('The connection to the database failed! Check the config.php file and make sure your database connection details are correct and your server is running.');
         }
 
-        self::$database->set_charset('utf8mb4');
+        $charset = $mysqlConfig['charset'] ?? 'utf8mb4';
+        self::$database->set_charset($charset);
 
         return self::$database;
     }
@@ -52,7 +63,8 @@ class DatabaseSqlite {
     public static $database = null;
 
     public static function initialize() {
-        $db_path = defined('SITE_PATH') ? SITE_PATH . '/database/op.sqlite' : __DIR__ . '/op.sqlite';
+        $sqliteConfig = config('database.sqlite', []);
+        $db_path = $sqliteConfig['file'] ?? (defined('SITE_PATH') ? SITE_PATH . '/database/op.sqlite' : __DIR__ . '/op.sqlite');
         $db_exists = file_exists($db_path);
 
         // Create database connection
@@ -63,9 +75,10 @@ class DatabaseSqlite {
 
         // If the DB didn't exist before, set permissions and load schema
         if (!$db_exists) {
-            chmod($db_path, 0666); // Full read/write
+            $permissions = $sqliteConfig['permissions'] ?? 0666;
+            chmod($db_path, $permissions); // Full read/write
 
-            $sql_file = defined('SITE_PATH') ? SITE_PATH . '/database/sqlite_schema.sql' : __DIR__ . '/sqlite_schema.sql';
+            $sql_file = $sqliteConfig['schema'] ?? (defined('SITE_PATH') ? SITE_PATH . '/database/sqlite_schema.sql' : __DIR__ . '/sqlite_schema.sql');
             if (file_exists($sql_file)) {
                 $sql = file_get_contents($sql_file);
                 if (!$sql) {
@@ -83,7 +96,7 @@ class DatabaseSqlite {
                     }
                 }
 
-                chmod($db_path, 0666); // Ensure it's still writable
+                chmod($db_path, $permissions); // Ensure it's still writable
             } else {
                 die('SQLite schema file not found: ' . $sql_file);
             }
@@ -162,7 +175,8 @@ class DBClass {
     public static $db = null;
     
     public static function initialize() {
-        if (defined('DB') && DB === 'sqlite') {
+        $driver = config('database.driver', defined('DB') ? DB : 'sqlite');
+        if ($driver === 'sqlite') {
             if (!\DatabaseSqlite::$database) {
                 \DatabaseSqlite::initialize();
             }
@@ -186,7 +200,8 @@ class DBClass {
         if (!self::$db) {
             self::initialize();
         }
-        $dbType = (defined('DB') && DB === 'sqlite') ? 'sqlite' : 'mysql';
+        $driver = config('database.driver', defined('DB') ? DB : 'sqlite');
+        $dbType = ($driver === 'sqlite') ? 'sqlite' : 'mysql';
         $stmt = self::$db->prepare($sql);
         return new DBStatement($stmt, $dbType, self::$db);
     }
@@ -195,7 +210,8 @@ class DBClass {
         if (!self::$db) {
             self::initialize();
         }
-        if (defined('DB') && DB === 'sqlite') {
+        $driver = config('database.driver', defined('DB') ? DB : 'sqlite');
+        if ($driver === 'sqlite') {
             $error = self::$db->lastErrorMsg();
             return ($error === 'not an error') ? '' : $error;
         } else {
@@ -207,7 +223,8 @@ class DBClass {
         if (!self::$db) {
             self::initialize();
         }
-        if (defined('DB') && DB === 'sqlite') {
+        $driver = config('database.driver', defined('DB') ? DB : 'sqlite');
+        if ($driver === 'sqlite') {
             return self::$db->lastInsertRowID();
         } else {
             return self::$db->insert_id;
@@ -218,7 +235,8 @@ class DBClass {
         if (!$result) return [];
         
         $arr = [];
-        if (defined('DB') && DB === 'sqlite') {
+        $driver = config('database.driver', defined('DB') ? DB : 'sqlite');
+        if ($driver === 'sqlite') {
             // SQLite result
             while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
                 $arr[] = $row;
@@ -235,7 +253,8 @@ class DBClass {
     public static function fetch_single($result) {
         if (!$result) return null;
         
-        if (defined('DB') && DB === 'sqlite') {
+        $driver = config('database.driver', defined('DB') ? DB : 'sqlite');
+        if ($driver === 'sqlite') {
             // SQLite result
             return $result->fetchArray(SQLITE3_ASSOC);
         } else {

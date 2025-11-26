@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['createLecturer'])) {
 	
 	// Only process image if one was uploaded
 	if (!empty($image) && $image['error'] === UPLOAD_ERR_OK) {
-		$directory = dirname(__DIR__,2).'/assets/images/lecturer';
+		$directory = config('paths.uploads.lecturer');
 		$filePath = saveFile($image, strtolower($firstName.$lastName), $directory);
 		if (!$filePath) {
 			echo '<script>alert("Error uploading image")</script>';
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateLecturerId'])) 
 	$lastName = trim($_POST['lastName']);
     $image = isset($_FILES['image']) ? $_FILES['image'] : null;
     $oldImage = $_POST['oldImage'];
-    $directory = dirname(__DIR__, 2) . '/assets/images/lecturer';
+    $directory = config('paths.uploads.lecturer');
 
     // Directory for saving images
 
@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteLecturerId'])) 
 	$imageName = $_POST['oldImage'];
 	$res = true;
 	if (!empty($imageName)){
-		$res =deleteFile(dirname(__DIR__,2).'/assets/images/lecturer/'.$imageName);
+		$res = deleteFile(config('paths.uploads.lecturer') . '/' . $imageName);
 	}
 if($res){
 	$deleteCategory = deleteLecturer($id);

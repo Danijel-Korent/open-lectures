@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['createCategory'])) {
 	
 	// Only process image if one was uploaded
 	if (!empty($image) && $image['error'] === UPLOAD_ERR_OK) {
-		$directory = dirname(__DIR__,2).'/assets/images/categories';
+		$directory = config('paths.uploads.categories');
 		$filePath = saveFile($image, strtolower($name), $directory);
 		if (!$filePath) {
 			echo '<script>alert("Error uploading image")</script>';
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateCategoryId'])) 
     $name = trim($_POST['name']);
     $image = isset($_FILES['image']) ? $_FILES['image'] : null;
     $oldImage = $_POST['oldImage'];
-    $directory = dirname(__DIR__, 2) . '/assets/images/categories';
+    $directory = config('paths.uploads.categories');
 
     // Directory for saving images
 
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteCategoryId'])) 
 	$imageName = $_POST['oldImage'];
 	$res = true;
 	if (!empty($imageName)){
-		$res =deleteFile(dirname(__DIR__,2).'/assets/images/categories/'.$imageName);
+		$res = deleteFile(config('paths.uploads.categories') . '/' . $imageName);
 	}
 if($res){
 	$deleteCategory = deleteCategory($id);

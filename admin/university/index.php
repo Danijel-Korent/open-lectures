@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['createUni'])) {
 	
 	// Only process image if one was uploaded
 	if (!empty($image) && $image['error'] === UPLOAD_ERR_OK) {
-		$directory = dirname(__DIR__,2).'/assets/images/uni';
+		$directory = config('paths.uploads.university');
 		$filePath = saveFile($image, strtolower($name), $directory);
 		if (!$filePath) {
 			echo '<script>alert("Error uploading image")</script>';
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateUniId'])) {
 	$city = $_POST['city'];
     $image = isset($_FILES['image']) ? $_FILES['image'] : null;
     $oldImage = $_POST['oldImage'];
-    $directory = dirname(__DIR__, 2) . '/assets/images/uni';
+    $directory = config('paths.uploads.university');
 
     // Directory for saving images
 
@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteUniId'])) {
 	$imageName = $_POST['oldImage'];
 	$res = true;
 	if (isset($imageName)&&!empty($imageName)){
-		$res =deleteFile(dirname(__DIR__,2).'/assets/images/uni/'.$imageName);
+		$res = deleteFile(config('paths.uploads.university') . '/' . $imageName);
 	}
 if($res){
 	$deleteCategory = deleteUniversity($id);
