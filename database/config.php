@@ -125,6 +125,7 @@ class DBStatement {
     private $stmt;
     private $dbType;
     private $db;
+    private $lastResult = null;
     public $error = '';
     public $insert_id = null;
 
@@ -147,19 +148,25 @@ class DBStatement {
 
     public function execute() {
         if ($this->dbType === 'sqlite') {
-            $result = $this->stmt->execute();
-            if ($result === false) {
+            $this->lastResult = $this->stmt->execute();
+            if ($this->lastResult === false) {
                 $this->error = $this->db->lastErrorMsg();
             } else {
                 $this->insert_id = $this->db->lastInsertRowID();
             }
-            return $result;
+            return $this->lastResult;
         } else {
             $result = $this->stmt->execute();
             $this->error = $this->stmt->error;
             $this->insert_id = $this->db->insert_id;
+            // mysqli_stmt::get_result only works for SELECT queries; store result for consumers
+            $this->lastResult = method_exists($this->stmt, 'get_result') ? $this->stmt->get_result() : null;
             return $result;
         }
+    }
+
+    public function get_result() {
+        return $this->lastResult;
     }
 
     public function __get($name) {

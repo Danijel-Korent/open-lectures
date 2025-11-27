@@ -12,11 +12,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$email = $_POST['email'];
 	$password = $_POST['password'];
 	//Query
-	$query = db()->prepare('SELECT * FROM admin WHERE email = ?');
+	$query = DBClass::prepare('SELECT * FROM admin WHERE email = ?');
 	$query->bind_param('s', $email);
 	$query->execute();
 	$result = $query->get_result();
-	$user = $result->fetch_assoc();
+	$user = $result ? DBClass::fetch_single($result) : null;
 	if($user && password_verify($password, $user['password'])) {
 		//Login
 		// SECURITY ISSUE: SESSION SECURITY VULNERABILITIES
