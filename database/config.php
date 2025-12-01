@@ -34,6 +34,8 @@ class Database {
         $charset = $mysqlConfig['charset'] ?? 'utf8mb4';
         self::$database->set_charset($charset);
 
+        self::ensureCourseBrokenReportsColumn();
+
         return self::$database;
     }
 
@@ -55,6 +57,17 @@ class Database {
 
     public static function error() {
         return self::$database->error;
+    }
+
+    private static function ensureCourseBrokenReportsColumn() {
+        if (!self::$database) {
+            return;
+        }
+
+        $result = self::$database->query("SHOW COLUMNS FROM courses LIKE 'broken_reports'");
+        if ($result && $result->num_rows === 0) {
+            self::$database->query("ALTER TABLE courses ADD COLUMN broken_reports INT DEFAULT 0");
+        }
     }
 }
 
@@ -102,6 +115,8 @@ class DatabaseSqlite {
             }
         }
 
+        self::ensureCourseBrokenReportsColumn();
+
         return self::$database;
     }
 
@@ -116,6 +131,25 @@ class DatabaseSqlite {
     public static function error() {
         $error = self::$database->lastErrorMsg();
         return ($error === 'not an error') ? '' : $error;
+    }
+
+    private static function ensureCourseBrokenReportsColumn() {
+        if (!self::$database) {
+            return;
+        }
+
+        $result = self::$database->query("PRAGMA table_info(courses)");
+        $hasColumn = false;
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+            if (isset($row['name']) && $row['name'] === 'broken_reports') {
+                $hasColumn = true;
+                break;
+            }
+        }
+
+        if (!$hasColumn) {
+            self::$database->exec("ALTER TABLE courses ADD COLUMN broken_reports INTEGER DEFAULT 0");
+        }
     }
 
 }

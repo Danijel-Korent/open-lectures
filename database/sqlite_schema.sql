@@ -30,7 +30,8 @@ CREATE TABLE IF NOT EXISTS courses (
   image TEXT,
   universityId INTEGER,
   categoryId INTEGER,
-  lecturerId INTEGER
+  lecturerId INTEGER,
+  broken_reports INTEGER DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS institutions (

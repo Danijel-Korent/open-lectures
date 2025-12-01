@@ -19,13 +19,15 @@ foreach ($arrayOpisPred as $course)
   $university_index  = $course['ustanova'] - 1;
   $course_university = $university_list[$university_index]['name'];
   $data=[
+	'course_id' => $course['id'],
 	'course_name' => $course['name'],
 	'course_description' => $course['description'],
 	'course_totalLength' => $course['t_duration'],
 	'course_linkPlaylist' => $course['link_1'],
 	'course_image' => $course['image'],
 	'course_university' =>$course_university,
-	'university_index' => $university_index 
+	'university_index' => $university_index,
+	'broken_reports' => (int)($course['broken_reports'] ?? 0)
   ];
   
 	array_push($list, $data);
@@ -154,10 +156,23 @@ ob_start();
 					<p class="text-md pt-1"><?=$course['course_description']?></p>
 				</div>
 				<!-- Dialog Footer -->
+				<?php $brokenId = 'broken-count-' . $course['course_id'] . '-' . $index; ?>
 				<div
-					class="flex flex-col-reverse justify-between gap-2 border-t border-neutral-300 bg-neutral-50/60 p-4 sm:flex-row sm:items-center md:justify-end">
+					class="flex flex-col gap-3 border-t border-neutral-300 bg-neutral-50/60 p-4 sm:flex-row sm:items-center sm:justify-between">
+					<div class="flex w-full flex-col gap-2 sm:w-auto">
+						<button type="button"
+							class="w-full rounded-md border border-primary px-4 py-2 text-sm font-medium text-primary transition hover:bg-primary/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed"
+							data-report-course="<?=$course['course_id']?>" data-report-target="<?=$brokenId?>"
+							data-report-label="Report broken link">
+							Report broken link
+						</button>
+						<p class="text-center text-xs text-neutral-500">
+							Broken reports:
+							<span id="<?=$brokenId?>"><?=$course['broken_reports']?></span>
+						</p>
+					</div>
 					<a href="<?=$course['course_linkPlaylist']?>" target="_blank" role="button"
-						class="w-full cursor-pointer whitespace-nowrap rounded-md bg-primary px-4 py-2 text-center text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0">
+						class="w-full cursor-pointer whitespace-nowrap rounded-md bg-primary px-4 py-2 text-center text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 sm:w-auto">
 						Play Now</a>
 				</div>
 			</div>

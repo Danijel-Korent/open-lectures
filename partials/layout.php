@@ -79,6 +79,67 @@ tailwind.config = {
 	window.addEventListener('scroll', toggleFab);
 	</script>
 
+	<script>
+	(function () {
+		const reportUrl = '<?=baseUrl('/report-broken.php')?>';
+
+		document.addEventListener('click', async (event) => {
+			const button = event.target.closest('[data-report-course]');
+			if (!button || button.dataset.reportPending === 'true') {
+				return;
+			}
+
+			const courseId = button.dataset.reportCourse;
+			if (!courseId) {
+				return;
+			}
+
+			const defaultLabel = button.dataset.reportLabel || button.textContent.trim();
+			const counterId = button.dataset.reportTarget;
+			const counterElement = counterId ? document.getElementById(counterId) : null;
+
+			button.dataset.reportLabel = defaultLabel;
+			button.dataset.reportPending = 'true';
+			button.disabled = true;
+			button.textContent = 'Reporting...';
+
+			try {
+				const response = await fetch(reportUrl, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ course_id: Number(courseId) })
+				});
+
+				const payload = await response.json().catch(() => ({}));
+				if (!response.ok || !payload.success) {
+					throw new Error(payload.message || 'Unable to submit report');
+				}
+
+				button.textContent = 'Thanks for the heads up!';
+				button.classList.remove('text-primary', 'border-primary');
+				button.classList.add('bg-green-600', 'text-white', 'border-green-600');
+
+				if (counterElement && typeof payload.count !== 'undefined') {
+					counterElement.textContent = payload.count;
+				}
+			} catch (error) {
+				console.error(error);
+				button.disabled = false;
+				button.dataset.reportPending = 'false';
+				button.textContent = 'Please try again';
+
+				setTimeout(() => {
+					if (button.dataset.reportPending === 'false') {
+						button.textContent = defaultLabel;
+					}
+				}, 2000);
+			}
+		});
+	})();
+	</script>
+
 </body>
 
 </html>

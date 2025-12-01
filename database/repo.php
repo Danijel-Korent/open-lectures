@@ -166,6 +166,28 @@ function truncateString($string, $length = 100, $append = "...") {
     return $truncated . $append;
 }
 
+function reportBrokenLink(int $courseId) {
+	if ($courseId <= 0) {
+		return false;
+	}
+
+	$update = DBClass::prepare('UPDATE courses SET broken_reports = COALESCE(broken_reports, 0) + 1 WHERE id = ?');
+	$update->bind_param('i', $courseId);
+	$update->execute();
+
+	if ($update->error) {
+		return false;
+	}
+
+	$select = DBClass::prepare('SELECT broken_reports FROM courses WHERE id = ?');
+	$select->bind_param('i', $courseId);
+	$select->execute();
+	$result = $select->get_result();
+	$row = $result ? DBClass::fetch_single($result) : null;
+
+	return $row ? (int)$row['broken_reports'] : false;
+}
+
 ///ADMIN FUNCTIONS
 
 //Insert Category

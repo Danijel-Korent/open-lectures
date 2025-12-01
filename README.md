@@ -130,6 +130,7 @@ The application uses a SQLite database with the following tables:
 - `universityId` (INTEGER) - Foreign key to institutions table
 - `categoryId` (INTEGER) - Foreign key to categories table
 - `lecturerId` (INTEGER) - Foreign key to lecturers table
+- `broken_reports` (INTEGER DEFAULT 0) - Number of times the community flagged the primary link as broken
 
 #### `institutions` - Universities/Institutions
 - `id` (INTEGER PRIMARY KEY) - Unique institution identifier
@@ -161,3 +162,4 @@ The database comes pre-populated with:
 - **Multilingual Support**: Courses can be in different languages
 - **Metadata**: Comprehensive course information including duration, lecture count, and descriptions
 - **Dual Link System**: Both video links and official course pages
+- **Broken Link Reports**: Every course tracks a `broken_reports` counter that increments whenever a visitor clicks the "Report broken link" button in the public catalogue. The endpoint at `/report-broken.php` safely records reports using prepared statements, so admins can locate and fix the most fragile playlists first.
