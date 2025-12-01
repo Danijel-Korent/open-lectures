@@ -47,9 +47,18 @@ $appConfig = [
 
 /**
  * Retrieve configuration using dot-notation keys.
- * @param string|null $key
- * @param mixed $default
- * @return mixed
+ * Supports nested array access using dot notation (e.g., 'database.mysql.host').
+ * 
+ * @param string|null $key Configuration key in dot notation (e.g., 'app.name', 'database.mysql.host').
+ *                         If null or empty string, returns entire configuration array.
+ * @param mixed $default Default value to return if key is not found
+ * @return mixed Configuration value if found, default value if not found, or entire config array if key is null
+ * 
+ * @example
+ * config('app.name') // Returns 'Open Lectures'
+ * config('database.mysql.host') // Returns 'localhost'
+ * config('nonexistent.key', 'default') // Returns 'default'
+ * config() // Returns entire $appConfig array
  */
 function config($key = null, $default = null) {
     global $appConfig;

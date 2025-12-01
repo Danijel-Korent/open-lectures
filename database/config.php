@@ -305,7 +305,12 @@ class DBClass {
     }
 }
 
-//Database global function
+/**
+ * Get the database connection instance.
+ * Initializes the connection if it doesn't exist yet.
+ * 
+ * @return \mysqli|\SQLite3 The database connection object (MySQLi for MySQL, SQLite3 for SQLite)
+ */
 function db() {
     if (!DBClass::$db) {
         DBClass::initialize();

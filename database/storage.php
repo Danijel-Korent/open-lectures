@@ -3,10 +3,13 @@ require_once 'config.php';
 
 /**
  * Save an uploaded file to a specific directory.
- *
- * @param array $file The uploaded file from $_FILES['key'].
- * @param string $directory The directory to save the file.
- * @return string|bool The file path if successful, false otherwise.
+ * Validates file type (PNG, JPEG, JPG only) and creates directory if it doesn't exist.
+ * 
+ * @param array $file The uploaded file array from $_FILES['key'] with keys: 'tmp_name', 'error', etc.
+ * @param string $fileName Base filename without extension (extension will be determined from MIME type)
+ * @param string $directory Target directory path where the file should be saved
+ * @return string|false The saved filename with extension on success, false on failure
+ *                      (returns false if upload error, invalid MIME type, or file move fails)
  */
 function saveFile(array $file, string $fileName, string $directory)
 {
@@ -58,9 +61,10 @@ function saveFile(array $file, string $fileName, string $directory)
 
 /**
  * Delete a file from the filesystem.
- *
- * @param string $filePath The path to the file to delete.
- * @return bool True if deleted successfully, false otherwise.
+ * Checks if file exists before attempting deletion.
+ * 
+ * @param string $filePath The full path to the file to delete
+ * @return bool True if file was deleted successfully, false if file doesn't exist or deletion fails
  */
 function deleteFile(string $filePath)
 {
