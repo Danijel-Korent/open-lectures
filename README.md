@@ -71,7 +71,8 @@ open-lectures/
 │   ├── header.php       # Site header
 │   ├── footer.php       # Site footer
 │   ├── layout.php       # Main layout template
-│   └── admin_layout.php # Admin layout template
+│   ├── admin_layout.php # Admin layout template
+│   └── course_modal.php # Shared modal markup for public course cards
 ├── categories/           # Public category pages
 ├── category/             # Individual category view
 ├── search/               # Search functionality
