@@ -11,18 +11,26 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$email = $_POST['email'];
 	$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 	//Database Connection
-	// SECURITY ISSUE: SQL INJECTION VULNERABILITY
-	// Direct string concatenation allows SQL injection attacks
-	// FIX: Use prepared statements instead
-	$res = db()->query("SELECT * FROM admin WHERE email = '$email'");
-	if($res->num_rows > 0){
+	// Use prepared statements to prevent SQL injection
+	$check_stmt = DBClass::prepare('SELECT * FROM admin WHERE email = ?');
+	$check_stmt->bind_param('s', $email);
+	$check_stmt->execute();
+	$check_result = $check_stmt->get_result();
+	$existing_user = $check_result ? DBClass::fetch_single($check_result) : null;
+	
+	if($existing_user){
 		echo 'User already exists';
 		die();
 	}
-	//Query
-	$query = db()->prepare('INSERT INTO admin (name, email, password) VALUES (?, ?, ?)');
-	$query->bind_param('sss', $name, $email, $password);
-	$query->execute();
+	//Query - Use DBClass::prepare for consistency and proper error handling
+	$insert_stmt = DBClass::prepare('INSERT INTO admin (name, email, password) VALUES (?, ?, ?)');
+	$insert_stmt->bind_param('sss', $name, $email, $password);
+	$insert_stmt->execute();
+	
+	if ($insert_stmt->error) {
+		echo 'DB Error: ' . $insert_stmt->error;
+		die();
+	}
 	
 	header('Location: '.baseUrl('/admin/login'),true);
 	exit;

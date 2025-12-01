@@ -47,28 +47,51 @@ function selectOpisPred (){
 
 //Select all courses by category
 function selectCoursesByCategory($id){
-	$cat_data = DBClass::query("SELECT * FROM categories WHERE id=" . $id);
-	$course_res = DBClass::query("SELECT pred.*, u.name as course_university,
+	// Validate and sanitize input
+	$id = (int)$id;
+	if ($id <= 0) {
+		return [
+			"category" => null,
+			"courses" => []
+		];
+	}
+
+	// Use prepared statements to prevent SQL injection
+	$cat_stmt = DBClass::prepare("SELECT * FROM categories WHERE id = ?");
+	$cat_stmt->bind_param('i', $id);
+	$cat_stmt->execute();
+	$cat_result = $cat_stmt->get_result();
+	$category = $cat_result ? DBClass::fetch_single($cat_result) : null;
+
+	if ($cat_stmt->error) {
+		echo 'DB Error: ' . $cat_stmt->error;
+		die();
+	}
+
+	$course_stmt = DBClass::prepare("SELECT pred.*, u.name as course_university,
     p.firstName, p.lastName, k.name as kategorije,
 	pred.universityId as ustanova
     FROM courses pred 
     INNER JOIN lecturers p ON p.id = pred.lecturerId
     INNER JOIN institutions u on u.id = pred.universityId
     INNER JOIN categories k ON k.id = pred.categoryId
-	 WHERE k.id = $id");
+	 WHERE k.id = ?");
+	$course_stmt->bind_param('i', $id);
+	$course_stmt->execute();
+	$course_result = $course_stmt->get_result();
+
 	// Check if the query was successful
-	if (DBClass::error()) {
-	    echo 'DB Error: ' . DBClass::error();
+	if ($course_stmt->error) {
+	    echo 'DB Error: ' . $course_stmt->error;
 		die();
 	} else {
-	//return the result
-	$arr = DBClass::fetch_assoc($course_res);
-	$category = DBClass::fetch_single($cat_data);
-	
-	    return [
-		"category"=>$category,
-		"courses"=>$arr
-	];
+		//return the result
+		$arr = $course_result ? DBClass::fetch_assoc($course_result) : [];
+		
+		return [
+			"category" => $category,
+			"courses" => $arr
+		];
 	}
 }
 
@@ -108,33 +131,42 @@ function countCoursesAndHoursByUniversity() {
 
 //Search for courses
 function searchCourse($query) {
-    // For SQLite, we'll use a simple approach without real_escape_string
-    $query = strtolower($query);
-    // Perform the search, using LOWER() to make case-insensitive comparisons
-    // SECURITY ISSUE: SQL INJECTION VULNERABILITY
-    // User input directly concatenated into SQL query without sanitization
-    // FIX: Use prepared statements with parameter binding
-    $res = DBClass::query("SELECT pred.*, pred.name, u.name as u_name, 
+    // Sanitize and prepare search term
+    $searchTerm = trim($query);
+    if (empty($searchTerm)) {
+        return [];
+    }
+    
+    // Prepare LIKE pattern with wildcards (safe - wildcards are added in PHP, not user input)
+    $searchPattern = '%' . strtolower($searchTerm) . '%';
+    
+    // Use prepared statements to prevent SQL injection
+    $stmt = DBClass::prepare("SELECT pred.*, pred.name, u.name as u_name, 
     p.firstName, p.lastName, k.name as kategorije,
 	pred.universityId as ustanova
     FROM courses pred 
     INNER JOIN lecturers p ON p.id = pred.lecturerId
     INNER JOIN institutions u on u.id = pred.universityId
     INNER JOIN categories k ON k.id = pred.categoryId
-        WHERE LOWER(pred.name) LIKE LOWER('%$query%')
-        OR LOWER(pred.description) LIKE LOWER('%$query%')
-        OR LOWER(p.firstName) LIKE LOWER('%$query%')
-        OR LOWER(p.lastName) LIKE LOWER('%$query%')
-        OR LOWER(u.name) LIKE LOWER('%$query%')
-        OR LOWER(k.name) LIKE LOWER('%$query%')");
+        WHERE LOWER(pred.name) LIKE LOWER(?)
+        OR LOWER(pred.description) LIKE LOWER(?)
+        OR LOWER(p.firstName) LIKE LOWER(?)
+        OR LOWER(p.lastName) LIKE LOWER(?)
+        OR LOWER(u.name) LIKE LOWER(?)
+        OR LOWER(k.name) LIKE LOWER(?)");
+    
+    // Bind the same search pattern to all 6 placeholders
+    $stmt->bind_param('ssssss', $searchPattern, $searchPattern, $searchPattern, $searchPattern, $searchPattern, $searchPattern);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     // Check for database errors
-    if (DBClass::error()) {
-        echo 'DB Error: ' . DBClass::error();
+    if ($stmt->error) {
+        echo 'DB Error: ' . $stmt->error;
         die();
     } else {
         // Fetch the result set
-        return DBClass::fetch_assoc($res);
+        return $result ? DBClass::fetch_assoc($result) : [];
     }
 }
 
