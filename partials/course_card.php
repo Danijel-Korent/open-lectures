@@ -37,3 +37,4 @@ $modalKey = 'Modal' . $index;
     <?php include SITE_PATH . '/partials/course_modal.php'; ?>
 </div>
 
+

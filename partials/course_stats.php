@@ -28,3 +28,4 @@ if (!isset($total_courses) || !isset($total_hours)) {
     </div>
 </div>
 
+

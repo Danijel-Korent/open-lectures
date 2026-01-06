@@ -16,3 +16,4 @@ if (!isset($courses) || !is_array($courses)) {
     <?php endforeach; ?>
 </div>
 
+
