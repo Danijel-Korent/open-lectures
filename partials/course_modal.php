@@ -5,6 +5,7 @@ if (!isset($course) || !isset($index)) {
 
 $modalKey = 'Modal' . $index;
 $brokenId = 'broken-count-' . ($course['course_id'] ?? 'unknown') . '-' . $index;
+$viewsId = 'views-count-' . ($course['course_id'] ?? 'unknown') . '-' . $index;
 ?>
 <!-- Modal View -->
 <div x-cloak x-show="<?=$modalKey?>" x-transition.opacity.duration.200ms
@@ -54,6 +55,9 @@ $brokenId = 'broken-count-' . ($course['course_id'] ?? 'unknown') . '-' . $index
 				<div class="transition-all text-lg font-medium text-gray-800">
 					<?=$course['course_name']?></div>
 				<p class="text-gray-500 text-sm font-bold text-left"><?=$course['course_university']?></p>
+				<p class="text-gray-400 text-xs mt-1">
+					Views: <span id="<?=$viewsId?>"><?=$course['views'] ?? 0?></span>
+				</p>
 			</div>
 			<p class="text-md pt-1"><?=$course['course_description']?></p>
 		</div>

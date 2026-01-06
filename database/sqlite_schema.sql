@@ -31,7 +31,8 @@ CREATE TABLE IF NOT EXISTS courses (
   universityId INTEGER,
   categoryId INTEGER,
   lecturerId INTEGER,
-  broken_reports INTEGER DEFAULT 0
+  broken_reports INTEGER DEFAULT 0,
+  views INTEGER DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS institutions (

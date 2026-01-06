@@ -44,7 +44,8 @@ function transformCoursesForDisplay(array $courses, ?array $university_list = nu
             'course_image' => $course['image'],
             'course_university' => $course_university,
             'university_index' => $university_index,
-            'broken_reports' => (int)($course['broken_reports'] ?? 0)
+            'broken_reports' => (int)($course['broken_reports'] ?? 0),
+            'views' => (int)($course['views'] ?? 0)
         ];
         
         $list[] = $data;

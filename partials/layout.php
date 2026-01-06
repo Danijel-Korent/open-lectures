@@ -82,7 +82,38 @@ tailwind.config = {
 	<script>
 	(function () {
 		const reportUrl = '<?=baseUrl('/report-broken.php')?>';
+		const trackViewUrl = '<?=baseUrl('/track-view.php')?>';
+		const trackedViews = new Set(); // Track which courses have been viewed in this session
 
+		// Global function to track course views
+		window.trackCourseView = function(courseId, viewsId) {
+			if (!courseId || trackedViews.has(courseId)) {
+				return; // Already tracked in this session
+			}
+			
+			trackedViews.add(courseId);
+			const viewCounter = document.getElementById(viewsId);
+			
+			// Track view (fire and forget)
+			fetch(trackViewUrl, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ course_id: Number(courseId) })
+			})
+			.then(response => response.json())
+			.then(payload => {
+				if (payload.success && typeof payload.count !== 'undefined' && viewCounter) {
+					viewCounter.textContent = payload.count;
+				}
+			})
+			.catch(() => {
+				// Silently fail - view tracking is not critical
+			});
+		};
+
+		// Report broken link handler
 		document.addEventListener('click', async (event) => {
 			const button = event.target.closest('[data-report-course]');
 			if (!button || button.dataset.reportPending === 'true') {

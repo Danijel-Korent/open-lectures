@@ -11,11 +11,13 @@ if (!isset($course) || !isset($index)) {
 }
 
 $modalKey = 'Modal' . $index;
+$viewsId = 'views-count-' . ($course['course_id'] ?? 'unknown') . '-' . $index;
 ?>
 <!-- Modal -->
 <div x-data="{<?=$modalKey?>: false}">
-    <a @click="<?=$modalKey?> = true" role="button" target='_blank' rel='noopener noreferrer'
-        class="no-underline">
+    <a @click="<?=$modalKey?> = true; trackCourseView(<?=$course['course_id']?>, '<?=$viewsId?>')" 
+       role="button" target='_blank' rel='noopener noreferrer'
+        class="no-underline cursor-pointer">
         <!-- <span class='tooltiptext p-1'><?=$course['course_description']?></span> -->
         <div class=" hover:scale-105 transition-all bg-white rounded-xl shadow-md overflow-hidden">
             <div class="relative">

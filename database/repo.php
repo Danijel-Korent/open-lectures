@@ -307,6 +307,35 @@ function reportBrokenLink(int $courseId) {
 	return $row ? (int)$row['broken_reports'] : false;
 }
 
+/**
+ * Increment the views counter for a course.
+ * Uses prepared statements to safely update the database.
+ * 
+ * @param int $courseId The ID of the course to increment views for
+ * @return int|false The updated views count on success, false on error or invalid course ID
+ */
+function incrementCourseViews(int $courseId) {
+	if ($courseId <= 0) {
+		return false;
+	}
+
+	$update = DBClass::prepare('UPDATE courses SET views = COALESCE(views, 0) + 1 WHERE id = ?');
+	$update->bind_param('i', $courseId);
+	$update->execute();
+
+	if ($update->error) {
+		return false;
+	}
+
+	$select = DBClass::prepare('SELECT views FROM courses WHERE id = ?');
+	$select->bind_param('i', $courseId);
+	$select->execute();
+	$result = $select->get_result();
+	$row = $result ? DBClass::fetch_single($result) : null;
+
+	return $row ? (int)$row['views'] : false;
+}
+
 ///ADMIN FUNCTIONS
 
 /**

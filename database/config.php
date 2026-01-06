@@ -35,6 +35,7 @@ class Database {
         self::$database->set_charset($charset);
 
         self::ensureCourseBrokenReportsColumn();
+        self::ensureCourseViewsColumn();
 
         return self::$database;
     }
@@ -67,6 +68,17 @@ class Database {
         $result = self::$database->query("SHOW COLUMNS FROM courses LIKE 'broken_reports'");
         if ($result && $result->num_rows === 0) {
             self::$database->query("ALTER TABLE courses ADD COLUMN broken_reports INT DEFAULT 0");
+        }
+    }
+
+    private static function ensureCourseViewsColumn() {
+        if (!self::$database) {
+            return;
+        }
+
+        $result = self::$database->query("SHOW COLUMNS FROM courses LIKE 'views'");
+        if ($result && $result->num_rows === 0) {
+            self::$database->query("ALTER TABLE courses ADD COLUMN views INT DEFAULT 0");
         }
     }
 }
@@ -116,6 +128,7 @@ class DatabaseSqlite {
         }
 
         self::ensureCourseBrokenReportsColumn();
+        self::ensureCourseViewsColumn();
 
         return self::$database;
     }
@@ -149,6 +162,25 @@ class DatabaseSqlite {
 
         if (!$hasColumn) {
             self::$database->exec("ALTER TABLE courses ADD COLUMN broken_reports INTEGER DEFAULT 0");
+        }
+    }
+
+    private static function ensureCourseViewsColumn() {
+        if (!self::$database) {
+            return;
+        }
+
+        $result = self::$database->query("PRAGMA table_info(courses)");
+        $hasColumn = false;
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+            if (isset($row['name']) && $row['name'] === 'views') {
+                $hasColumn = true;
+                break;
+            }
+        }
+
+        if (!$hasColumn) {
+            self::$database->exec("ALTER TABLE courses ADD COLUMN views INTEGER DEFAULT 0");
         }
     }
 
