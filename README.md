@@ -16,7 +16,7 @@ English version URL: pending
 - Translate everything to English
 - Buy an English domain and move the hosting there
 - Change the title from "KB" to something more descriptive
-- Add a report "dead link" button on each course
+- [DONE] Add a report "dead link" button on each course
 - Add wiki and phpBB to supplement this app on the English domain
 
 ## Planned features
@@ -31,7 +31,8 @@ English version URL: pending
 
 - [DONE] Search option
 - List all courses of a specific university/professor
-- Reporting dead links
+- [DONE] Reporting dead links
+- [DONE] View counter for each lecture
 
 ### Community
 
@@ -72,7 +73,16 @@ open-lectures/
 │   ├── footer.php       # Site footer
 │   ├── layout.php       # Main layout template
 │   ├── admin_layout.php # Admin layout template
-│   └── course_modal.php # Shared modal markup for public course cards
+│   ├── course_modal.php # Shared modal markup for public course cards
+│   ├── course_card.php  # Individual course card component
+│   ├── course_stats.php # Statistics section component
+│   └── course_grid.php  # Course grid container component
+├── helpers/              # Helper functions
+│   └── course_helpers.php # Course data transformation utilities
+├── helpers.php           # Core helper functions (URL/path utilities)
+├── report-broken.php     # API endpoint for reporting broken links
+├── track-view.php        # API endpoint for tracking description views
+├── track-video-view.php  # API endpoint for tracking video link clicks
 ├── categories/           # Public category pages
 ├── category/             # Individual category view
 ├── search/               # Search functionality
@@ -132,6 +142,8 @@ The application uses a SQLite database with the following tables:
 - `categoryId` (INTEGER) - Foreign key to categories table
 - `lecturerId` (INTEGER) - Foreign key to lecturers table
 - `broken_reports` (INTEGER DEFAULT 0) - Number of times the community flagged the primary link as broken
+- `views` (INTEGER DEFAULT 0) - Number of times the course description modal has been viewed (description views)
+- `video_views` (INTEGER DEFAULT 0) - Number of times users have clicked on video links to watch the course
 
 #### `institutions` - Universities/Institutions
 - `id` (INTEGER PRIMARY KEY) - Unique institution identifier
@@ -164,3 +176,29 @@ The database comes pre-populated with:
 - **Metadata**: Comprehensive course information including duration, lecture count, and descriptions
 - **Dual Link System**: Both video links and official course pages
 - **Broken Link Reports**: Every course tracks a `broken_reports` counter that increments whenever a visitor clicks the "Report broken link" button in the public catalogue. The endpoint at `/report-broken.php` safely records reports using prepared statements, so admins can locate and fix the most fragile playlists first.
+- **View Tracking**: Each course tracks two separate view counters:
+  - **Description Views** (`views`): Increments when a visitor opens the course modal to view the description. Tracked via `/track-view.php`.
+  - **Video Views** (`video_views`): Increments when a visitor clicks on video links (the thumbnail image or "Play Now" button) to watch the course. Tracked via `/track-video-view.php`.
+  Both counters use session-based deduplication to prevent multiple counts from the same user session. Both counters are displayed in the course modal alongside broken link reports.
+
+## API Endpoints
+
+### `/report-broken.php`
+- **Method**: POST
+- **Purpose**: Report a broken link for a course
+- **Request Body**: `{"course_id": <integer>}`
+- **Response**: JSON with `success` boolean and optional `message`
+
+### `/track-view.php`
+- **Method**: POST
+- **Purpose**: Track a description view (increments `views` counter when modal is opened)
+- **Request Body**: `{"course_id": <integer>}`
+- **Response**: JSON with `success` boolean and `count` (updated view count)
+- **Note**: Uses session-based deduplication to prevent multiple counts per user session
+
+### `/track-video-view.php`
+- **Method**: POST
+- **Purpose**: Track a video link click (increments `video_views` counter when user clicks video link)
+- **Request Body**: `{"course_id": <integer>}`
+- **Response**: JSON with `success` boolean and `count` (updated video_views count)
+- **Note**: Uses session-based deduplication to prevent multiple counts per user session

@@ -336,6 +336,36 @@ function incrementCourseViews(int $courseId) {
 	return $row ? (int)$row['views'] : false;
 }
 
+/**
+ * Increment the video views counter for a course.
+ * Tracks how many times users click on the video link (link_1).
+ * Uses prepared statements to safely update the database.
+ * 
+ * @param int $courseId The ID of the course to increment video views for
+ * @return int|false The updated video_views count on success, false on error or invalid course ID
+ */
+function incrementVideoViews(int $courseId) {
+	if ($courseId <= 0) {
+		return false;
+	}
+
+	$update = DBClass::prepare('UPDATE courses SET video_views = COALESCE(video_views, 0) + 1 WHERE id = ?');
+	$update->bind_param('i', $courseId);
+	$update->execute();
+
+	if ($update->error) {
+		return false;
+	}
+
+	$select = DBClass::prepare('SELECT video_views FROM courses WHERE id = ?');
+	$select->bind_param('i', $courseId);
+	$select->execute();
+	$result = $select->get_result();
+	$row = $result ? DBClass::fetch_single($result) : null;
+
+	return $row ? (int)$row['video_views'] : false;
+}
+
 ///ADMIN FUNCTIONS
 
 /**

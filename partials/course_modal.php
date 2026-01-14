@@ -6,6 +6,7 @@ if (!isset($course) || !isset($index)) {
 $modalKey = 'Modal' . $index;
 $brokenId = 'broken-count-' . ($course['course_id'] ?? 'unknown') . '-' . $index;
 $viewsId = 'views-count-' . ($course['course_id'] ?? 'unknown') . '-' . $index;
+$videoViewsId = 'video-views-count-' . ($course['course_id'] ?? 'unknown') . '-' . $index;
 ?>
 <!-- Modal View -->
 <div x-cloak x-show="<?=$modalKey?>" x-transition.opacity.duration.200ms
@@ -32,7 +33,8 @@ $viewsId = 'views-count-' . ($course['course_id'] ?? 'unknown') . '-' . $index;
 		<!-- Dialog Body -->
 		<div class="px-4 pb-2 overflow-y-auto max-h-[70vh]">
 			<!-- Added max-height for scrolling -->
-			<a href="<?=$course['course_linkPlaylist']?>" target="_blank">
+			<a href="<?=$course['course_linkPlaylist']?>" target="_blank" 
+				onclick="trackVideoView(<?=$course['course_id']?>, '<?=$videoViewsId?>'); return true;">
 				<div class="relative">
 					<img class="w-full h-48 object-cover rounded-md" src="<?=$course['course_image']?>"
 						alt="<?=$course['course_name']?>" />
@@ -56,7 +58,10 @@ $viewsId = 'views-count-' . ($course['course_id'] ?? 'unknown') . '-' . $index;
 					<?=$course['course_name']?></div>
 				<p class="text-gray-500 text-sm font-bold text-left"><?=$course['course_university']?></p>
 				<p class="text-gray-400 text-xs mt-1">
-					Views: <span id="<?=$viewsId?>"><?=$course['views'] ?? 0?></span>
+					Description views: <span id="<?=$viewsId?>"><?=$course['views'] ?? 0?></span>
+				</p>
+				<p class="text-gray-400 text-xs mt-1">
+					Video views: <span id="<?=$videoViewsId?>"><?=$course['video_views'] ?? 0?></span>
 				</p>
 			</div>
 			<p class="text-md pt-1"><?=$course['course_description']?></p>
@@ -77,6 +82,7 @@ $viewsId = 'views-count-' . ($course['course_id'] ?? 'unknown') . '-' . $index;
 				</p>
 			</div>
 			<a href="<?=$course['course_linkPlaylist']?>" target="_blank" role="button"
+				onclick="trackVideoView(<?=$course['course_id']?>, '<?=$videoViewsId?>'); return true;"
 				class="w-full cursor-pointer whitespace-nowrap rounded-md bg-primary px-4 py-2 text-center text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 sm:w-auto">
 				Play Now</a>
 		</div>

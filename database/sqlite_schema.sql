@@ -32,7 +32,8 @@ CREATE TABLE IF NOT EXISTS courses (
   categoryId INTEGER,
   lecturerId INTEGER,
   broken_reports INTEGER DEFAULT 0,
-  views INTEGER DEFAULT 0
+  views INTEGER DEFAULT 0,
+  video_views INTEGER DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS institutions (

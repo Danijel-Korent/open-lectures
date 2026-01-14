@@ -83,9 +83,11 @@ tailwind.config = {
 	(function () {
 		const reportUrl = '<?=baseUrl('/report-broken.php')?>';
 		const trackViewUrl = '<?=baseUrl('/track-view.php')?>';
+		const trackVideoViewUrl = '<?=baseUrl('/track-video-view.php')?>';
 		const trackedViews = new Set(); // Track which courses have been viewed in this session
+		const trackedVideoViews = new Set(); // Track which courses have had video links clicked in this session
 
-		// Global function to track course views
+		// Global function to track course views (description views)
 		window.trackCourseView = function(courseId, viewsId) {
 			if (!courseId || trackedViews.has(courseId)) {
 				return; // Already tracked in this session
@@ -106,6 +108,34 @@ tailwind.config = {
 			.then(payload => {
 				if (payload.success && typeof payload.count !== 'undefined' && viewCounter) {
 					viewCounter.textContent = payload.count;
+				}
+			})
+			.catch(() => {
+				// Silently fail - view tracking is not critical
+			});
+		};
+
+		// Global function to track video link clicks
+		window.trackVideoView = function(courseId, videoViewsId) {
+			if (!courseId || trackedVideoViews.has(courseId)) {
+				return; // Already tracked in this session
+			}
+			
+			trackedVideoViews.add(courseId);
+			const videoViewCounter = document.getElementById(videoViewsId);
+			
+			// Track video view (fire and forget)
+			fetch(trackVideoViewUrl, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ course_id: Number(courseId) })
+			})
+			.then(response => response.json())
+			.then(payload => {
+				if (payload.success && typeof payload.count !== 'undefined' && videoViewCounter) {
+					videoViewCounter.textContent = payload.count;
 				}
 			})
 			.catch(() => {
