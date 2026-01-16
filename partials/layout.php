@@ -7,6 +7,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title><?= $title ?? 'KB' ?></title>
 	<link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+	<?php
+	// Google Analytics - paste your code in config.php under 'analytics.code'
+	$analyticsCode = config('analytics.code', '');
+	if (!empty($analyticsCode)) {
+		echo $analyticsCode;
+	}
+	?>
 </head>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>

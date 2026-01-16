@@ -44,6 +44,15 @@ $appConfig = [
     'urls' => [
         'assets' => getBasePath() . '/assets',
     ],
+    'analytics' => [
+
+        'code' => '
+        <script>
+        // Paste your Google Analytics JavaScript code here
+        // Leave empty to disable tracking
+        </script>
+        ',
+    ],
 ];
 
 /**
