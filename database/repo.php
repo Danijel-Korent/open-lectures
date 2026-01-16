@@ -1,5 +1,5 @@
 <?php 
-require_once 'config.php';
+require_once dirname(__FILE__) . '/config.php';
 
 /**
  * Select all universities/institutions from the database.
@@ -271,6 +271,9 @@ function countCourses(){
  * @return string Truncated string with append suffix if original was longer than length
  */
 function truncateString($string, $length = 100, $append = "...") {
+    // Handle null or empty strings
+    $string = (string)($string ?? '');
+    
     if (strlen($string) <= $length) {
         return $string;
     }
