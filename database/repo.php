@@ -447,6 +447,52 @@ function getTopCoursesByVideoViews(int $limit = 10) {
 	return $result ? DBClass::fetch_assoc($result) : [];
 }
 
+/**
+ * Update admin password.
+ * Verifies the current password before updating to the new password.
+ * Uses prepared statements to safely update the database.
+ * 
+ * @param int $adminId The ID of the admin user
+ * @param string $currentPassword The current password to verify
+ * @param string $newPassword The new password to set (will be hashed)
+ * @return bool True on success, false on error or invalid current password
+ */
+function updateAdminPassword(int $adminId, string $currentPassword, string $newPassword) {
+	if ($adminId <= 0 || empty($currentPassword) || empty($newPassword)) {
+		return false;
+	}
+	
+	// Get current admin data
+	$select = DBClass::prepare('SELECT password FROM admin WHERE id = ?');
+	$select->bind_param('i', $adminId);
+	$select->execute();
+	$result = $select->get_result();
+	$admin = $result ? DBClass::fetch_single($result) : null;
+	
+	if (!$admin) {
+		return false;
+	}
+	
+	// Verify current password
+	if (!password_verify($currentPassword, $admin['password'])) {
+		return false;
+	}
+	
+	// Hash new password
+	$hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+	
+	// Update password
+	$update = DBClass::prepare('UPDATE admin SET password = ? WHERE id = ?');
+	$update->bind_param('si', $hashedPassword, $adminId);
+	$update->execute();
+	
+	if ($update->error) {
+		return false;
+	}
+	
+	return true;
+}
+
 ///ADMIN FUNCTIONS
 
 /**

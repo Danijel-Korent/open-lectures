@@ -192,6 +192,17 @@ tailwind.config = {
 							x-trap="userDropdownIsOpen">
 
 							<div class="flex flex-col py-1.5">
+								<a href="<?= baseUrl('/admin/password') ?>"
+									class="flex items-center gap-2 px-2 py-1.5 text-sm font-medium text-slate-700 underline-offset-2 hover:bg-blue-700/5 hover:text-black focus-visible:underline focus:outline-none"
+									role="menuitem">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+										class="size-5 shrink-0" aria-hidden="true">
+										<path fill-rule="evenodd"
+											d="M10 1a4.5 4.5 0 0 0-4.5 4.5V9H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-.5V5.5A4.5 4.5 0 0 0 10 1Zm3 8V5.5a3 3 0 1 0-6 0V9h6Z"
+											clip-rule="evenodd" />
+									</svg>
+									<span>Change Password</span>
+								</a>
 								<form action="" method="get">
 									<input type="hidden" name="logout" value="1">
 									<button type="submit"
