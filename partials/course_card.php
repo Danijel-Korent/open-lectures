@@ -15,7 +15,7 @@ $viewsId = 'views-count-' . ($course['course_id'] ?? 'unknown') . '-' . $index;
 ?>
 <!-- Modal -->
 <div x-data="{<?=$modalKey?>: false}">
-    <a @click="<?=$modalKey?> = true; trackCourseView(<?=$course['course_id']?>, '<?=$viewsId?>')" 
+    <a @click="<?=$modalKey?> = true; trackCourseDescriptionView(<?=$course['course_id']?>, '<?=$viewsId?>')" 
        role="button" target='_blank' rel='noopener noreferrer'
         class="no-underline cursor-pointer">
         <!-- <span class='tooltiptext p-1'><?=$course['course_description']?></span> -->

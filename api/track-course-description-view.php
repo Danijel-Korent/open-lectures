@@ -29,7 +29,7 @@ if ($courseId <= 0) {
     exit;
 }
 
-$viewCount = incrementCourseViews($courseId);
+$viewCount = incrementCourseDescriptionViews($courseId);
 
 if ($viewCount === false) {
     http_response_code(404);

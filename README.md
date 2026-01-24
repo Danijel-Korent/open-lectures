@@ -79,7 +79,7 @@ open-lectures/
 │   └── course_grid.php  # Course grid container component
 ├── api/                  # API endpoints
 │   ├── report-broken.php     # API endpoint for reporting broken links
-│   ├── track-view.php        # API endpoint for tracking description views
+│   ├── track-course-description-view.php  # API endpoint for tracking description views
 │   └── track-video-view.php  # API endpoint for tracking video link clicks
 ├── helpers/              # Helper functions
 │   ├── helpers.php       # Core helper functions (URL/path utilities)
@@ -178,7 +178,7 @@ The database comes pre-populated with:
 - **Dual Link System**: Both video links and official course pages
 - **Broken Link Reports**: Every course tracks a `broken_reports` counter that increments whenever a visitor clicks the "Report broken link" button in the public catalogue. The endpoint at `/api/report-broken.php` safely records reports using prepared statements, so admins can locate and fix the most fragile playlists first.
 - **View Tracking**: Each course tracks two separate view counters:
-  - **Description Views** (`views`): Increments when a visitor opens the course modal to view the description. Tracked via `/api/track-view.php`.
+  - **Description Views** (`views`): Increments when a visitor opens the course modal to view the description. Tracked via `/api/track-course-description-view.php`.
   - **Video Views** (`video_views`): Increments when a visitor clicks on video links (the thumbnail image or "Play Now" button) to watch the course. Tracked via `/api/track-video-view.php`.
   Both counters use session-based deduplication to prevent multiple counts from the same user session. Both counters are displayed in the course modal alongside broken link reports.
 
@@ -190,7 +190,7 @@ The database comes pre-populated with:
 - **Request Body**: `{"course_id": <integer>}`
 - **Response**: JSON with `success` boolean and optional `message`
 
-### `/api/track-view.php`
+### `/api/track-course-description-view.php`
 - **Method**: POST
 - **Purpose**: Track a description view (increments `views` counter when modal is opened)
 - **Request Body**: `{"course_id": <integer>}`

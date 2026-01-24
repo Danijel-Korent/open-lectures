@@ -311,13 +311,13 @@ function reportBrokenLink(int $courseId) {
 }
 
 /**
- * Increment the views counter for a course.
+ * Increment the description views counter for a course.
  * Uses prepared statements to safely update the database.
  * 
- * @param int $courseId The ID of the course to increment views for
+ * @param int $courseId The ID of the course to increment description views for
  * @return int|false The updated views count on success, false on error or invalid course ID
  */
-function incrementCourseViews(int $courseId) {
+function incrementCourseDescriptionViews(int $courseId) {
 	if ($courseId <= 0) {
 		return false;
 	}

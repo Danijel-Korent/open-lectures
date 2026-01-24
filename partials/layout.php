@@ -89,22 +89,22 @@ tailwind.config = {
 	<script>
 	(function () {
 		const reportUrl = '<?=baseUrl('/api/report-broken.php')?>';
-		const trackViewUrl = '<?=baseUrl('/api/track-view.php')?>';
+		const trackCourseDescriptionViewUrl = '<?=baseUrl('/api/track-course-description-view.php')?>';
 		const trackVideoViewUrl = '<?=baseUrl('/api/track-video-view.php')?>';
-		const trackedViews = new Set(); // Track which courses have been viewed in this session
+		const trackedDescriptionViews = new Set(); // Track which courses have been viewed in this session
 		const trackedVideoViews = new Set(); // Track which courses have had video links clicked in this session
 
-		// Global function to track course views (description views)
-		window.trackCourseView = function(courseId, viewsId) {
-			if (!courseId || trackedViews.has(courseId)) {
+		// Global function to track course description views
+		window.trackCourseDescriptionView = function(courseId, viewsId) {
+			if (!courseId || trackedDescriptionViews.has(courseId)) {
 				return; // Already tracked in this session
 			}
 			
-			trackedViews.add(courseId);
+			trackedDescriptionViews.add(courseId);
 			const viewCounter = document.getElementById(viewsId);
 			
 			// Track view (fire and forget)
-			fetch(trackViewUrl, {
+			fetch(trackCourseDescriptionViewUrl, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
