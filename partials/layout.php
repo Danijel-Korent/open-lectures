@@ -88,9 +88,9 @@ tailwind.config = {
 
 	<script>
 	(function () {
-		const reportUrl = '<?=baseUrl('/report-broken.php')?>';
-		const trackViewUrl = '<?=baseUrl('/track-view.php')?>';
-		const trackVideoViewUrl = '<?=baseUrl('/track-video-view.php')?>';
+		const reportUrl = '<?=baseUrl('/api/report-broken.php')?>';
+		const trackViewUrl = '<?=baseUrl('/api/track-view.php')?>';
+		const trackVideoViewUrl = '<?=baseUrl('/api/track-video-view.php')?>';
 		const trackedViews = new Set(); // Track which courses have been viewed in this session
 		const trackedVideoViews = new Set(); // Track which courses have had video links clicked in this session
 

@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/config.php';
+require_once dirname(__DIR__) . '/config.php';
 require_once REPO_PATH;
 
 header('Content-Type: application/json');
@@ -29,9 +29,9 @@ if ($courseId <= 0) {
     exit;
 }
 
-$reportCount = reportBrokenLink($courseId);
+$viewCount = incrementCourseViews($courseId);
 
-if ($reportCount === false) {
+if ($viewCount === false) {
     http_response_code(404);
     echo json_encode([
         'success' => false,
@@ -42,6 +42,6 @@ if ($reportCount === false) {
 
 echo json_encode([
     'success' => true,
-    'count' => $reportCount,
+    'count' => $viewCount,
 ]);
 
