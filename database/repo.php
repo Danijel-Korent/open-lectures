@@ -369,6 +369,84 @@ function incrementVideoViews(int $courseId) {
 	return $row ? (int)$row['video_views'] : false;
 }
 
+/**
+ * Get top 10 courses by description views.
+ * Returns courses ordered by views count in descending order.
+ * 
+ * @param int $limit Number of courses to return (default: 10)
+ * @return array Array of course records with joined data including:
+ *               - Course fields (id, name, description, views, etc.)
+ *               - Lecturer name (firstName, lastName)
+ *               - Institution name (u_name)
+ *               - Category name (kategorije)
+ *               Returns empty array on error.
+ */
+function getTopCoursesByDescriptionViews(int $limit = 10) {
+	$limit = max(1, min(100, (int)$limit)); // Clamp between 1 and 100
+	
+	$query = "SELECT pred.*, pred.name, u.name as u_name,
+		p.firstName, p.lastName, k.name as kategorije,
+		pred.universityId as ustanova,
+		COALESCE(pred.views, 0) as views
+		FROM courses pred 
+		INNER JOIN lecturers p ON p.id = pred.lecturerId
+		INNER JOIN institutions u on u.id = pred.universityId
+		INNER JOIN categories k ON k.id = pred.categoryId
+		ORDER BY COALESCE(pred.views, 0) DESC
+		LIMIT ?";
+	
+	$stmt = DBClass::prepare($query);
+	$stmt->bind_param('i', $limit);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	
+	if ($stmt->error) {
+		echo 'DB Error: ' . $stmt->error;
+		die();
+	}
+	
+	return $result ? DBClass::fetch_assoc($result) : [];
+}
+
+/**
+ * Get top 10 courses by video views.
+ * Returns courses ordered by video_views count in descending order.
+ * 
+ * @param int $limit Number of courses to return (default: 10)
+ * @return array Array of course records with joined data including:
+ *               - Course fields (id, name, description, video_views, etc.)
+ *               - Lecturer name (firstName, lastName)
+ *               - Institution name (u_name)
+ *               - Category name (kategorije)
+ *               Returns empty array on error.
+ */
+function getTopCoursesByVideoViews(int $limit = 10) {
+	$limit = max(1, min(100, (int)$limit)); // Clamp between 1 and 100
+	
+	$query = "SELECT pred.*, pred.name, u.name as u_name,
+		p.firstName, p.lastName, k.name as kategorije,
+		pred.universityId as ustanova,
+		COALESCE(pred.video_views, 0) as video_views
+		FROM courses pred 
+		INNER JOIN lecturers p ON p.id = pred.lecturerId
+		INNER JOIN institutions u on u.id = pred.universityId
+		INNER JOIN categories k ON k.id = pred.categoryId
+		ORDER BY COALESCE(pred.video_views, 0) DESC
+		LIMIT ?";
+	
+	$stmt = DBClass::prepare($query);
+	$stmt->bind_param('i', $limit);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	
+	if ($stmt->error) {
+		echo 'DB Error: ' . $stmt->error;
+		die();
+	}
+	
+	return $result ? DBClass::fetch_assoc($result) : [];
+}
+
 ///ADMIN FUNCTIONS
 
 /**

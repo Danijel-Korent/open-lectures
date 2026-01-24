@@ -10,4 +10,8 @@
 		x-bind:tabindex="selectedTab === 'uni' ? '0' : '-1'"
 		x-bind:class="selectedTab === 'uni' ? 'font-bold text-primary border-b-2 border-primary' : 'text-neutral-600 font-medium hover:border-b-2 hover:border-b-neutral-800 hover:text-neutral-900'"
 		class="h-min px-4 py-2 text-sm" type="button" role="tab" aria-controls="tabpanelLikes">Universities</button>
+	<button x-on:click="selectedTab = 'views'" x-bind:aria-selected="selectedTab === 'views'"
+		x-bind:tabindex="selectedTab === 'views' ? '0' : '-1'"
+		x-bind:class="selectedTab === 'views' ? 'font-bold text-primary border-b-2 border-primary' : 'text-neutral-600 font-medium hover:border-b-2 hover:border-b-neutral-800 hover:text-neutral-900'"
+		class="h-min px-4 py-2 text-sm" type="button" role="tab" aria-controls="tabpanelViews">Views</button>
 </div>

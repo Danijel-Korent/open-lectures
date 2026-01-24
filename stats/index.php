@@ -6,6 +6,8 @@ $title = 'Stats';
 require_once REPO_PATH;
 $catData = countCoursesAndHoursByCategory();
 $uniData = countCoursesAndHoursByUniversity();
+$topDescriptionViews = getTopCoursesByDescriptionViews(10);
+$topVideoViews = getTopCoursesByVideoViews(10);
 
 ob_start();
 ?>
@@ -100,6 +102,76 @@ ob_start();
 						</div>
 					</article>
 					<?php } ?>
+				</div>
+			</div>
+		</div>
+		<!-- Views -->
+		<div x-cloak x-show="selectedTab === 'views'" id="tabpanelViews" role="tabpanel" aria-label="views">
+			<div class="container relative z-40 mx-auto mt-6">
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+					<!-- Top 10 Description Views -->
+					<div class="bg-white rounded-lg shadow-md p-6">
+						<h2 class="text-2xl font-bold text-primary mb-4">Top 10 Description Views</h2>
+						<div class="space-y-3">
+							<?php 
+							$rank = 1;
+							foreach($topDescriptionViews as $course): 
+								$views = (int)($course['views'] ?? 0);
+							?>
+							<div class="flex items-center gap-4 p-3 border border-neutral-200 rounded-lg hover:bg-neutral-50 transition-colors">
+								<div class="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold">
+									<?= $rank ?>
+								</div>
+								<div class="flex-1 min-w-0">
+									<h3 class="font-semibold text-gray-900 truncate"><?= htmlspecialchars($course['name'] ?? 'Unknown Course') ?></h3>
+									<p class="text-sm text-gray-600 truncate"><?= htmlspecialchars($course['u_name'] ?? 'Unknown University') ?></p>
+								</div>
+								<div class="flex-shrink-0 text-right">
+									<div class="text-lg font-bold text-primary"><?= number_format($views) ?></div>
+									<div class="text-xs text-gray-500">views</div>
+								</div>
+							</div>
+							<?php 
+							$rank++;
+							endforeach; 
+							if (empty($topDescriptionViews)):
+							?>
+							<p class="text-gray-500 text-center py-4">No description views recorded yet.</p>
+							<?php endif; ?>
+						</div>
+					</div>
+					
+					<!-- Top 10 Video Views -->
+					<div class="bg-white rounded-lg shadow-md p-6">
+						<h2 class="text-2xl font-bold text-primary mb-4">Top 10 Video Views</h2>
+						<div class="space-y-3">
+							<?php 
+							$rank = 1;
+							foreach($topVideoViews as $course): 
+								$videoViews = (int)($course['video_views'] ?? 0);
+							?>
+							<div class="flex items-center gap-4 p-3 border border-neutral-200 rounded-lg hover:bg-neutral-50 transition-colors">
+								<div class="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold">
+									<?= $rank ?>
+								</div>
+								<div class="flex-1 min-w-0">
+									<h3 class="font-semibold text-gray-900 truncate"><?= htmlspecialchars($course['name'] ?? 'Unknown Course') ?></h3>
+									<p class="text-sm text-gray-600 truncate"><?= htmlspecialchars($course['u_name'] ?? 'Unknown University') ?></p>
+								</div>
+								<div class="flex-shrink-0 text-right">
+									<div class="text-lg font-bold text-primary"><?= number_format($videoViews) ?></div>
+									<div class="text-xs text-gray-500">views</div>
+								</div>
+							</div>
+							<?php 
+							$rank++;
+							endforeach; 
+							if (empty($topVideoViews)):
+							?>
+							<p class="text-gray-500 text-center py-4">No video views recorded yet.</p>
+							<?php endif; ?>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
