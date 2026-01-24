@@ -59,6 +59,9 @@ $totalDescriptionViews = getTotalDescriptionViews();
 $totalVideoViews = getTotalVideoViews();
 $totalBrokenReports = getTotalBrokenReports();
 
+// Get courses with broken reports
+$coursesWithBrokenReports = getCoursesWithBrokenReports();
+
 ob_start();
 ?>
 <div class="max-w-4xl mx-auto mt-8">
@@ -251,6 +254,74 @@ ob_start();
 				</form>
 			</div>
 		</div>
+	</div>
+	
+	<!-- Courses with Broken Reports -->
+	<div class="bg-white border border-neutral-300 rounded-lg p-6 shadow-sm mt-8">
+		<h2 class="text-xl font-bold text-gray-800 mb-4">Courses with Broken Link Reports</h2>
+		<p class="text-sm text-gray-600 mb-6">List of all courses that have been reported as having broken links, sorted by number of reports.</p>
+		
+		<?php if (empty($coursesWithBrokenReports)): ?>
+			<div class="text-center py-8 text-gray-500">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-12 mx-auto mb-2 text-gray-400">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+				</svg>
+				<p>No courses with broken link reports.</p>
+			</div>
+		<?php else: ?>
+			<div class="overflow-x-auto">
+				<table class="min-w-full divide-y divide-neutral-200">
+					<thead class="bg-neutral-50">
+						<tr>
+							<th class="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Course Name</th>
+							<th class="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">University</th>
+							<th class="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Category</th>
+							<th class="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Lecturer</th>
+							<th class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider">Reports</th>
+							<th class="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Actions</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-neutral-200">
+						<?php foreach ($coursesWithBrokenReports as $course): 
+							$reports = (int)($course['broken_reports'] ?? 0);
+						?>
+						<tr class="hover:bg-neutral-50 transition-colors">
+							<td class="px-4 py-3 whitespace-nowrap">
+								<div class="text-sm font-medium text-gray-900">
+									<?= htmlspecialchars($course['name'] ?? 'Unknown Course') ?>
+								</div>
+							</td>
+							<td class="px-4 py-3 whitespace-nowrap">
+								<div class="text-sm text-gray-600">
+									<?= htmlspecialchars($course['u_name'] ?? 'Unknown University') ?>
+								</div>
+							</td>
+							<td class="px-4 py-3 whitespace-nowrap">
+								<div class="text-sm text-gray-600">
+									<?= htmlspecialchars($course['kategorije'] ?? 'Uncategorized') ?>
+								</div>
+							</td>
+							<td class="px-4 py-3 whitespace-nowrap">
+								<div class="text-sm text-gray-600">
+									<?= htmlspecialchars(($course['firstName'] ?? '') . ' ' . ($course['lastName'] ?? '')) ?>
+								</div>
+							</td>
+							<td class="px-4 py-3 whitespace-nowrap text-center">
+								<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+									<?= number_format($reports) ?>
+								</span>
+							</td>
+							<td class="px-4 py-3 whitespace-nowrap text-sm">
+								<a href="<?= baseUrl('/admin/courses') ?>" class="text-primary hover:text-primary/80 hover:underline">
+									View Course
+								</a>
+							</td>
+						</tr>
+						<?php endforeach; ?>
+					</tbody>
+				</table>
+			</div>
+		<?php endif; ?>
 	</div>
 </div>
 

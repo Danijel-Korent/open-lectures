@@ -545,6 +545,38 @@ function getTotalBrokenReports() {
 }
 
 /**
+ * Get all courses with broken link reports, sorted by number of reports (descending).
+ * Only returns courses that have at least one broken report.
+ * 
+ * @return array Array of course records with joined data including:
+ *               - Course fields (id, name, description, broken_reports, etc.)
+ *               - Lecturer name (firstName, lastName)
+ *               - Institution name (u_name)
+ *               - Category name (kategorije)
+ *               Returns empty array on error or if no courses have broken reports.
+ */
+function getCoursesWithBrokenReports() {
+	$query = "SELECT pred.*, pred.name, u.name as u_name,
+		p.firstName, p.lastName, k.name as kategorije,
+		pred.universityId as ustanova,
+		COALESCE(pred.broken_reports, 0) as broken_reports
+		FROM courses pred 
+		INNER JOIN lecturers p ON p.id = pred.lecturerId
+		INNER JOIN institutions u on u.id = pred.universityId
+		INNER JOIN categories k ON k.id = pred.categoryId
+		WHERE COALESCE(pred.broken_reports, 0) > 0
+		ORDER BY COALESCE(pred.broken_reports, 0) DESC";
+	
+	$result = DBClass::query($query);
+	
+	if (DBClass::error()) {
+		return [];
+	}
+	
+	return DBClass::fetch_assoc($result);
+}
+
+/**
  * Reset all description views counters to 0 for all courses.
  * 
  * @return bool True on success, false on error
