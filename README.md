@@ -78,8 +78,8 @@ open-lectures/
 │   ├── course_stats.php # Statistics section component
 │   └── course_grid.php  # Course grid container component
 ├── helpers/              # Helper functions
+│   ├── helpers.php       # Core helper functions (URL/path utilities)
 │   └── course_helpers.php # Course data transformation utilities
-├── helpers.php           # Core helper functions (URL/path utilities)
 ├── report-broken.php     # API endpoint for reporting broken links
 ├── track-view.php        # API endpoint for tracking description views
 ├── track-video-view.php  # API endpoint for tracking video link clicks

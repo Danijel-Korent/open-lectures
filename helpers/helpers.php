@@ -5,7 +5,7 @@
 
 // Ensure SITE_PATH is defined
 if (!defined('SITE_PATH')) {
-    define('SITE_PATH', __DIR__);
+    define('SITE_PATH', dirname(__DIR__));
 }
 
 /**

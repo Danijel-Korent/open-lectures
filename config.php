@@ -3,7 +3,7 @@
 define('SITE_PATH', __DIR__);
 
 // Load helper functions
-require_once __DIR__ . '/helpers.php';
+require_once __DIR__ . '/helpers/helpers.php';
 require_once __DIR__ . '/helpers/course_helpers.php';
 
 // Unified application configuration
