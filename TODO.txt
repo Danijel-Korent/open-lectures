@@ -1,3 +1,0 @@
-[] Change admin course CRUD to fit new db structure
-[] Add "report broken course link" button and broken link counter
-[] Add a coure view counter
