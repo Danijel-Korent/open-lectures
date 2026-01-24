@@ -1,6 +1,6 @@
 PRAGMA foreign_keys = ON;
 
--- SQLite schema and data for op.sqlite
+-- SQLite schema and data for database.sqlite
 
 CREATE TABLE IF NOT EXISTS admin (
   id INTEGER PRIMARY KEY,

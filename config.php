@@ -18,7 +18,7 @@ $appConfig = [
             'charset' => 'utf8mb4',
         ],
         'sqlite' => [
-            'file' => __DIR__ . '/database/op.sqlite',
+            'file' => __DIR__ . '/database/database.sqlite',
             'schema' => __DIR__ . '/database/sqlite_schema.sql',
             'permissions' => 0666,
         ],

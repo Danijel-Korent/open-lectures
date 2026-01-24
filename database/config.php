@@ -99,7 +99,7 @@ class DatabaseSqlite {
 
     public static function initialize() {
         $sqliteConfig = config('database.sqlite', []);
-        $db_path = $sqliteConfig['file'] ?? (defined('SITE_PATH') ? SITE_PATH . '/database/op.sqlite' : __DIR__ . '/op.sqlite');
+        $db_path = $sqliteConfig['file'] ?? (defined('SITE_PATH') ? SITE_PATH . '/database/database.sqlite' : __DIR__ . '/database.sqlite');
         $db_exists = file_exists($db_path);
 
         // Create database connection
