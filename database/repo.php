@@ -493,6 +493,102 @@ function updateAdminPassword(int $adminId, string $currentPassword, string $newP
 	return true;
 }
 
+/**
+ * Get total count of description views across all courses.
+ * 
+ * @return int Total description views count, 0 on error
+ */
+function getTotalDescriptionViews() {
+	$query = "SELECT SUM(COALESCE(views, 0)) as total FROM courses";
+	$result = DBClass::query($query);
+	
+	if (DBClass::error()) {
+		return 0;
+	}
+	
+	$row = DBClass::fetch_single($result);
+	return (int)($row['total'] ?? 0);
+}
+
+/**
+ * Get total count of video views across all courses.
+ * 
+ * @return int Total video views count, 0 on error
+ */
+function getTotalVideoViews() {
+	$query = "SELECT SUM(COALESCE(video_views, 0)) as total FROM courses";
+	$result = DBClass::query($query);
+	
+	if (DBClass::error()) {
+		return 0;
+	}
+	
+	$row = DBClass::fetch_single($result);
+	return (int)($row['total'] ?? 0);
+}
+
+/**
+ * Get total count of broken link reports across all courses.
+ * 
+ * @return int Total broken reports count, 0 on error
+ */
+function getTotalBrokenReports() {
+	$query = "SELECT SUM(COALESCE(broken_reports, 0)) as total FROM courses";
+	$result = DBClass::query($query);
+	
+	if (DBClass::error()) {
+		return 0;
+	}
+	
+	$row = DBClass::fetch_single($result);
+	return (int)($row['total'] ?? 0);
+}
+
+/**
+ * Reset all description views counters to 0 for all courses.
+ * 
+ * @return bool True on success, false on error
+ */
+function resetAllDescriptionViews() {
+	$result = DBClass::query('UPDATE courses SET views = 0');
+	
+	if (DBClass::error()) {
+		return false;
+	}
+	
+	return true;
+}
+
+/**
+ * Reset all video views counters to 0 for all courses.
+ * 
+ * @return bool True on success, false on error
+ */
+function resetAllVideoViews() {
+	$result = DBClass::query('UPDATE courses SET video_views = 0');
+	
+	if (DBClass::error()) {
+		return false;
+	}
+	
+	return true;
+}
+
+/**
+ * Reset all broken link reports counters to 0 for all courses.
+ * 
+ * @return bool True on success, false on error
+ */
+function resetAllBrokenReports() {
+	$result = DBClass::query('UPDATE courses SET broken_reports = 0');
+	
+	if (DBClass::error()) {
+		return false;
+	}
+	
+	return true;
+}
+
 ///ADMIN FUNCTIONS
 
 /**
