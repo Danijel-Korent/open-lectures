@@ -11,13 +11,21 @@ https://otvorena-predavanja.hr
 
 English version URL: pending
 
-## Short-term todo
+## Short-term todo 1
+
+- Change the title from "KB" to something more descriptive
+- Add comment box for comments/feature requests (moderation in admin page)
+- Add page for news/updates
+- Add buymecoffe link
+
+
+## Short-term todo 2
 
 - Translate everything to English
 - Buy an English domain and move the hosting there
-- Change the title from "KB" to something more descriptive
 - [DONE] Add a report "dead link" button on each course
 - Add wiki and phpBB to supplement this app on the English domain
+
 
 ## Planned features
 

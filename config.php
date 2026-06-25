@@ -2,7 +2,7 @@
 // Unified application configuration
 $appConfig = [
     'app' => [
-        'name' => 'Open Lectures',
+        'name' => 'Otvorena Predavanja',
         'display_errors' => true,
         'display_startup_errors' => true,
         'error_reporting_level' => E_ALL,

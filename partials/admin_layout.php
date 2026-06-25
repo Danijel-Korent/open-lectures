@@ -57,7 +57,7 @@ tailwind.config = {
 				<!-- logo  -->
 				<a href="#" class="ml-2 w-fit text-2xl font-bold text-black">
 					<span class="sr-only">homepage</span>
-					<h1>KB</h1>
+					<h1><?= SITE_NAME ?></h1>
 				</a>
 
 				<!-- sidebar links  -->

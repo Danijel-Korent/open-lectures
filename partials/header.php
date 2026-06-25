@@ -14,7 +14,7 @@ if(isset($_GET['logout'])) {
 	aria-label="penguin ui menu">
 	<!-- Brand Logo -->
 	<a href="<?=baseUrl('/')?>" class="text-2xl font-bold text-neutral-900">
-		<span>KB</span>
+		<span><?= SITE_NAME ?></span>
 		<!-- <img src="./your-logo.svg" alt="brand logo" class="w-10" /> -->
 	</a>
 	<!-- Search -->
